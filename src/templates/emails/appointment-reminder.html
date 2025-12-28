@@ -1,0 +1,191 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8" />  
+  <title>Appointment Reminder</title>  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+  <style>  
+    /* الهوية البصرية الموحدة */  
+    :root{  
+      --primary: #2067F3;  
+      --bg: #f5f5f5;  
+      --surface: #ffffff;  
+      --text: #333;  
+      --muted: #666;  
+      --border: #e5e7eb;  
+      --shadow: 0 8px 20px rgba(0,0,0,0.06);  
+      --radius: 10px;  
+    }  
+    * { box-sizing: border-box; }  
+    body {  
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;  
+      line-height: 1.6;  
+      color: var(--text);  
+      background: var(--bg);  
+      margin: 0;  
+      padding: 0;  
+    }  
+    .email-wrap {  
+      max-width: 680px;  
+      margin: 0 auto;  
+      padding: 28px;  
+    }  
+    .email-container {  
+      background: #fff;  
+      border-radius: var(--radius);  
+      overflow: hidden;  
+      box-shadow: var(--shadow);  
+      border: 1px solid var(--border);  
+    }  
+
+    /* Header */  
+    .header {  
+      background: linear-gradient(135deg, #1a6fe0 0%, #2067F3 60%);  
+      color: #fff;  
+      padding: 28px 24px;  
+      text-align: center;  
+    }  
+    .logo {  
+      max-width: 160px;  
+      display: block;  
+      margin: 0 auto 12px;  
+    }  
+    .header h1 {  
+      font-size: 24px;  
+      margin: 6px 0 0;  
+      font-weight: 700;  
+    }  
+    .header p {  
+      margin: 6px 0 0;  
+      opacity: 0.95;  
+      font-size: 14px;  
+    }  
+
+    /* Content */  
+    .content {  
+      padding: 28px;  
+      background: #fff;  
+    }  
+    .greeting {  
+      font-size: 18px;  
+      font-weight: 600;  
+      color: #444;  
+      margin: 0 0 12px;  
+    }  
+    .lead {  
+      color: var(--muted);  
+      font-size: 15px;  
+      margin-bottom: 14px;  
+    }  
+    .details {  
+      display: flex;  
+      flex-wrap: wrap;  
+      gap: 12px;  
+      margin: 6px 0 18px;  
+    }  
+    .detail {  
+      background: #f7f9fb;  
+      border: 1px solid #eef2f6;  
+      border-radius: 6px;  
+      padding: 10px 12px;  
+      font-size: 14px;  
+    }  
+
+    .section {  
+      margin-top: 6px;  
+      padding: 14px 16px;  
+      background: #f8fbff;  
+      border: 1px solid #e6f0fb;  
+      border-radius: 8px;  
+    }  
+
+    .cta {  
+      display: inline-block;  
+      margin-top: 14px;  
+      padding: 12px 20px;  
+      background: var(--primary);  
+      color: #fff;  
+      text-decoration: none;  
+      border-radius: 6px;  
+      font-weight: 600;  
+    }  
+
+    .footer {  
+      padding: 20px;  
+      text-align: center;  
+      font-size: 12px;  
+      color: #6c757d;  
+      background: #f8f9fa;  
+      border-top: 1px solid #eef0f3;  
+    }  
+
+    /* Responsive */  
+    @media (max-width: 640px) {  
+      .email-wrap { padding: 16px; }  
+      .header { padding: 20px; }  
+      .header h1 { font-size: 20px; }  
+      .content { padding: 16px; }  
+      .logo { max-width: 140px; }  
+    }  
+  </style>  
+</head>  
+<body>
+  <div class="email-wrap">
+    <div class="email-container">
+      <div class="header">
+       
+        <img src="{{siteUrl}}/public/assets/logo/logo.png" alt="Clinic Logo" class="logo" />
+     
+        <h1>Appointment Reminder</h1>
+        <p>Your appointment details with Clinic System</p>
+      </div>
+
+      <div class="content">
+        <p class="greeting">Dear <strong>{{name}}</strong>,</p>
+        <p class="lead">This is a reminder that you have an appointment scheduled for today. Please review the details below and arrive a few minutes early.</p>
+
+        <div class="section" style="margin-bottom:14px; background: #f8fbff; border-radius: 8px; padding: 16px;">
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+              <td style="padding: 8px; vertical-align: top; width: 50%;">
+                <div style="background: #f0f7ff; padding: 12px; border-radius: 6px; margin-bottom: 8px;">
+                  <strong style="color: #2067F3; display: block; margin-bottom: 4px;">Date</strong>
+                  <span style="font-size: 16px;">{{appointment_date}}</span>
+                </div>
+                <div style="background: #f0f7ff; padding: 12px; border-radius: 6px;">
+                  <strong style="color: #2067F3; display: block; margin-bottom: 4px;">Doctor</strong>
+                  <span style="font-size: 16px;">Dr. {{doctor_name}}</span>
+                </div>
+              </td>
+              <td style="padding: 8px; vertical-align: top; width: 50%;">
+                <div style="background: #f0f7ff; padding: 12px; border-radius: 6px; margin-bottom: 8px;">
+                  <strong style="color: #2067F3; display: block; margin-bottom: 4px;">Time</strong>
+                  <span style="font-size: 16px;">{{start_time}} - {{end_time}}</span>
+                </div>
+                <div style="background: #f0f7ff; padding: 12px; border-radius: 6px;">
+                  <strong style="color: #2067F3; display: block; margin-bottom: 4px;">Consultation</strong>
+                  <span style="font-size: 16px;">{{consultation_title}}</span>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <p class="lead" style="margin-top:0;">
+          <strong>Reminder:</strong> If you need to reschedule or cancel, please contact us as soon as possible.
+        </p>
+
+        <a href="{{appointment_url || '#'}}" class="cta" style="text-decoration:none;">
+          View Appointment
+        </a>
+      </div>
+
+      <div class="footer">
+        <p>This is an automated message from the Clinic Management System.</p>
+        <p>Please do not reply to this email.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+</html>

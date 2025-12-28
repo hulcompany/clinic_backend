@@ -1,0 +1,156 @@
+نعم، استخدام ملفين (service و repository) هو الأسلوب الأمثل ويتماشى مع مبادئ البرمجة السليمة.
+دعني أوضح لك الأسباب:
+
+لماذا هذا النهج هو الأمثل:
+1. فصل المسؤوليات (Separation of Concerns):
+   - Repository: يتعامل فقط مع عمليات قاعدة البيانات (CRUD)
+   - Service: يحتوي على منطق الأعمال والقواعد التجارية
+
+2. إعادة استخدام الكود:
+   - يمكن استخدام نفس الـ Repository في خدمات مختلفة
+   - تجنب تكرار كود الوصول إلى قاعدة البيانات
+
+3. سهولة الاختبار:
+   - يمكن اختبار كل طبقة بشكل منفصل
+   - سهولة في كتابة unit tests و integration tests
+
+4. صيانة أفضل:
+   - عند تغيير قاعدة البيانات، نعدل فقط الـ Repository
+   - عند تغيير منطق العمل، نعدل فقط الـ Service
+
+الخدمات المطبقة حالياً مع عملياتها:
+
+1. خدمة المشرفين (Admin Service)
+   - تسجيل مشرف جديد (registerAdmin)
+   - تسجيل دخول مشرف (loginAdmin)
+   - جلب جميع المشرفين (getAllAdmins)
+   - جلب مشرف بالرقم التعريفي (getAdminById)
+   - تحديث بيانات مشرف (updateAdmin)
+   - حذف مشرف (deleteAdmin)
+
+2. خدمة المستخدمين (User Service)
+   - جلب المستخدم بالرقم التعريفي (getUserById)
+   - جلب جميع المستخدمين مع ترقيم الصفحات (getAllUsers)
+   - تحديث بيانات مستخدم (updateUser)
+   - حذف مستخدم (deleteUser)
+   - تحديث كلمة مرور مستخدم (updatePassword)
+   - تبديل حالة تقييد المستخدم (toggleRestrictionStatus)
+
+3. خدمة المصادقة (Auth Service)
+   - تسجيل مستخدم جديد (registerUser)
+   - تسجيل دخول مستخدم (loginUser)
+
+4. خدمة الجلسات (Session Service)
+   - جلب جميع الجلسات مع ترقيم الصفحات (getAllSessions)
+   - جلب جلسة بالرقم التعريفي (getSessionById)
+   - جلب الجلسات حسب رقم تعريف الطبيب (getSessionsByDoctorId)
+   - إنشاء جلسة جديدة (createSession)
+   - تحديث بيانات جلسة (updateSession)
+   - حذف جلسة (deleteSession)
+   - تبديل حالة نشاط الجلسة (toggleSessionStatus)
+
+5. خدمة الاستشارات (Consultation Service)
+   - إنشاء استشارة جديدة (createConsultation)
+   - جلب جميع الاستشارات مع ترقيم الصفحات (getAllConsultations)
+   - جلب استشارة بالرقم التعريفي (getConsultationById)
+   - تحديث حالة الاستشارة (updateConsultationStatus)
+   - جلب الاستشارات حسب رقم تعريف المستخدم (getConsultationsByUserId)
+   - جلب الاستشارات حسب رقم تعريف المشرف (getConsultationsByAdminId)
+
+6. خدمة الدردشة (Chat Service)
+   - جلب دردشة بالرقم التعريفي (getChatById)
+   - جلب دردشة حسب رقم تعريف الاستشارة (getChatByConsultationId)
+   - جلب جميع الدردشات مع ترقيم الصفحات (getAllChats)
+   - جلب الدردشات حسب رقم تعريف الطبيب (getChatsByDoctorId)
+   - جلب الدردشات حسب رقم تعريف المستخدم (getChatsByUserId)
+   - تحديث ختم زمن آخر رسالة في الدردشة (updateLastMessageTimestamp)
+   - تبديل حالة نشاط الدردشة (toggleChatStatus)
+
+7. خدمة الرسائل (Message Service)
+   - إنشاء رسالة جديدة (createMessage)
+   - جلب الرسائل حسب رقم تعريف الدردشة (getMessagesByChatId)
+   - تعليم الرسالة كمقروءة (markMessageAsRead)
+   - جلب رسالة بالرقم التعريفي (getMessageById)
+   - بناء رابط الملف (buildFileUrl)
+
+8. خدمة كلمات المرور المؤقتة (OTP Service)
+   - توليد كلمة مرور مؤقتة (generateOTP)
+   - تخزين كلمة مرور مؤقتة (storeOTP)
+   - التحقق من صحة كلمة المرور المؤقتة (validateOTP)
+   - إرسال كلمة المرور المؤقتة عبر البريد الإلكتروني (sendOTPViaEmail)
+
+9. خدمة الرموز (Token Service)
+   - توليد رمز الوصول (generateAccessToken)
+   - توليد رمز التحديث (generateRefreshToken)
+   - توليد الرموز (generateTokens)
+   - تحديث رمز الوصول باستخدام رمز التحديث (refreshAccessToken)
+   - التحقق من صحة الرمز (verifyToken)
+   - إضافة رمز إلى القائمة السوداء (blacklistToken)
+   - حذف رمز التحديث (deleteRefreshToken)
+   - حذف جميع رموز التحديث للمستخدم/المشرف (deleteAllUserTokens)
+   - تنظيف الرموز الملغاة المنتهية الصلاحية (cleanupExpiredBlacklistedTokens)
+
+10. خدمة البريد الإلكتروني (Email Service)
+    - إرسال بريد ترحيب (sendWelcomeEmail)
+    - إرسال بريد إعادة تعيين كلمة المرور (sendPasswordResetEmail)
+
+11. خدمة المراجعات (Review Service)
+    - جلب جميع المراجعات مع ترقيم الصفحات (getAllReviews)
+    - جلب مراجعة بالرقم التعريفي (getReviewById)
+    - جلب المراجعات حسب رقم تعريف المستخدم (getReviewsByUserId)
+    - إنشاء مراجعة جديدة (createReview) - المستخدم العادي يستخدم معرفه تلقائياً، بينما الإداري والسوبير إداري والدكتور يمكنهم تحديد معرف مستخدم عادي
+    - تحديث بيانات مراجعة (updateReview) - مالك المراجعة أو الطبيب أو الإداري أو السوبير إداري
+    - حذف مراجعة (deleteReview) - مالك المراجعة أو الطبيب أو الإداري أو السوبير إداري
+    - تبديل حالة نشاط المراجعة (toggleReviewStatus) - مالك المراجعة أو الطبيب أو الإداري أو السوبير إداري
+    - جلب متوسط التقييم (getAverageRating)
+
+12. خدمة الخدمات (Service Service)
+    - جلب جميع الخدمات مع ترقيم الصفحات (getAllServices)
+    - جلب خدمة بالرقم التعريفي (getServiceById)
+    - إنشاء خدمة جديدة (createService)
+    - تحديث بيانات خدمة (updateService)
+    - حذف خدمة (deleteService)
+    - تبديل حالة نشاط الخدمة (toggleServiceStatus)
+
+13. خدمة التواصل (Contact Us Service)
+    - جلب معلومات التواصل (getContactInfo)
+    - تحديث معلومات التواصل (updateContactInfo)
+    - تبديل حالة نشاط معلومات التواصل (toggleContactStatus)
+
+14. خدمة الأوقات المتاحة (Availability Service)
+    - جلب جميع الأوقات المتاحة مع ترقيم الصفحات (getAllAvailability)
+    - جلب وقت متاح بالرقم التعريفي (getAvailabilityById)
+    - جلب الأوقات المتاحة حسب رقم تعريف المسؤول (getAvailabilityByAdminId)
+    - إنشاء وقت متاح جديد (createAvailability) - الطبيب أو السكرتير فقط
+    - تحديث بيانات وقت متاح (updateAvailability) - مالك الوقت المتاح أو الطبيب أو السكرتير
+    - حذف وقت متاح (deleteAvailability) - مالك الوقت المتاح أو الطبيب أو السكرتير
+    - حجز وقت متاح (bookAvailabilitySlot) - المستخدم العادي فقط
+    - إلغاء حجز وقت متاح (cancelBooking) - مالك الحجز أو الطبيب أو السكرتير
+    - تحديث الأوقات الماضية إلى غير متاحة تلقائياً (markPastSlotsAsUnavailable)
+
+15. خدمة السجلات الطبية (Medical Record Service)
+   - إنشاء سجل طبي جديد (createMedicalRecord) - الطبيب فقط
+   - جلب سجل طبي بالرقم التعريفي (getMedicalRecordById) - الطبيب أو السكرتير (للسجلات غير المقيّدة)
+   - جلب جميع السجلات الطبية مع ترقيم الصفحات (getAllMedicalRecords) - الطبيب أو المشرف أو السوبر إداري
+   - جلب السجلات الطبية حسب رقم تعريف المستخدم (getMedicalRecordsByUserId) - الطبيب أو السكرتير (للسجلات غير المقيّدة)
+   - جلب السجلات الطبية حسب رقم تعريف الطبيب (getMedicalRecordsByDoctorId) - الطبيب أو المشرف أو السوبر إداري
+   - جلب السجلات الطبية حسب رقم تعريف الطبيب مع استبعاد المستخدمين المقيّدين (getMedicalRecordsByDoctorIdExcludingRestricted) - الطبيب أو المشرف أو السوبر إداري
+   - جلب السجلات الطبية حسب مشرف الطبيب (السكرتير) (getMedicalRecordsBySecretarySupervisor) - السكرتير فقط
+   - تحديث بيانات سجل طبي (updateMedicalRecord) - الطبيب فقط
+   - حذف سجل طبي (deleteMedicalRecord) - الطبيب فقط
+   - معالجة رفع الملفات للسجلات الطبية (handleFileUploads)
+   - معالجة رفع الملفات للتحديثات (handleFileUploadsForUpdate) - مع إمكانية تحديد الملفات المراد الاحتفاظ بها
+
+16. خدمة المدونة (Blog Service)
+   - إنشاء مقال مدونة جديد (createBlog)
+   - جلب جميع مقالات المدونة مع ترقيم الصفحات (getAllBlogs)
+   - جلب آخر 3 مقالات مدونة (getLatestBlogs)
+   - جلب مقال مدونة بالرقم التعريفي (getBlogById)
+   - جلب مقال مدونة بالاسم المختصر (getBlogBySlug)
+   - جلب مقالات مدونة حسب رقم تعريف الكاتب (getBlogsByAuthorId)
+   - تحديث مقال مدونة (updateBlog)
+   - حذف مقال مدونة (deleteBlog)
+   - تبديل حالة مقال المدونة (draft/published) (toggleBlogStatus)
+   - التحقق مما إذا كان مقال المدونة ينتمي إلى الكاتب (isBlogAuthor)
+   - إنشاء الاسم المختصر من العنوان (generateSlug)
+
