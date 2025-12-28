@@ -1,0 +1,7 @@
+-- Seed data for chats table
+INSERT INTO chats (consultation_id, last_message_at, is_active, created_at, updated_at) VALUES
+(48, DATE_SUB(NOW(), INTERVAL 30 MINUTE), 1, DATE_SUB(NOW(), INTERVAL 1 HOUR), DATE_SUB(NOW(), INTERVAL 30 MINUTE)),
+(49, NULL, 1, NOW(), NOW()),
+(50, DATE_SUB(NOW(), INTERVAL 1 DAY), 0, DATE_SUB(NOW(), INTERVAL 2 DAY), DATE_SUB(NOW(), INTERVAL 1 DAY)),
+(51, DATE_SUB(NOW(), INTERVAL 2 HOUR), 1, DATE_SUB(NOW(), INTERVAL 3 HOUR), DATE_SUB(NOW(), INTERVAL 2 HOUR)),
+(63, NULL, 1, NOW(), NOW());

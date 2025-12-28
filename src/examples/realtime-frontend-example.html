@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Chat with Socket.IO</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .chat-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .connection-status {
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .status-connected {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-disconnected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            background: #f8f9fa;
+        }
+        
+        .message.sent {
+            background: #007bff;
+            color: white;
+            margin-left: 20%;
+        }
+        
+        .message.received {
+            background: #e9ecef;
+            margin-right: 20%;
+        }
+        
+        .message.read {
+            opacity: 0.8;
+        }
+        
+        .message .read-indicator {
+            font-size: 1.2em;
+            opacity: 0.7;
+            margin-top: 5px;
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8em;
+            margin-bottom: 5px;
+            opacity: 0.7;
+        }
+        
+        .file-message {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        
+        .text-content {
+            margin-bottom: 10px;
+            padding: 5px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 3px;
+        }
+        
+        .typing-indicator {
+            padding: 10px 15px;
+            font-style: italic;
+            color: #6c757d;
+            display: none;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            background: white;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        
+        .chat-input button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .chat-input button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        
+        .file-preview {
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            color: white;
+            display: none;
+        }
+        
+        .notification.success {
+            background: #28a745;
+        }
+        
+        .notification.error {
+            background: #dc3545;
+        }
+        
+        .notification.info {
+            background: #17a2b8;
+        }
+        
+        .auth-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Real-time Chat with Socket.IO</h1>
+    
+    <div class="auth-section">
+        <h3>Authentication</h3>
+        <div>
+            <label>Auth Token: <input type="text" id="auth-token" placeholder="Enter JWT token" style="width: 300px;" /></label>
+            <button onclick="setAuthToken()">Set Token</button>
+        </div>
+        <div style="margin-top: 10px;">
+            <label>Chat ID: <input type="number" id="chat-id" value="6" /></label>
+            <button onclick="connectToChat()">Connect to Chat</button>
+        </div>
+    </div>
+    
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>Consultation Chat</h2>
+        </div>
+        
+        <div id="connection-status" class="connection-status status-disconnected">
+            Disconnected
+        </div>
+        
+        <div id="typing-indicator" class="typing-indicator">
+            User is typing...
+        </div>
+        
+        <div id="messages" class="messages">
+            <!-- Messages will appear here -->
+        </div>
+        
+        <!-- File preview area -->
+        <div id="file-preview" class="file-preview" style="display: none; padding: 10px; background: #f8f9fa; margin: 10px; border-radius: 5px;">
+            <div style="display: flex; align-items: center;">
+                <img id="preview-image" src="" alt="Preview" style="max-width: 100px; max-height: 100px; margin-right: 10px; display: none;">
+                <div>
+                    <div id="preview-filename" style="font-weight: bold;"></div>
+                    <div id="preview-filetype" style="font-size: 0.8em; color: #6c757d;"></div>
+                </div>
+                <button onclick="clearFilePreview()" style="margin-left: auto; background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">×</button>
+            </div>
+        </div>
+        
+        <div class="chat-input">
+            <input type="text" id="message-input" placeholder="Type your message..." disabled />
+            <input type="file" id="file-input" accept="image/*,video/*,audio/*" style="display: none;" onchange="handleFileSelect(event)">
+            <button id="attach-button" onclick="document.getElementById('file-input').click()" disabled>📎</button>
+            <button id="send-button" onclick="sendMessage()" disabled>Send</button>
+        </div>
+    </div>
+    
+    <div id="notification" class="notification"></div>
+    
+    <div style="margin-top: 20px; padding: 20px; background: white; border-radius: 8px;">
+        <h3>Instructions:</h3>
+        <ol>
+            <li>You need a valid JWT token to connect to the chat</li>
+            <li>Open this page in two browser windows/tabs</li>
+            <li>Enter the same Chat ID (e.g., 6) in both windows</li>
+            <li>Use different User IDs (e.g., 1 and 2) in each window</li>
+            <li>Click "Connect to Chat" in both windows</li>
+            <li>Type messages in either window to see them appear instantly in the other</li>
+        </ol>
+    </div>
+
+    <!-- Include Socket.IO client library -->
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    
+    <script>
+        // Global variables
+        let socket = null;
+        let authToken = '';
+        let currentChatId = null;
+        let currentUserId = null;
+        let typingTimer = null;
+        let pendingFile = null; // Store pending file for sending with message
+        
+        // DOM Elements
+        let messageInput = null;
+        let messagesContainer = null;
+        
+        // Function to parse JWT token and extract user ID
+        function parseJwt(token) {
+            try {
+                // Split the token into parts
+                const parts = token.split('.');
+                if (parts.length !== 3) {
+                    throw new Error('Invalid JWT token format');
+                }
+                
+                // Get the payload (second part)
+                const payload = parts[1];
+                
+                // Replace URL-safe characters
+                const base64 = payload.replace(/-/g, '+').replace(/_/g, '/');
+                
+                // Add padding if needed
+                const paddedBase64 = base64.padEnd(base64.length + (4 - base64.length % 4) % 4, '=');
+                
+                // Decode base64
+                const jsonPayload = atob(paddedBase64);
+                
+                // Parse JSON
+                const parsed = JSON.parse(jsonPayload);
+                console.log('[FRONTEND] Successfully parsed JWT payload:', parsed);
+                return parsed;
+            } catch (error) {
+                console.error('[FRONTEND] Error parsing JWT token:', error);
+                return null;
+            }
+        }
+        
+        // Set authentication token
+        function setAuthToken() {
+            authToken = document.getElementById('auth-token').value.trim();
+            console.log('[FRONTEND] Setting auth token:', authToken ? authToken.substring(0, 20) + '...' : 'null');
+            if (authToken) {
+                // Extract user ID from JWT token
+                const payload = parseJwt(authToken);
+                console.log('[FRONTEND] Parsed JWT payload:', payload);
+                if (payload && payload.id) {
+                    currentUserId = parseInt(payload.id);  // Ensure it's an integer
+                    console.log('[FRONTEND] Current user ID set to:', currentUserId);
+                    showNotification('Auth token set successfully', 'success');
+                } else {
+                    console.log('[FRONTEND] Invalid payload or missing id field. Payload keys:', payload ? Object.keys(payload) : 'null');
+                    showNotification('Invalid auth token format', 'error');
+                }
+            } else {
+                showNotification('Please enter a valid auth token', 'error');
+            }
+        }
+        // Connect to chat
+        function connectToChat() {
+            currentChatId = document.getElementById('chat-id').value;
+            
+            if (!authToken) {
+                showNotification('Please set auth token first', 'error');
+                return;
+            }
+            
+            if (!currentChatId) {
+                showNotification('Please enter Chat ID', 'error');
+                return;
+            }
+            
+            // Connect to Socket.IO server
+            const socketUrl = `ws://localhost:3001?token=${authToken}`;
+            socket = io(socketUrl, {
+                transports: ['websocket'],
+                reconnection: true,
+                reconnectionAttempts: 5,
+                reconnectionDelay: 1000
+            });
+            
+            // Set up event listeners
+            setupSocketListeners();
+            
+            showNotification('Connecting to chat server...', 'info');
+        }
+        
+        // Set up Socket.IO event listeners
+        function setupSocketListeners() {
+            // Connection established
+            socket.on('connect', () => {
+                console.log('[FRONTEND] Connected to Socket.IO server');
+                updateConnectionStatus(true);
+                showNotification('Connected to chat server', 'success');
+                
+                // Join chat room
+                socket.emit('join_chat', {
+                    chatId: parseInt(currentChatId)
+                });
+                
+                // Load existing messages using WebSocket
+                socket.emit('get_messages', {
+                    chatId: parseInt(currentChatId)
+                });
+            });
+            
+            // Listen for loaded messages from WebSocket
+            socket.on('messages_loaded', (data) => {
+                console.log('[FRONTEND] Messages loaded via WebSocket:', data);
+                if (data.messages && data.messages.length > 0) {
+                    // Clear existing messages first
+                    messagesContainer.innerHTML = '';
+                    
+                    // Display loaded messages (they come newest first)
+                    data.messages.forEach(message => {
+                        // Format message to match expected structure
+                        const formattedMessage = {
+                            id: message.id,
+                            chat_id: message.chat_id,
+                            senderId: message.sender_id,
+                            message_type: message.message_type,
+                            content: message.content,
+                            file: message.file,
+                            file_url: message.file_url,
+                            created_at: message.created_at,
+                            read_at: message.read_at
+                        };
+                        displayMessage(formattedMessage);
+                    });
+                    
+                    showNotification(`Loaded ${data.messages.length} messages`, 'info');
+                } else {
+                    showNotification('No existing messages found', 'info');
+                }
+            });            
+            // Disconnected
+            socket.on('disconnect', (reason) => {
+                console.log('[FRONTEND] Disconnected from Socket.IO server:', reason);
+                updateConnectionStatus(false);
+                showNotification('Disconnected from chat server', 'error');
+            });
+            
+            // Connection error
+            socket.on('connect_error', (error) => {
+                console.error('[FRONTEND] Connection error:', error);
+                updateConnectionStatus(false);
+                showNotification('Connection error: ' + error.message, 'error');
+            });
+            
+            // Receive new message
+            socket.on('receive_message', (message) => {
+                console.log('[FRONTEND] Received message:', message);
+                displayMessage(message);
+            });
+            
+            // User typing indicator
+            socket.on('user_typing', (data) => {
+                console.log('[FRONTEND] User typing:', data);
+                const typingIndicator = document.getElementById('typing-indicator');
+                typingIndicator.style.display = data.isTyping ? 'block' : 'none';
+            });
+            
+            // Message read status
+            socket.on('message_read', (data) => {
+                console.log('[FRONTEND] Message read:', data);
+                // Update UI to show message as read
+                const messageElement = document.querySelector(`[data-message-id="${data.messageId}"]`);
+                if (messageElement) {
+                    messageElement.classList.add('read');
+                    // Add read indicator if not already present
+                    const readIndicator = messageElement.querySelector('.read-indicator');
+                    if (!readIndicator) {
+                        const readDiv = document.createElement('div');
+                        readDiv.className = 'read-indicator';
+                        readDiv.textContent = '✓';
+                        messageElement.appendChild(readDiv);
+                    }
+                }
+            });
+            
+            // User joined chat
+            socket.on('user_joined', (data) => {
+                console.log('[FRONTEND] User joined:', data);
+                showNotification(`User ${data.userId} joined the chat`, 'info');
+            });
+            
+            // User left chat
+            socket.on('user_left', (data) => {
+                console.log('[FRONTEND] User left:', data);
+                showNotification(`User ${data.userId} left the chat`, 'info');
+            });
+            
+            // Error handling
+            socket.on('error', (error) => {
+                console.error('[FRONTEND] Socket.IO error:', error);
+                showNotification('Chat error: ' + error.message, 'error');
+            });
+            
+            // File uploaded confirmation
+            socket.on('file_uploaded', (data) => {
+                console.log('[FRONTEND] File uploaded:', data);
+                showNotification('File uploaded successfully', 'success');
+                
+                // Display file message in UI
+                const fileMessage = {
+                    id: data.messageId,
+                    chat_id: parseInt(currentChatId),
+                    senderId: parseInt(currentUserId),
+                    message_type: 'image', // Default to image
+                    content: null,
+                    file: data.fileName,
+                    file_url: data.fileUrl || data.fileName, // Use fileUrl if provided
+                    created_at: new Date()
+                };
+                displayMessage(fileMessage);
+            });
+        }
+        
+      // Send message
+        function sendMessage() {
+            const messageText = messageInput.value.trim();
+            
+            if (!messageText && !pendingFile) return;
+            if (!socket || !socket.connected) {
+                showNotification('Not connected to chat server', 'error');
+                return;
+            }
+            
+            console.log('[FRONTEND] Sending message. Current user ID:', currentUserId);
+            
+            // If we have a pending file, send it with text (if any)
+            if (pendingFile) {
+                // Read file as base64
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Send file via Socket.IO with text content
+                    socket.emit('upload_file', {
+                        chatId: parseInt(currentChatId),
+                        fileData: e.target.result,
+                        fileName: pendingFile.file.name,
+                        fileType: pendingFile.fileType,
+                        textContent: messageText || null
+                    });
+                    
+                    showNotification('Sending file with message...', 'info');
+                    
+                    // Clear pending file
+                    pendingFile = null;
+                };
+                reader.readAsDataURL(pendingFile.file);
+            } 
+            // Otherwise send text message only
+            else if (messageText) {
+                // Create a temporary ID for the message
+                const tempId = 'temp_' + Date.now();
+                
+                // Display message in sender's UI immediately
+                const tempMessage = {
+                    id: tempId,
+                    chatId: parseInt(currentChatId),
+                    message: messageText,
+                    senderId: parseInt(currentUserId),  // Ensure it's an integer
+                    messageType: 'text',
+                    timestamp: new Date()
+                };
+                displayMessage(tempMessage);
+                
+                // Send message via Socket.IO
+                socket.emit('send_message', {
+                    chatId: parseInt(currentChatId),
+                    message: messageText,
+                    messageType: 'text'
+                });
+            }
+            
+            // Clear input
+            messageInput.value = '';
+        }
+        // Handle file selection
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            // Check file size (max 10MB)
+            if (file.size > 10 * 1024 * 1024) {
+                showNotification('File size exceeds 10MB limit', 'error');
+                return;
+            }
+            
+            // Determine file type from extension
+            const fileExtension = file.name.split('.').pop().toLowerCase();
+            let fileType = 'image';
+            if (['mp4', 'avi', 'mov', 'wmv', 'flv', 'webm', 'mkv'].includes(fileExtension)) {
+                fileType = 'video';
+            } else if (['mp3', 'wav', 'aac', 'ogg', 'flac'].includes(fileExtension)) {
+                fileType = 'audio';
+            }
+            
+            // Store file for sending with message
+            pendingFile = {
+                file: file,
+                fileType: fileType
+            };
+            
+            // Show file preview
+            showFilePreview(file, fileType);
+            
+            // Clear file input
+            event.target.value = '';
+        }
+        
+        // Show file preview
+        function showFilePreview(file, fileType) {
+            const previewContainer = document.getElementById('file-preview');
+            const previewImage = document.getElementById('preview-image');
+            const previewFilename = document.getElementById('preview-filename');
+            const previewFiletype = document.getElementById('preview-filetype');
+            
+            // Set file information
+            previewFilename.textContent = file.name;
+            previewFiletype.textContent = fileType.charAt(0).toUpperCase() + fileType.slice(1);
+            
+            // Show preview for images
+            if (fileType === 'image' && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                // Hide image preview for non-images
+                previewImage.style.display = 'none';
+            }
+            
+            // Show preview container
+            previewContainer.style.display = 'block';
+            
+            showNotification(`File selected: ${file.name}`, 'info');
+        }
+        
+        // Clear file preview
+        function clearFilePreview() {
+            document.getElementById('file-preview').style.display = 'none';
+            pendingFile = null;
+            showNotification('File cleared', 'info');
+        }
+        
+        // Handle typing indicator
+        // Will be initialized after page loads
+        
+        // Display message in UI
+        function displayMessage(message) {
+            // Debugging: Log current user ID and message sender ID
+            console.log('[FRONTEND] Displaying message. Current user ID:', currentUserId, 'Message sender ID:', message.senderId);
+            
+            // Check if message already exists to avoid duplicates
+            const existingMessage = document.querySelector(`[data-message-id="${message.id}"]`);
+            if (existingMessage) {
+                // If this is a temporary message being replaced by a real one with an ID, update it
+                if (message.id && !existingMessage.getAttribute('data-message-id').startsWith('temp_')) {
+                    return; // Real message already displayed
+                } else if (message.id) {
+                    // Replace temporary message with real one
+                    existingMessage.remove();
+                }
+            }
+            
+            const messageElement = document.createElement('div');
+            // Determine if this is a sent or received message based on current user ID
+            const isSentMessage = parseInt(message.senderId) == parseInt(currentUserId);
+            console.log('[FRONTEND] Is sent message:', isSentMessage, 'Sender ID:', message.senderId, 'Current user ID:', currentUserId);
+            messageElement.className = `message ${isSentMessage ? 'sent' : 'received'}`;
+            messageElement.setAttribute('data-message-id', message.id || 'temp_' + Date.now());
+            
+            // Handle file messages
+            if (message.message_type && message.message_type !== 'text' && (message.file || message.file_url)) {
+                // This is a file message (possibly with text content)
+                let contentHtml = '';
+                if (message.message || message.content) {
+                    contentHtml = `
+                        <div class="text-content">
+                            ${message.message || message.content}
+                        </div>`;
+                }
+                
+                // Show image preview if it's an image
+                let fileContentHtml = '';
+                if (message.message_type === 'image' && (message.file_url || message.file)) {
+                    // Use file_url if available, otherwise use file
+                    const imageUrl = message.file_url || message.file;
+                    fileContentHtml = `<img src="${imageUrl}" alt="Image" style="max-width: 200px; max-height: 200px; border-radius: 5px;">`;
+                } else {
+                    fileContentHtml = `
+                        <div class="file-message">
+                            <strong>[${message.message_type.toUpperCase()} FILE]</strong><br>
+                            ${message.file || 'File'}
+                        </div>`;
+                }
+                
+                messageElement.innerHTML = `
+                    <div class="message-header">
+                        <span>User ${message.senderId}</span>
+                        <span>${new Date(message.timestamp || message.created_at || new Date()).toLocaleTimeString()}</span>
+                    </div>
+                    ${contentHtml}
+                    <div class="message-content">
+                        ${fileContentHtml}
+                    </div>
+                    ${message.read_at ? '<div class="read-indicator">✓</div>' : ''}
+                `;
+            } else {
+                // This is a text message
+                messageElement.innerHTML = `
+                    <div class="message-header">
+                        <span>User ${message.senderId}</span>
+                        <span>${new Date(message.timestamp || message.created_at || new Date()).toLocaleTimeString()}</span>
+                    </div>
+                    <div class="message-content">
+                        ${message.message || message.content}
+                    </div>
+                    ${message.read_at ? '<div class="read-indicator">✓</div>' : ''}
+                `;
+            }
+            
+            messagesContainer.appendChild(messageElement);
+            
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Mark message as read if it's not ours and has a valid ID
+            if (parseInt(message.senderId) != parseInt(currentUserId) && message.id) {
+                setTimeout(() => {
+                    socket.emit('mark_as_read', {
+                        messageId: message.id,
+                        chatId: parseInt(currentChatId)
+                    });
+                }, 1000);
+            }
+        }
+        
+        // Update connection status UI
+        function updateConnectionStatus(connected) {
+            const statusElement = document.getElementById('connection-status');
+            if (connected) {
+                statusElement.textContent = 'Connected';
+                statusElement.className = 'connection-status status-connected';
+                messageInput.disabled = false;
+                document.getElementById('send-button').disabled = false;
+                document.getElementById('attach-button').disabled = false;
+            } else {
+                statusElement.textContent = 'Disconnected';
+                statusElement.className = 'connection-status status-disconnected';
+                messageInput.disabled = true;
+                document.getElementById('send-button').disabled = true;
+                document.getElementById('attach-button').disabled = true;
+            }
+        }
+        
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }        
+        // Allow sending message with Enter key
+        // Will be initialized after page loads
+        
+        // Initialize
+        window.onload = function() {
+            console.log('[FRONTEND] Page loaded. Ready to connect to Socket.IO server.');
+            showNotification('Ready to connect. Set auth token and chat details, then click "Connect to Chat"', 'info');
+            
+            // Initialize DOM elements after page loads
+            messageInput = document.getElementById('message-input');
+            messagesContainer = document.getElementById('messages');
+            
+            // Add event listener for Enter key
+            messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Add typing indicator event listener
+            messageInput.addEventListener('input', function() {
+                if (!socket || !socket.connected) return;
+                
+                // Clear previous timer
+                clearTimeout(typingTimer);
+                
+                // Send typing started
+                socket.emit('typing', {
+                    chatId: parseInt(currentChatId),
+                    isTyping: true
+                });
+                
+                // Set timer to send typing stopped
+                typingTimer = setTimeout(() => {
+                    socket.emit('typing', {
+                        chatId: parseInt(currentChatId),
+                        isTyping: false
+                    });
+                }, 1000);
+            });
+        };
+    </script>
+</body>
+</html>
