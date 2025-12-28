@@ -1,0 +1,1491 @@
+2025-12-19T00:22:18.820Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-19T00:22:54.158Z [WEBSOCKET] INFO: Socket 9I7v4wroe5aPQ_hyAAAH connected
+2025-12-19T00:22:54.160Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:22:54.185Z [WEBSOCKET] ERROR: Error validating chat 6 existence for user 20 during joining: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:206:34)
+2025-12-19T00:22:56.844Z [WEBSOCKET] INFO: Socket KbPBs2HcloR44uTaAAAJ connected
+2025-12-19T00:22:56.845Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:22:56.852Z [WEBSOCKET] ERROR: Error validating chat 6 existence for user 20 during joining: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:206:34)
+2025-12-19T00:22:57.623Z [WEBSOCKET] INFO: Socket dFFSEuB1pstOAEMPAAAL connected
+2025-12-19T00:22:57.624Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:22:57.632Z [WEBSOCKET] ERROR: Error validating chat 6 existence for user 20 during joining: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:206:34)
+2025-12-19T00:23:00.373Z [WEBSOCKET] INFO: Socket IGp4jLEe6air85AaAAAN connected
+2025-12-19T00:23:00.375Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:23:00.389Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:23:02.915Z [WEBSOCKET] INFO: Socket Bctt0l-isDhZuOYPAAAP connected
+2025-12-19T00:23:02.916Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:23:02.926Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:23:11.269Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:23:12.268Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:23:23.437Z [WEBSOCKET] INFO: Chat 9 Message 95 file_sent
+2025-12-19T00:23:24.469Z [WEBSOCKET] INFO: Chat 9 Message 95 marked_as_read
+2025-12-19T00:26:00.611Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-19T00:26:00.656Z [WEBSOCKET] INFO: Socket aoNdffM5eEVGm0KpAAAB connected
+2025-12-19T00:26:00.657Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:26:00.689Z [WEBSOCKET] INFO: Socket uispr_BxAQ0gSARrAAAD connected
+2025-12-19T00:26:00.690Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:26:00.707Z [WEBSOCKET] INFO: Socket zmoCOvWtlNGn8AEFAAAF connected
+2025-12-19T00:26:00.707Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:26:00.755Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:26:00.757Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:26:00.759Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:26:00.763Z [WEBSOCKET] INFO: Socket mljsB-qDsOOQcv-aAAAH connected
+2025-12-19T00:26:00.764Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:26:00.767Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:26:00.787Z [WEBSOCKET] INFO: Socket zAfHhflaTjz9rm4IAAAJ connected
+2025-12-19T00:26:00.788Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:26:00.791Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:26:26.987Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-19T00:26:27.168Z [WEBSOCKET] INFO: Socket FFr4e05YMzLJWPEfAAAB connected
+2025-12-19T00:26:27.168Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:26:27.173Z [WEBSOCKET] INFO: Socket A7Il1EUyIVxQ5adNAAAE connected
+2025-12-19T00:26:27.174Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:26:27.177Z [WEBSOCKET] INFO: Socket LVoU5QRLBVTGbX4IAAAF connected
+2025-12-19T00:26:27.177Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:26:27.196Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:26:27.200Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:26:27.202Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:26:27.205Z [WEBSOCKET] INFO: Socket v2dDa32k6xkRkw-OAAAH connected
+2025-12-19T00:26:27.206Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:26:27.210Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:26:27.636Z [WEBSOCKET] INFO: Socket kbQTA6o7UHXoNkf1AAAJ connected
+2025-12-19T00:26:27.636Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:26:27.641Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:26:52.685Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-19T00:26:52.978Z [WEBSOCKET] INFO: Socket 8rsI9UL7cPtSJBsTAAAB connected
+2025-12-19T00:26:52.980Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:26:52.995Z [WEBSOCKET] INFO: Socket I9B8CA4drBmnh64gAAAE connected
+2025-12-19T00:26:52.997Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:26:53.006Z [WEBSOCKET] INFO: Socket WZyyOFBnr9QkUc6MAAAF connected
+2025-12-19T00:26:53.008Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:26:53.020Z [WEBSOCKET] INFO: Socket DappUOb0ytPrCnUpAAAI connected
+2025-12-19T00:26:53.020Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:26:53.027Z [WEBSOCKET] INFO: Socket y6MlKYqS8TS7IMxAAAAJ connected
+2025-12-19T00:26:53.027Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:26:53.049Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:26:53.052Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:26:53.056Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:26:53.058Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:26:53.059Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:27:01.148Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-19T00:27:01.629Z [WEBSOCKET] INFO: Socket vZBLL4mMF5GfbunOAAAB connected
+2025-12-19T00:27:01.630Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:27:01.639Z [WEBSOCKET] INFO: Socket MXJWXfdnIzKaClKiAAAD connected
+2025-12-19T00:27:01.640Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:27:01.653Z [WEBSOCKET] INFO: Socket 822Q-cfD5DD3y3HXAAAF connected
+2025-12-19T00:27:01.653Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:27:01.673Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:27:01.675Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:27:01.677Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:27:01.683Z [WEBSOCKET] INFO: Socket gLFDTXkRsXEzZ-yEAAAH connected
+2025-12-19T00:27:01.684Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:27:01.691Z [WEBSOCKET] INFO: Socket Jml7lDYRRtuun-prAAAJ connected
+2025-12-19T00:27:01.691Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:27:01.692Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:27:01.695Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:27:09.211Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-19T00:27:09.468Z [WEBSOCKET] INFO: Socket i2SPbSfT1Och_yDMAAAB connected
+2025-12-19T00:27:09.469Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:27:09.635Z [WEBSOCKET] INFO: Socket 42ADqtNkXEYd1tCRAAAD connected
+2025-12-19T00:27:09.636Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:27:09.646Z [WEBSOCKET] INFO: Socket 3XqIsP-5yNbaC2D2AAAF connected
+2025-12-19T00:27:09.647Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:27:09.664Z [WEBSOCKET] INFO: Socket ZuY4Jx741M3UcUK4AAAH connected
+2025-12-19T00:27:09.665Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:27:09.685Z [WEBSOCKET] INFO: Socket xva05WXSw8cpZjiWAAAJ connected
+2025-12-19T00:27:09.686Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:27:09.709Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:27:09.713Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:27:09.716Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:27:09.717Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:27:09.718Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:27:27.705Z [WEBSOCKET] INFO: Socket xva05WXSw8cpZjiWAAAJ disconnected
+2025-12-19T00:27:27.709Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:27:27.719Z [WEBSOCKET] INFO: Socket ZuY4Jx741M3UcUK4AAAH disconnected
+2025-12-19T00:27:27.727Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:27:27.729Z [WEBSOCKET] INFO: Socket 3XqIsP-5yNbaC2D2AAAF disconnected
+2025-12-19T00:27:27.730Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:27:27.734Z [WEBSOCKET] INFO: Socket 42ADqtNkXEYd1tCRAAAD disconnected
+2025-12-19T00:27:27.735Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:27:27.737Z [WEBSOCKET] INFO: Socket i2SPbSfT1Och_yDMAAAB disconnected
+2025-12-19T00:27:27.739Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:27:31.223Z [WEBSOCKET] INFO: Socket SQq-1uAHLG63XfAwAAAL connected
+2025-12-19T00:27:31.224Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:27:31.245Z [WEBSOCKET] ERROR: Error validating chat 6 existence for user 20 during joining: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:206:34)
+2025-12-19T00:27:34.230Z [WEBSOCKET] INFO: Socket dC2H7HZBYcLEYmtcAAAN connected
+2025-12-19T00:27:34.233Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:27:34.242Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:27:35.796Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:27:36.016Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:27:36.988Z [WEBSOCKET] INFO: Chat 9 Message 96 sent
+2025-12-19T00:27:37.010Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:27:38.012Z [WEBSOCKET] INFO: Chat 9 Message 96 marked_as_read
+2025-12-19T00:28:19.305Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-19T00:28:19.637Z [WEBSOCKET] INFO: Socket KyomKPattYzSlUjZAAAB connected
+2025-12-19T00:28:19.637Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:28:19.642Z [WEBSOCKET] INFO: Socket _aLNKY8Cc4dfx2pmAAAD connected
+2025-12-19T00:28:19.643Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:28:19.659Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:28:19.662Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:28:39.725Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:28:40.462Z [WEBSOCKET] INFO: Chat 9 Message 97 sent
+2025-12-19T00:28:40.736Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:28:41.495Z [WEBSOCKET] INFO: Chat 9 Message 97 marked_as_read
+2025-12-19T00:31:53.374Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-19T00:31:53.467Z [WEBSOCKET] INFO: Socket 4aSvm-2PClI1stQfAAAB connected
+2025-12-19T00:31:53.468Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:31:53.482Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:31:53.633Z [WEBSOCKET] INFO: Socket iJARMfB_yoHdTysOAAAD connected
+2025-12-19T00:31:53.634Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:31:53.638Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:32:12.001Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-19T00:32:12.145Z [WEBSOCKET] INFO: Socket 494mLWNl0kF5qQ0-AAAB connected
+2025-12-19T00:32:12.145Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:32:12.161Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:32:12.165Z [WEBSOCKET] INFO: Socket GvE8IRRItipIC4FyAAAD connected
+2025-12-19T00:32:12.165Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:32:12.169Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:33:43.327Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-19T00:33:43.459Z [WEBSOCKET] INFO: Socket ebkMOq1bqChq-4rHAAAB connected
+2025-12-19T00:33:43.460Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:33:43.631Z [WEBSOCKET] INFO: Socket 3vWbI0x0GvxhWabqAAAD connected
+2025-12-19T00:33:43.632Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:33:43.650Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:33:43.652Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:34:16.507Z [WEBSOCKET] INFO: Socket 3vWbI0x0GvxhWabqAAAD disconnected
+2025-12-19T00:34:16.508Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:34:16.512Z [WEBSOCKET] INFO: Socket ebkMOq1bqChq-4rHAAAB disconnected
+2025-12-19T00:34:16.513Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:34:22.981Z [WEBSOCKET] INFO: Socket Guvl0eZG3T-OV2ijAAAF connected
+2025-12-19T00:34:22.981Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:34:22.990Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:34:24.587Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:34:25.586Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:34:25.888Z [WEBSOCKET] INFO: Chat 9 Message 98 sent
+2025-12-19T00:35:20.168Z [WEBSOCKET] INFO: Socket SQVVhZOqQOqOG5WrAAAH connected
+2025-12-19T00:35:20.169Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:35:20.184Z [WEBSOCKET] INFO: Chat 9 User 32 joined
+2025-12-19T00:35:22.297Z [WEBSOCKET] INFO: Chat 9 User 32 typing
+2025-12-19T00:35:22.303Z [WEBSOCKET] INFO: Chat 9 User 32 typing
+2025-12-19T00:35:23.078Z [WEBSOCKET] INFO: Chat 9 Message 99 sent
+2025-12-19T00:35:23.317Z [WEBSOCKET] INFO: Chat 9 User 32 typing
+2025-12-19T00:35:24.660Z [WEBSOCKET] INFO: Chat 9 Message 99 marked_as_read
+2025-12-19T00:35:30.795Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:35:31.795Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:35:31.834Z [WEBSOCKET] INFO: Chat 9 Message 100 sent
+2025-12-19T00:35:33.654Z [WEBSOCKET] INFO: Chat 9 Message 100 marked_as_read
+2025-12-19T00:35:41.772Z [WEBSOCKET] INFO: Socket 0aj3p1WRTsaNkGWFAAAJ connected
+2025-12-19T00:35:41.773Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:35:41.875Z [WEBSOCKET] ERROR: Error validating chat 10 existence for user 32 during joining: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:206:34)
+2025-12-19T00:35:50.745Z [WEBSOCKET] INFO: Socket NJfpxjSVCHcNk6u0AAAL connected
+2025-12-19T00:35:50.746Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:35:50.751Z [WEBSOCKET] INFO: Chat 9 User 32 joined
+2025-12-19T00:36:05.836Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-19T00:36:05.939Z [WEBSOCKET] INFO: Socket JtTmHHZ78mGYt0tpAAAB connected
+2025-12-19T00:36:05.940Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:36:05.945Z [WEBSOCKET] INFO: Socket 4X3jPevGU2FpBYEmAAAD connected
+2025-12-19T00:36:05.946Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:36:05.962Z [WEBSOCKET] INFO: Chat 9 User 32 joined
+2025-12-19T00:36:05.965Z [WEBSOCKET] INFO: Chat 9 User 32 joined
+2025-12-19T00:36:06.638Z [WEBSOCKET] INFO: Socket O9IP4LEMV3UAtRX3AAAF connected
+2025-12-19T00:36:06.639Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:36:06.654Z [WEBSOCKET] INFO: Chat 9 User 32 joined
+2025-12-19T00:36:06.664Z [WEBSOCKET] INFO: Socket IOSHiPSuf5IfCAyQAAAH connected
+2025-12-19T00:36:06.665Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:36:06.671Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:39:20.164Z [WEBSOCKET] INFO: Socket wAgE_wwdINhQFl6DAAAJ connected
+2025-12-19T00:39:20.166Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:39:20.177Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:39:20.954Z [WEBSOCKET] INFO: Socket UdG9Md53tJ7XwihFAAAL connected
+2025-12-19T00:39:20.955Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:39:20.957Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:39:21.511Z [WEBSOCKET] INFO: Socket hXSPFPcGPeMFJ5L5AAAN connected
+2025-12-19T00:39:21.511Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:39:21.516Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:39:21.885Z [WEBSOCKET] INFO: Socket 7tzJql820h9pIu2-AAAP connected
+2025-12-19T00:39:21.885Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:39:21.890Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:41:05.844Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:46:05.853Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:51:05.866Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:52:21.664Z [WEBSOCKET] INFO: Socket IOSHiPSuf5IfCAyQAAAH disconnected
+2025-12-19T00:52:21.666Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:52:21.672Z [WEBSOCKET] INFO: Socket hXSPFPcGPeMFJ5L5AAAN disconnected
+2025-12-19T00:52:21.673Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:52:21.677Z [WEBSOCKET] INFO: Socket UdG9Md53tJ7XwihFAAAL disconnected
+2025-12-19T00:52:21.678Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:52:21.679Z [WEBSOCKET] INFO: Socket 7tzJql820h9pIu2-AAAP disconnected
+2025-12-19T00:52:21.679Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:52:21.683Z [WEBSOCKET] INFO: Socket wAgE_wwdINhQFl6DAAAJ disconnected
+2025-12-19T00:52:21.685Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:52:30.481Z [WEBSOCKET] INFO: Socket ygzaKj0N3Rz6NipiAAAR connected
+2025-12-19T00:52:30.482Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:52:30.492Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:52:31.664Z [WEBSOCKET] INFO: Chat 9 Message 99 marked_as_read
+2025-12-19T00:52:59.616Z [WEBSOCKET] INFO: Socket MdJM3AbOka_1W-frAAAT connected
+2025-12-19T00:52:59.616Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:52:59.635Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:53:00.683Z [WEBSOCKET] INFO: Chat 9 Message 99 marked_as_read
+2025-12-19T00:53:02.692Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:03.425Z [WEBSOCKET] INFO: Chat 9 Message 101 sent
+2025-12-19T00:53:03.692Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:04.630Z [WEBSOCKET] INFO: Chat 9 Message 101 marked_as_read
+2025-12-19T00:53:07.827Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:07.904Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:07.906Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:08.671Z [WEBSOCKET] INFO: Chat 9 Message 102 sent
+2025-12-19T00:53:08.905Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:10.651Z [WEBSOCKET] INFO: Chat 9 Message 102 marked_as_read
+2025-12-19T00:53:15.016Z [WEBSOCKET] INFO: Socket ovPrWoCPC6wIImakAAAV connected
+2025-12-19T00:53:15.016Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:53:15.019Z [WEBSOCKET] ERROR: Error validating chat 10 existence for user 20 during joining: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:206:34)
+2025-12-19T00:53:15.020Z [WEBSOCKET] ERROR: Error validating chat 10 existence for user 20 during loading messages: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:270:34)
+2025-12-19T00:53:18.404Z [WEBSOCKET] ERROR: Error validating chat 10 existence for user 20 during sending typing indicator: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:443:34)
+2025-12-19T00:53:18.612Z [WEBSOCKET] ERROR: Error validating chat 10 existence for user 20 during sending typing indicator: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:443:34)
+2025-12-19T00:53:19.075Z [WEBSOCKET] ERROR: Error validating chat 10 existence for user 20 during sending message: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:301:34)
+2025-12-19T00:53:19.640Z [WEBSOCKET] ERROR: Error validating chat 10 existence for user 20 during sending typing indicator: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:443:34)
+2025-12-19T00:53:24.615Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:24.830Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:25.339Z [WEBSOCKET] INFO: Chat 9 Message 103 sent
+2025-12-19T00:53:25.816Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:25.881Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:26.152Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:26.621Z [WEBSOCKET] INFO: Chat 9 Message 104 sent
+2025-12-19T00:53:26.628Z [WEBSOCKET] ERROR: Error validating chat 10 existence for user 20 during marking message as read: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:471:34)
+2025-12-19T00:53:26.634Z [WEBSOCKET] INFO: Chat 9 Message 103 marked_as_read
+2025-12-19T00:53:27.016Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:27.078Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:27.186Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:27.253Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:27.585Z [WEBSOCKET] INFO: Chat 9 Message 105 sent
+2025-12-19T00:53:27.997Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:28.084Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:28.194Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:28.614Z [WEBSOCKET] INFO: Chat 9 Message 106 sent
+2025-12-19T00:53:28.627Z [WEBSOCKET] ERROR: Error validating chat 10 existence for user 20 during marking message as read: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:471:34)
+2025-12-19T00:53:28.640Z [WEBSOCKET] ERROR: Error validating chat 10 existence for user 20 during marking message as read: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:471:34)
+2025-12-19T00:53:28.643Z [WEBSOCKET] INFO: Chat 9 Message 104 marked_as_read
+2025-12-19T00:53:28.648Z [WEBSOCKET] INFO: Chat 9 Message 105 marked_as_read
+2025-12-19T00:53:29.197Z [WEBSOCKET] INFO: Chat 9 User 20 typing
+2025-12-19T00:53:29.626Z [WEBSOCKET] ERROR: Error validating chat 10 existence for user 20 during marking message as read: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:471:34)
+2025-12-19T00:53:29.739Z [WEBSOCKET] INFO: Chat 9 Message 106 marked_as_read
+2025-12-19T00:53:42.951Z [WEBSOCKET] INFO: Socket w1HyI136EQnV2ejwAAAX connected
+2025-12-19T00:53:42.953Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:53:42.972Z [WEBSOCKET] ERROR: Error validating chat 10 existence for user 20 during joining: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:206:34)
+2025-12-19T00:53:42.974Z [WEBSOCKET] ERROR: Error validating chat 10 existence for user 20 during loading messages: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:270:34)
+2025-12-19T00:53:46.006Z [WEBSOCKET] INFO: Socket NnhCHeLQP5ng9jguAAAZ connected
+2025-12-19T00:53:46.007Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:53:46.024Z [WEBSOCKET] ERROR: Error validating chat 11 existence for user 20 during joining: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:206:34)
+2025-12-19T00:53:46.026Z [WEBSOCKET] ERROR: Error validating chat 11 existence for user 20 during loading messages: Failed to get chat: Chat not found
+Error: Failed to get chat: Chat not found
+    at ChatService.getChatById (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\chat.service.js:15:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async validateChatExists (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:46:18)
+    at async Socket.<anonymous> (C:\Users\Lenovo\Desktop\clinic5\src\services\chat\websocket.service.js:270:34)
+2025-12-19T00:53:47.808Z [WEBSOCKET] INFO: Socket MdJM3AbOka_1W-frAAAT disconnected
+2025-12-19T00:53:47.809Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:53:47.811Z [WEBSOCKET] INFO: Socket w1HyI136EQnV2ejwAAAX disconnected
+2025-12-19T00:53:47.811Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:53:47.812Z [WEBSOCKET] INFO: Socket NnhCHeLQP5ng9jguAAAZ disconnected
+2025-12-19T00:53:47.812Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:53:47.813Z [WEBSOCKET] INFO: Socket ovPrWoCPC6wIImakAAAV disconnected
+2025-12-19T00:53:47.813Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:54:02.326Z [WEBSOCKET] INFO: Socket ygzaKj0N3Rz6NipiAAAR disconnected
+2025-12-19T00:54:02.326Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:54:02.327Z [WEBSOCKET] INFO: Socket JtTmHHZ78mGYt0tpAAAB disconnected
+2025-12-19T00:54:02.328Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:54:02.328Z [WEBSOCKET] INFO: Socket 4X3jPevGU2FpBYEmAAAD disconnected
+2025-12-19T00:54:02.328Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:54:02.328Z [WEBSOCKET] INFO: Socket O9IP4LEMV3UAtRX3AAAF disconnected
+2025-12-19T00:54:02.329Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:55:33.452Z [WEBSOCKET] INFO: Socket Z11LPZchqwUAn1rFAAAb connected
+2025-12-19T00:55:33.453Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:55:33.469Z [WEBSOCKET] INFO: Socket Dyhk4cXvDKNFku1zAAAd connected
+2025-12-19T00:55:33.470Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:55:33.487Z [WEBSOCKET] INFO: Socket 3M24ysiOcMc_eq3LAAAf connected
+2025-12-19T00:55:33.487Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:55:33.491Z [WEBSOCKET] INFO: Chat 9 User 20 joined
+2025-12-19T00:55:33.500Z [WEBSOCKET] INFO: Socket uATmveDzhPMecPRTAAAh connected
+2025-12-19T00:55:33.500Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:55:33.510Z [WEBSOCKET] INFO: Chat 9 User 32 joined
+2025-12-19T00:55:33.513Z [WEBSOCKET] INFO: Chat 9 User 32 joined
+2025-12-19T00:55:33.514Z [WEBSOCKET] INFO: Chat 9 User 32 joined
+2025-12-19T00:55:34.879Z [WEBSOCKET] INFO: Chat 9 Message 99 marked_as_read
+2025-12-19T00:55:56.110Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-19T00:56:05.242Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:01:53.381Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:05:43.211Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:06:33.075Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:07:06.167Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:07:09.975Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:07:16.131Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:07:37.983Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:07:51.809Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:08:07.986Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:08:22.972Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:08:25.503Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:08:54.026Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:10:49.343Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:10:53.950Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:13:08.970Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:13:26.441Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:14:24.995Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:15:51.345Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:16:09.220Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:17:40.598Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:18:18.531Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:18:54.850Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:19:04.738Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:19:44.316Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:19:53.306Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:20:05.981Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:20:38.895Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:21:46.642Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:21:58.488Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:22:00.600Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:22:15.553Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:27:11.415Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:27:26.621Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:31:20.439Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:31:57.704Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:32:15.604Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:32:31.501Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:32:42.154Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:33:44.476Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:33:57.985Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:34:05.155Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:34:14.312Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:34:21.214Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:34:42.954Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:34:50.517Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:34:59.581Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:36:01.896Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:36:51.688Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:36:59.309Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:37:10.180Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:39:41.969Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:40:34.484Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:40:46.498Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:40:56.027Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:41:38.461Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:41:45.961Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:41:56.199Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:42:13.423Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:42:22.370Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:43:43.829Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:44:19.049Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:45:43.396Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:45:56.335Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:47:17.984Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:47:20.725Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:49:02.372Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:50:30.975Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:50:38.781Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:50:43.115Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:50:48.316Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:50:54.466Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:52:52.745Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:53:10.457Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:53:46.447Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:54:04.053Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:54:12.109Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:54:23.947Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:54:32.491Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:55:09.000Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T22:59:19.035Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T23:00:38.038Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T23:02:37.959Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T23:03:28.946Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T23:03:36.550Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T23:03:58.557Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T23:04:04.281Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T23:04:09.957Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T23:04:12.039Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T23:04:13.883Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T23:04:20.755Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T23:04:24.790Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T23:04:35.156Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T23:05:01.751Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-20T23:05:29.698Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:13:27.453Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:14:50.506Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:14:56.676Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:15:00.491Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:15:02.770Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:18:03.090Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:22:37.374Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:22:59.394Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:23:25.476Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:28:25.488Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-21T19:33:25.486Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-21T19:38:25.489Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-21T19:39:25.677Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:40:21.644Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:42:49.219Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:42:55.184Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:43:22.164Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:44:25.877Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:45:31.419Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:45:48.334Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:46:01.000Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:46:08.382Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:46:14.169Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:46:17.378Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:50:02.375Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:50:19.331Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:52:08.675Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:52:56.809Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:53:02.684Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:54:50.716Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:55:03.690Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:55:49.640Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:57:46.498Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:58:10.673Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:58:24.758Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T19:59:41.611Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:00:26.939Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:01:00.613Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:05:44.506Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:06:05.726Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:10:10.334Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:10:18.363Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:12:58.332Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:13:08.472Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:13:29.036Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:13:36.433Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:14:01.791Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:14:17.409Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:14:45.694Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:14:54.882Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:19:54.889Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-21T20:22:47.360Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:22:54.585Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:23:15.854Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:24:28.958Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:24:33.932Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:25:28.870Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:25:44.942Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:25:55.737Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:26:07.501Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:26:21.318Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:26:38.442Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:26:45.347Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:26:49.877Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:27:10.557Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:27:47.797Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T20:28:07.253Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T21:31:28.850Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T21:32:01.267Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T21:33:27.671Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T21:33:40.771Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T21:34:06.175Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T21:39:06.188Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-21T21:44:06.191Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-21T21:49:06.206Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-21T21:52:31.048Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T21:53:18.290Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T21:53:32.395Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T21:53:51.275Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T21:55:27.732Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T21:55:36.818Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T21:59:14.852Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T21:59:57.422Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:01:55.957Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:02:41.230Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:07:41.241Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-21T22:09:51.881Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:10:07.563Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:11:11.295Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:11:21.434Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:12:37.236Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:12:51.127Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:13:07.512Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:15:08.561Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:15:18.351Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:16:00.945Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:16:15.937Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:19:24.714Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:20:17.414Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:24:07.451Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:25:17.606Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:28:01.588Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:28:15.009Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:29:22.234Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:29:57.661Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:32:47.300Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:33:14.637Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:33:53.876Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:35:43.440Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:36:19.922Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:38:39.338Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:38:51.581Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:39:26.657Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:40:03.633Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:43:31.481Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:45:51.943Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:48:40.821Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:48:54.091Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:50:33.239Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:52:47.653Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:53:45.526Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-21T22:56:00.575Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T07:41:45.812Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T07:43:19.669Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T07:44:38.694Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T07:46:09.118Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T07:48:17.207Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T07:50:51.265Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T07:51:13.961Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T07:51:54.696Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T07:56:54.727Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T07:58:30.268Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T08:03:30.328Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T08:08:30.386Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T08:13:30.448Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T08:18:30.498Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T08:23:30.550Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T08:28:30.589Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T08:33:30.619Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T08:38:30.648Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T08:40:58.376Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T08:42:33.098Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T08:44:17.105Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T08:49:17.137Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T08:54:17.169Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T08:59:17.189Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T09:04:17.207Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T09:09:17.230Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T09:14:17.250Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T09:19:17.277Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T09:24:17.299Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T09:29:17.334Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T09:34:17.350Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T09:39:17.369Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T09:44:17.389Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T09:49:17.404Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T09:54:17.424Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T09:59:17.435Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T10:04:17.448Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T10:09:17.459Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T10:14:17.466Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T10:19:17.481Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T10:24:17.488Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T10:29:17.492Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T10:34:17.500Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T10:39:17.515Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T10:44:17.525Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T10:49:17.535Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T10:54:17.539Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T10:59:20.290Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T11:04:20.306Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T11:09:20.314Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T11:14:20.321Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T11:19:20.326Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T11:24:20.339Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T11:29:20.343Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T19:45:46.957Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T19:50:46.961Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T19:53:19.010Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T19:54:52.124Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T19:59:52.135Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T20:04:52.146Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T20:09:26.862Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:14:26.876Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T20:14:57.896Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:16:06.840Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:18:39.678Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:18:49.333Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:19:54.481Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:20:27.043Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:20:47.288Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:20:53.368Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:25:53.379Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T20:27:31.992Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:27:58.587Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:28:38.217Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:33:38.438Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:34:07.290Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:35:22.903Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:36:17.090Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:41:17.102Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T20:43:52.507Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:43:54.388Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:44:01.613Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:48:33.168Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:50:47.357Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:54:28.879Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:54:52.467Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:55:30.563Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:57:13.386Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T20:59:45.341Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:00:15.562Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:05:15.570Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T21:06:00.016Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:11:00.038Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T21:16:00.038Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T21:19:00.638Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:20:09.215Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:22:05.805Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:22:55.183Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:24:16.021Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:29:16.027Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T21:34:16.029Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T21:39:16.037Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T21:44:16.041Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T21:47:18.484Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:48:19.447Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:48:35.017Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:49:05.669Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:51:07.880Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:51:28.414Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:51:40.142Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:52:13.627Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:52:53.179Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:53:22.235Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:53:46.002Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:54:04.664Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:54:25.714Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:55:38.744Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T21:56:00.333Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:01:00.349Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T22:05:22.209Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:10:39.905Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:12:30.477Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:14:03.794Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:14:46.747Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:15:07.534Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:15:16.639Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:15:49.436Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:16:01.741Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:16:12.705Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:16:57.169Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:18:34.485Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:19:50.929Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:20:01.898Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:21:29.294Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:26:29.302Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T22:30:54.493Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:31:10.611Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:31:25.816Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:35:28.317Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:40:28.331Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T22:45:28.330Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-23T22:46:59.610Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:47:35.073Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:52:02.895Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-23T22:57:02.635Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T20:26:33.241Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T20:31:33.234Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-24T20:36:33.197Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-24T20:41:33.152Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-24T20:44:08.295Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:08:53.918Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:09:00.140Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:09:16.955Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:09:37.215Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:10:29.993Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:10:43.034Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:10:55.649Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:11:36.374Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:16:36.371Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-24T22:21:36.368Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-24T22:24:17.492Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:24:28.180Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:24:38.859Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:29:38.855Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-24T22:33:27.465Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:33:50.246Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:34:15.753Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:34:57.844Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:36:11.333Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:36:37.733Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:36:54.506Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:37:14.390Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:37:33.056Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:37:59.978Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:38:31.041Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:39:37.825Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:39:48.449Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:40:04.889Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:40:30.934Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:40:42.001Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:41:27.909Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:42:06.660Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:42:09.205Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:42:15.848Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:42:22.603Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:44:36.192Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:45:07.283Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:50:07.287Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-24T22:51:00.561Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:52:20.467Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T22:57:20.472Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-24T23:02:20.468Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-24T23:06:04.021Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:07:14.001Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:07:36.672Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:07:38.830Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:07:53.316Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:08:46.554Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:09:02.349Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:09:23.574Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:10:17.914Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:11:03.725Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:11:08.691Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:11:15.509Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:11:28.168Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:11:37.397Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:11:45.476Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:11:54.034Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:15:22.539Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:15:36.952Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:15:56.842Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:16:13.766Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:16:37.024Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:16:51.238Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:17:03.003Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:17:08.641Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:17:26.524Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:17:38.926Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:17:47.228Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:17:59.775Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:19:16.371Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:24:16.382Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-24T23:25:39.170Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:26:08.489Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:26:17.032Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:26:58.072Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:27:17.578Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:28:44.791Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:29:29.152Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:30:30.582Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:31:15.530Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:32:31.396Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:32:58.317Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:33:07.902Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-24T23:38:07.915Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-24T23:38:51.346Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T08:02:22.215Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T08:07:22.217Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T08:12:22.220Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T08:17:22.234Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T08:22:22.238Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T08:27:22.244Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T08:32:22.250Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T08:37:22.253Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T08:41:07.880Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T08:41:50.410Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T08:44:38.496Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T08:46:56.396Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T08:51:56.425Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T08:52:42.958Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T08:54:39.076Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T08:57:09.076Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T08:58:56.708Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T09:01:48.331Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T09:02:02.861Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T09:02:08.796Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T09:07:08.823Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T09:12:08.844Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T09:17:08.872Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T09:18:11.206Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T09:20:10.306Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T09:24:03.165Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T09:27:24.057Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T09:32:24.069Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T09:34:30.452Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T09:39:30.459Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T09:44:30.473Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T09:49:30.496Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T09:54:30.508Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T09:55:43.824Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T09:58:30.975Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T10:03:30.983Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T10:08:30.988Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T10:13:31.000Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T10:18:31.018Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T10:22:41.757Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T10:24:16.287Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T10:25:02.818Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T10:30:02.836Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T10:35:02.853Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T10:40:02.859Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T10:45:02.868Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T10:50:02.879Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T10:55:02.891Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T11:00:02.905Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T11:05:02.914Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T11:10:02.921Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T11:13:05.622Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:13:23.771Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:14:08.037Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:19:08.054Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T11:24:08.056Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T11:25:29.151Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:26:23.310Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:27:50.765Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:28:00.800Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:30:23.057Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:31:35.581Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:31:52.881Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:32:30.911Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:32:50.924Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:32:55.067Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:33:07.360Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:33:14.271Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:34:26.401Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:35:00.114Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:35:32.926Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:36:00.006Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:41:00.016Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T11:46:00.016Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T11:46:09.425Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:48:42.238Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:48:46.383Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:49:36.443Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:50:27.975Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:50:42.873Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:51:24.728Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:52:07.156Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:55:22.471Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:57:33.608Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T11:58:14.111Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:01:29.927Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:02:35.394Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:02:50.139Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:03:38.684Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:03:42.899Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:05:23.438Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:06:49.596Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:06:55.741Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:11:55.747Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T12:13:37.938Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:13:45.492Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:13:49.293Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:18:49.298Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T12:21:55.005Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:23:49.800Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:24:04.131Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:26:48.278Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:27:00.707Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:27:07.110Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:29:32.978Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:30:44.958Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:31:15.043Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:34:21.737Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:34:33.812Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:39:11.732Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:40:36.015Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:41:54.302Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:42:12.045Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:45:17.759Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:45:56.353Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:47:42.578Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:52:42.583Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T12:52:58.111Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:53:36.378Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:53:50.951Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:58:49.310Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T12:59:01.231Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T13:04:01.247Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T13:09:01.251Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T13:10:35.968Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T13:13:39.922Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T13:14:45.701Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T13:19:45.706Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T13:22:47.566Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T13:27:47.581Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T17:59:21.293Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T17:59:50.994Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T18:04:51.008Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T18:07:52.323Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T18:09:37.798Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T18:10:18.398Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T18:10:47.168Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T18:11:10.310Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T18:11:50.750Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T18:13:23.501Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T18:15:33.796Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T18:18:45.843Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T18:23:45.855Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T18:25:27.614Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T18:25:49.446Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T18:28:46.449Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T18:28:51.226Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T18:31:29.839Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T18:31:34.090Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T18:36:34.112Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T18:41:34.141Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T18:46:34.169Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T18:51:34.205Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T18:56:34.226Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T18:58:49.058Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T19:03:49.082Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T19:08:49.100Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T19:13:49.114Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T19:16:19.042Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T19:21:19.070Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T19:26:19.083Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T19:27:42.460Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T19:30:12.337Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T19:31:48.170Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T19:33:33.667Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T19:38:33.679Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T19:43:33.697Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T19:48:33.711Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T19:53:33.729Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T19:58:33.745Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T20:01:16.066Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:06:16.083Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T20:08:22.947Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:09:54.169Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:10:04.511Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:11:02.680Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:11:16.281Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:11:53.545Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:13:09.352Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:13:13.590Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:16:06.537Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:16:46.450Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:17:58.844Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:18:12.007Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:23:12.019Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T20:26:38.391Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:27:52.325Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:32:52.332Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T20:34:13.516Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:35:21.086Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:35:38.365Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:36:10.716Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:37:14.170Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:38:08.139Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T20:43:08.148Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T20:48:08.165Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T20:53:08.179Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T20:58:08.185Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T21:03:08.199Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T21:08:08.216Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T21:13:08.232Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T21:18:08.235Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T21:23:08.239Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T21:28:08.248Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T21:31:31.099Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T21:36:31.103Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T21:41:31.105Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T21:42:04.839Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T21:42:59.772Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T21:43:30.301Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T21:44:04.902Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T21:44:37.732Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T21:45:24.228Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T21:45:58.799Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T21:46:13.947Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T21:46:23.394Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T21:49:42.922Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T21:50:02.147Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T21:53:47.396Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T21:57:31.150Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T21:58:01.318Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T21:59:23.598Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:01:20.197Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:01:33.179Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:02:08.651Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:02:19.400Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:02:34.761Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:02:53.138Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:03:05.838Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:03:16.643Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:04:00.704Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:05:50.809Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:09:21.979Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:09:38.721Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:09:50.044Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:10:01.350Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:10:13.416Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:11:04.996Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:11:12.651Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:11:19.349Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:11:43.975Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:11:58.745Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:12:08.416Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:12:15.063Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:12:29.247Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:14:05.821Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:14:17.100Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:17:42.609Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:18:10.771Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:18:18.131Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:18:24.656Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:21:13.056Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:22:10.779Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:23:58.310Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:25:04.314Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:25:56.199Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:26:03.509Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:26:30.221Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:26:59.272Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:27:08.940Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:27:59.755Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:28:09.262Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:28:18.886Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:28:26.743Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:28:35.635Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:29:11.420Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:29:21.943Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:34:21.947Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-25T22:36:35.093Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:36:37.657Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-25T22:36:43.093Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T18:23:08.156Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T18:28:09.227Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T18:33:09.240Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T18:38:09.241Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T18:43:09.242Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T18:48:09.248Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T18:53:09.252Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T18:53:46.516Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T18:54:54.453Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T18:55:09.874Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T18:55:28.641Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T18:56:06.990Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T18:57:17.616Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T18:58:02.177Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T18:58:34.985Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T18:59:39.808Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T18:59:56.802Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:04:56.816Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T19:06:36.565Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:07:50.438Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:08:10.688Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:09:01.071Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:09:04.058Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:11:36.830Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:12:09.979Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:12:24.664Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:12:33.429Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:12:43.723Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:12:46.756Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:13:01.713Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:13:25.408Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:16:14.581Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:16:32.919Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:16:55.365Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:17:29.253Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:18:33.452Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:18:54.872Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:23:54.892Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T19:28:54.902Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T19:33:54.904Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T19:38:54.908Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T19:40:52.845Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:41:35.198Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:41:40.126Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:41:58.729Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T19:46:58.744Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T19:51:58.747Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T19:56:58.751Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T20:01:58.758Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T20:06:58.840Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T20:09:54.939Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:10:37.033Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:10:43.100Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:11:00.823Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:11:25.282Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:16:09.626Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:16:45.961Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:17:19.290Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:19:16.971Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:23:46.898Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:24:29.252Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:25:00.625Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:25:31.050Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:35:37.249Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:37:33.590Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:37:59.834Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:38:09.856Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:39:02.050Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:39:25.818Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:40:00.118Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:40:04.124Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:43:37.994Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:45:50.369Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:50:02.982Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:50:37.421Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:53:24.161Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:55:23.641Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:57:06.198Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T20:58:10.091Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:00:15.180Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:01:56.051Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:05:47.661Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:06:21.714Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:06:42.527Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:07:08.403Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:07:35.397Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:07:41.536Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:12:41.551Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T21:16:37.037Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:21:04.221Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:22:38.935Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:27:38.941Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T21:29:46.155Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:30:49.841Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:31:14.895Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:32:09.798Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:33:04.254Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:34:05.037Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:38:11.591Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:38:22.144Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:43:22.151Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-26T21:45:18.136Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:45:40.932Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:46:15.347Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:46:59.095Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:48:25.228Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T21:48:51.321Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-26T22:32:48.328Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T07:29:24.761Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T07:34:24.770Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T07:39:24.781Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T07:44:24.794Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T07:49:24.810Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T07:54:24.826Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T07:59:24.848Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T08:04:24.863Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T08:09:24.880Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T08:14:24.894Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T08:19:24.907Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T08:24:24.916Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T08:29:24.930Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T08:34:24.938Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T08:39:24.943Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T08:44:24.950Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T08:49:24.969Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T08:54:24.977Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T08:59:24.983Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T09:04:24.994Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T09:09:24.998Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T09:14:25.013Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T09:19:25.018Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T09:24:25.029Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T09:29:25.045Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T09:34:25.060Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T09:39:25.067Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T09:44:25.075Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T09:49:25.077Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T09:54:25.087Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T09:56:34.733Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T09:56:40.473Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T09:59:01.535Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T09:59:45.203Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:00:29.020Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:05:29.019Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T10:06:09.324Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:06:24.787Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:07:20.037Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:12:20.049Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T10:17:20.051Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T10:22:20.056Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T10:27:20.068Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T10:32:20.084Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T10:37:14.298Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:37:47.298Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:38:01.104Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:40:36.094Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:41:31.773Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:41:53.973Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:42:19.535Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:46:03.973Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:47:51.750Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:49:37.532Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:51:08.880Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:51:36.466Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:52:51.562Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T10:55:42.869Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T11:09:41.636Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T11:10:42.967Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T11:10:59.451Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T11:11:07.766Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T11:11:40.842Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T11:12:10.705Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T11:17:10.709Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T11:18:07.382Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T11:19:04.592Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T11:21:36.855Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T11:25:22.851Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T11:27:37.572Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T11:29:53.006Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T11:30:28.989Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T11:39:43.771Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T11:45:41.010Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T11:55:29.672Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:02:25.229Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:06:30.515Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:13:02.719Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:19:57.370Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:21:29.358Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:25:51.469Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:27:25.574Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:27:57.357Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:36:34.209Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:37:22.469Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:39:31.167Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:44:31.175Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T12:49:31.177Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T12:49:38.786Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:50:11.044Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:50:19.944Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:50:30.068Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:50:39.465Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:51:00.022Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:51:26.986Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:51:51.861Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:52:05.670Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:52:36.705Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:52:55.035Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:57:55.052Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T12:58:12.534Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:59:24.705Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T12:59:48.593Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:04:48.605Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T13:05:03.203Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:05:09.615Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:06:28.644Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:07:02.265Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:07:26.448Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:07:37.800Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:08:29.388Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:08:55.711Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:09:04.131Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:09:17.559Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:09:30.240Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:10:13.932Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:11:59.377Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:13:50.788Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:14:44.635Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:15:33.364Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:15:55.478Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:16:09.123Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:17:48.685Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:18:23.710Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:18:34.833Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:18:39.683Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:18:52.396Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T13:19:34.214Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T17:08:43.316Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T17:13:43.307Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T17:18:43.298Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T17:23:43.309Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T17:28:43.324Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T17:33:43.336Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T17:38:43.340Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T17:43:43.355Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T17:48:43.370Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T17:53:43.389Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T17:56:09.550Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T17:57:10.626Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T17:57:22.101Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T17:58:04.387Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T17:59:51.867Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:00:03.216Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:00:11.799Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:00:52.953Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:07:20.724Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:08:53.535Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:10:07.458Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:13:09.122Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:18:09.141Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T18:23:04.872Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:23:31.917Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:25:35.171Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:27:48.836Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:29:45.584Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:40:51.770Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:41:15.520Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:46:15.526Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T18:48:49.960Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:51:28.543Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:53:28.718Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:56:10.565Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:56:27.411Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:56:31.689Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:56:41.415Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T18:59:41.084Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:00:00.185Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:00:02.533Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:00:13.099Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:03:57.794Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:04:06.625Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:04:12.228Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:05:27.533Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:05:56.129Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:10:56.138Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T19:13:58.000Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:14:21.633Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:14:46.034Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:14:48.318Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:15:14.870Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:20:14.881Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T19:23:47.600Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:28:47.604Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T19:29:40.798Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:33:01.811Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:38:01.816Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T19:43:01.820Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T19:43:53.767Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:43:57.567Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:44:02.133Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:44:11.685Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T19:49:11.699Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T19:54:11.702Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T19:59:11.713Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T20:04:11.723Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T20:04:44.909Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T20:05:11.912Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T20:05:27.715Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T20:05:55.516Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T20:06:37.026Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T20:07:03.670Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T20:07:25.033Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T20:07:49.493Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T20:08:01.901Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T20:51:40.915Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T20:53:01.444Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T20:58:01.451Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T20:59:38.212Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T20:59:46.445Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:00:37.069Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:00:44.187Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:00:52.639Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:00:59.746Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:02:08.137Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:03:07.730Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:04:51.956Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:06:19.921Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:09:17.563Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:10:22.464Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:10:40.214Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:14:37.715Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:15:43.484Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:20:43.492Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T21:25:43.499Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T21:30:43.513Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T21:34:35.036Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:34:55.770Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:35:01.632Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:35:50.874Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:35:56.967Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-27T21:40:56.970Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-27T21:45:56.975Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-28T07:36:18.618Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-28T07:41:18.633Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-28T07:46:18.648Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-28T07:51:18.653Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-28T07:56:18.666Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-28T08:01:18.695Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-28T08:02:19.431Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-28T08:04:53.810Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-28T08:06:01.991Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-28T08:06:46.994Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-28T08:08:25.975Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-28T08:08:54.288Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-28T08:09:22.227Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-28T08:09:53.094Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-28T08:10:21.900Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-28T08:11:29.829Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-28T08:11:59.632Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-28T08:12:48.734Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-28T08:13:06.373Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-28T08:13:13.108Z [WEBSOCKET] INFO: Socket N/A initialized
+2025-12-28T08:18:13.128Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-28T08:23:13.161Z [WEBSOCKET] INFO: WebSocket Statistics
+2025-12-28T08:28:13.185Z [WEBSOCKET] INFO: WebSocket Statistics
