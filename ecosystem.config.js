@@ -167,19 +167,8 @@ module.exports = {
       }
     },
     
-    // ⭐⭐ تطبيق Worker منفصل للمهام الثقيلة (اختياري) ⭐⭐
-    {
-      name: 'clinic_worker',
-      script: './src/workers/main.js',
-      cwd: '/var/www/clinicsys/backend',
-      instances: 1,
-      exec_mode: 'fork',
-      env: {
-        NODE_ENV: 'production',
-        WORKER_TYPE: 'jobs',
-        REDIS_HOST: 'localhost'
-      }
-    }
+     
+    
   ],
   
   // ⭐⭐ إعدادات النشر (Deployment) ⭐⭐
@@ -197,3 +186,4 @@ module.exports = {
     }
   }
 };
+
