@@ -15,7 +15,7 @@ module.exports = {
         HOST: '0.0.0.0',
         
         // ========== إعدادات قاعدة البيانات ⭐⭐(عدل هذه القيم)⭐⭐ ==========
-        MYSQL_HOST: 'localhost',
+        MYSQL_HOST: '127.0.0.1',
         MYSQL_PORT: 3306,
         MYSQL_USER: 'root',                    // ⭐⭐ غير إلى مستخدمك ⭐⭐
         MYSQL_PASSWORD: 'Driv+123o',     // ⭐⭐ غير إلى كلمة مرور قوية ⭐⭐
@@ -97,7 +97,7 @@ module.exports = {
         LOG_LEVEL: 'error',
         
         // ⭐⭐ إعدادات قاعدة بيانات الإنتاج ⭐⭐
-        MYSQL_HOST: 'localhost',
+        MYSQL_HOST: '127.0.0.1',
         MYSQL_USER: 'root',               // ⭐⭐ مستخدم مختلف للإنتاج ⭐⭐
         MYSQL_PASSWORD: 'Driv+123o',      // ⭐⭐ كلمة مرور أقوى ⭐⭐
         
@@ -186,4 +186,5 @@ module.exports = {
     }
   }
 };
+
 
