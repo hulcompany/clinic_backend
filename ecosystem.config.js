@@ -18,7 +18,7 @@ module.exports = {
         MYSQL_HOST: 'localhost',
         MYSQL_PORT: 3306,
         MYSQL_USER: 'clinic_user',                    // ⭐⭐ غير إلى مستخدمك ⭐⭐
-        MYSQL_PASSWORD: 'rouy2025Secure#Password123$4',     // ⭐⭐ غير إلى كلمة مرور قوية ⭐⭐
+        MYSQL_PASSWORD: 'rClinic@Secure2025',     // ⭐⭐ غير إلى كلمة مرور قوية ⭐⭐
         MYSQL_DATABASE: 'clinic_db',
         MYSQL_CONNECTION_LIMIT: 10,
         MYSQL_CHARSET: 'utf8mb4',
@@ -99,7 +99,7 @@ module.exports = {
         // ⭐⭐ إعدادات قاعدة بيانات الإنتاج ⭐⭐
         MYSQL_HOST: 'localhost',
         MYSQL_USER: 'clinic_user',               // ⭐⭐ مستخدم مختلف للإنتاج ⭐⭐
-        MYSQL_PASSWORD: 'rouy2025Secure#Password123$4',      // ⭐⭐ كلمة مرور أقوى ⭐⭐
+        MYSQL_PASSWORD: 'Clinic@Secure2025',      // ⭐⭐ كلمة مرور أقوى ⭐⭐
         
         // ⭐⭐ أسرار JWT للإنتاج (مختلفة عن التطوير) ⭐⭐
         JWT_SECRET: 'clinic_prod_jwt_2025_' + require('crypto').randomBytes(32).toString('hex'),
@@ -197,3 +197,4 @@ module.exports = {
     }
   }
 };
+
