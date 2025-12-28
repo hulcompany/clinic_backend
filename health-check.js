@@ -1,4 +1,4 @@
-// /var/www/clinic/backend/health-check.js
+// /var/www/clinicsys/backend/health-check.js
 
 const http = require('http');
 
