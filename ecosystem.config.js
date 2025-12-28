@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'clinic_backend',
       script: './src/app.js',
-      cwd: '/var/www/clinic/backend',
+      cwd: '/var/www/clinicsys/backend',
       instances: 'max',
       exec_mode: 'cluster',
       
@@ -39,10 +39,10 @@ module.exports = {
         EMAIL_REPLY_TO: 'support@samialhasan.com',
         
         // ========== مسارات الملفات والوسائط ==========
-        UPLOAD_BASE_PATH: '/var/www/clinic/backend/public/uploads/',
-        UPLOAD_IMAGES_PATH: '/var/www/clinic/backend/public/uploads/images/',
-        UPLOAD_VIDEOS_PATH: '/var/www/clinic/backend/public/uploads/videos/',
-        UPLOAD_AUDIOS_PATH: '/var/www/clinic/backend/public/uploads/audios/',
+        UPLOAD_BASE_PATH: '/var/www/clinicsys/backend/public/uploads/',
+        UPLOAD_IMAGES_PATH: '/var/www/clinicsys/backend/public/uploads/images/',
+        UPLOAD_VIDEOS_PATH: '/var/www/clinicsys/backend/public/uploads/videos/',
+        UPLOAD_AUDIOS_PATH: '/var/www/clinicsys/backend/public/uploads/audios/',
         MAX_UPLOAD_SIZE: '50mb',
         
         // ========== روابط الويب ==========
@@ -119,9 +119,9 @@ module.exports = {
       },
       
       // ========== إعدادات PM2 ==========
-      error_file: '/var/www/clinic/backend/logs/err.log',
-      out_file: '/var/www/clinic/backend/logs/out.log',
-      log_file: '/var/www/clinic/backend/logs/combined.log',
+      error_file: '/var/www/clinicsys/backend/logs/err.log',
+      out_file: '/var/www/clinicsys/backend/logs/out.log',
+      log_file: '/var/www/clinicsys/backend/logs/combined.log',
       log_date_format: 'YYYY-MM-DD HH:mm:ss',
       time: true,
       
@@ -171,7 +171,7 @@ module.exports = {
     {
       name: 'clinic_worker',
       script: './src/workers/main.js',
-      cwd: '/var/www/clinic/backend',
+      cwd: '/var/www/clinicsys/backend',
       instances: 1,
       exec_mode: 'fork',
       env: {
@@ -189,7 +189,7 @@ module.exports = {
       host: ['your-server-ip'],
       ref: 'origin/main',
       repo: 'git@github.com:yourusername/clinic-backend.git',
-      path: '/var/www/clinic/backend',
+      path: '/var/www/clinicsys/backend',
       'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env production',
       env: {
         NODE_ENV: 'production'
