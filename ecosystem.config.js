@@ -173,18 +173,21 @@ module.exports = {
   
   // ⭐⭐ إعدادات النشر (Deployment) ⭐⭐
   deploy: {
-    production: {
-      user: 'root',
-      host: ['your-server-ip'],
-      ref: 'origin/main',
-      repo: 'git@github.com:yourusername/clinic-backend.git',
-      path: '/var/www/clinicsys/backend',
-      'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env production',
-      env: {
-        NODE_ENV: 'production'
-      }
-    }
+  production: {
+    user: 'root',
+    host: ['72.60.129.26'],  // ⬅️ غير إلى IP سيرفرك
+    ref: 'origin/main',       // أو 'origin/master'
+    repo: 'git@github.com:YOUR_USERNAME/clinic-backend.git',  // ⬅️ غير
+    path: '/var/www/clinicsys/backend',
+    'pre-deploy': 'git fetch --all',
+    'post-deploy': 'npm install --production && pm2 reload ecosystem.config.js --env production',
+    env: {
+      NODE_ENV: 'production'
+    },
+    ssh_options: ['StrictHostKeyChecking=no', 'PasswordAuthentication=no']
   }
+}
 };
+
 
 
