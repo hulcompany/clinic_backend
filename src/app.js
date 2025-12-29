@@ -50,6 +50,7 @@ app.use(cors({
         "https://samialhasan.com",
         "http://localhost:3666",
         "http://localhost:3000",
+        "http://localhost:4000",
         "http://localhost:3001"
     ],
     credentials: true,
@@ -153,13 +154,13 @@ app.use('*', (req, res) => {
 app.use(errorHandler);
 
 // Start Server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 // Create HTTP server for Express app
 const server = http.createServer(app);
 
 // Create separate HTTP server for WebSocket service
-const wsPort = process.env.WS_PORT || 3001;
+const wsPort = process.env.WS_PORT || 4001;
 const wsServer = http.createServer();
 
 // Initialize WebSocket service
@@ -220,5 +221,6 @@ process.on('unhandledRejection', (reason, promise) => {
 startServer();
 
 module.exports = app;
+
 
 //npx sequelize-cli db:migrate --name xxx.js
