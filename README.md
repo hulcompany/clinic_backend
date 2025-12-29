@@ -304,6 +304,14 @@ To push this project to a GitHub repository, follow these steps:
 6. Push to main branch: `git push -u origin main`
 
 Note: Make sure the GitHub repository exists before attempting to push.
-#   c l i n i c _ b a c k e n d  
- #   c l i n i c _ b a c k e n d  
+#   c l i n i c _ b a c k e n d 
+ 
+ #   c l i n i c _ b a c k e n d 
+ 
+
+📊 المقارنة بين المسارين:
+المسار	النوع	الاستخدام	الحجم	التحديث
+/root/clinic-source/backend/	مصدر الكود	للنسخ الاحتياطي والتطوير	أصغر	يدوي
+/var/www/clinicsys/backend/	نسخة التشغيل	للإنتاج والخدمة الفعلية	أكبر (يحتوي node_modules)	تلقائي (PM2)
+
  
