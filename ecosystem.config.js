@@ -52,7 +52,7 @@ module.exports = {
         API_VERSION: 'v1',
         
         // ========== WebSocket ==========
-        WS_PORT: 4001,                                // ⭐⭐ غير من 3001 إلى 4001 ⭐⭐
+        WS_PORT: 4002,                                // ⭐⭐ غير من   4002 ⭐⭐
         WS_CORS_ORIGIN: 'https://samialhasan.com',
         WS_PING_INTERVAL: 30000,
         WS_PING_TIMEOUT: 5000,
@@ -110,7 +110,7 @@ module.exports = {
         SMTP_PASS: 'ProdEmailPass123!@#',
         
         // ⭐⭐ WebSocket للإنتاج ⭐⭐
-        WS_PORT: 4001,                                // ⭐⭐ تأكد أنه 4001 ⭐⭐
+        WS_PORT: 4002,                                // ⭐⭐ تأكد أنه 4002 ⭐⭐
         
         // ⭐⭐ إعدادات المراقبة ⭐⭐
         LOG_LEVEL: 'warn',
@@ -188,6 +188,7 @@ module.exports = {
   }
 }
 };
+
 
 
 
