@@ -315,3 +315,77 @@ Note: Make sure the GitHub repository exists before attempting to push.
 /var/www/clinicsys/backend/	نسخة التشغيل	للإنتاج والخدمة الفعلية	أكبر (يحتوي node_modules)	تلقائي (PM2)
 
  
+
+
+📊 مقارنة تفصيلية:
+الأمر	الوظيفة	متى تستخدم	المثال
+pm2 deploy	⬇️ ينزل كود جديد من GitHub إلى السيرفر	عند تحديث الكود أو نشر إصدار جديد	pm2 deploy ecosystem.config.js production
+pm2 start	🚀 يشغل تطبيق موجود على السيرفر	عند بدء التشغيل أو إعادة التشغيل	pm2 start ecosystem.config.js --env production
+
+
+
+
+# 1. تأكد من أن PM2 يعرف إعدادات النشر
+pm2 deploy ecosystem.config.js production setup
+
+# 2. النشر الأول
+pm2 deploy ecosystem.config.js production
+
+# 3. أو بخطوة واحدة
+pm2 deploy ecosystem.config.js production --force
+
+
+
+
+
+
+# 1. أنشئ SSH Key (إذا لم يكن موجوداً)
+ssh-keygen -t ed25519 -C "your-email@example.com"
+# اضغط Enter لكل الأسئلة
+
+# 2. اعرض المفتاح العام
+cat ~/.ssh/id_ed25519.pub
+
+# 3. أضفه إلى GitHub:
+# - اذهب إلى GitHub → Settings → SSH and GPG keys
+# - New SSH key
+# - الصق المحتوى
+
+
+
+الخطوة 1: تحضير GitHub Repository:
+bash
+# 1. اذهب لمجلد المصدر
+cd /root/clinic-source/backend
+
+# 2. ابدأ Git (إذا لم تكن بدأت)
+git init
+git add .
+git commit -m "Initial commit"
+
+# 3. أنشئ repo على GitHub ثم:
+git remote add origin git@github.com:YOUR_USERNAME/clinic-backend.git
+git branch -M main
+git push -u origin main
+الخطوة 2: إعداد السيرفر للنشر:
+bash
+# 1. تأكد من تثبيت Git
+sudo apt install git -y
+
+# 2. تأكد من PM2 global
+npm install -g pm2
+
+# 3. اختبار الاتصال بـ GitHub
+ssh -T git@github.com
+# يجب أن ترى: Hi USERNAME! You've successfully authenticated...
+الخطوة 3: النشر التلقائي:
+bash
+# من أي مكان (حتى من حاسوبك الشخصي)
+pm2 deploy ecosystem.config.js production
+
+# أو مع تحديث Environment
+pm2 deploy ecosystem.config.js production --force --update-env
+
+
+
+
