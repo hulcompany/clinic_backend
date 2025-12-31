@@ -51,6 +51,7 @@ app.use(cors({
         "http://localhost:3666",
         "http://localhost:3000",
         "http://localhost:4000",
+        "http://localhost:4001",
         "http://localhost:3001"
     ],
     credentials: true,
@@ -224,3 +225,4 @@ module.exports = app;
 
 
 //npx sequelize-cli db:migrate --name xxx.js
+
