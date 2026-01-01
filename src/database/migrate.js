@@ -30,7 +30,8 @@ const migrationFiles = [
   '19-rename-medical-attachment-to-medical-attachments.sql',
   '20-create-blog-table.sql',
   '21-create-notifications-table.sql',
-  '22-create-landing-images-table.sql'
+  '22-create-landing-images-table.sql',
+  '23-add-telegram-chat-id-to-users-and-admins-table.sql
 ];
 
 async function runMigrations() {
@@ -107,3 +108,4 @@ module.exports = { runMigrations };
 
 
 //npx sequelize-cli db:migrate --name xxx
+
