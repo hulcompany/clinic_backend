@@ -60,6 +60,12 @@ const User = sequelize.define('User', {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
     field: 'created_at'
+  },
+  telegram_chat_id: {
+    type: DataTypes.STRING(50),
+    allowNull: true,
+    comment: 'Telegram chat ID for the user',
+    field: 'telegram_chat_id'
   }
 }, {
   tableName: 'users',
