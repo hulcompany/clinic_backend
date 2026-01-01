@@ -46,8 +46,8 @@ const handleOTP = async (user, action = 'verify') => {
     await otpService.sendOTPViaEmail(user, otpCode, action === 'reset' ? 'password-reset' : undefined);
   }
   
-  // Send OTP via Telegram if phone number is available
-  if (user.phone) {
+  // Send OTP via Telegram if phone and telegram chat ID are available
+  if (user.phone && user.telegram_chat_id) {
     await otpService.sendOTPViaTelegram(user, otpCode, action === 'reset' ? 'password-reset' : undefined);
   }
   
@@ -208,8 +208,8 @@ const resendOTP = async (req, res, next) => {
       await otpService.sendOTPViaEmail(user, otpCode);
     }
     
-    // Send OTP via Telegram
-    if (user.phone) {
+    // Send OTP via Telegram if phone and telegram chat ID are available
+    if (user.phone && user.telegram_chat_id) {
       await otpService.sendOTPViaTelegram(user, otpCode);
     }
 
@@ -376,8 +376,8 @@ const forgotPassword = async (req, res, next) => {
       await otpService.sendOTPViaEmail(user, otpCode, 'password-reset');
     }
     
-    // Send OTP via Telegram
-    if (user.phone) {
+    // Send OTP via Telegram if phone and telegram chat ID are available
+    if (user.phone && user.telegram_chat_id) {
       await otpService.sendOTPViaTelegram(user, otpCode, 'password-reset');
     }
     
@@ -433,39 +433,6 @@ const resetPassword = async (req, res, next) => {
   }
 };
 
-/**
- * @desc    Send OTP via phone number
- * @route   POST /api/auth/send-otp-phone
- * @access  Public
- */
-const sendOTPPhone = async (req, res, next) => {
-  try {
-    const { phone } = req.body;
-
-    // Validate phone number exists
-    if (!phone) {
-      return failureResponse(res, 'Phone number is required', 400);
-    }
-
-    // Find user by phone number
-    const user = await User.findOne({ where: { phone } });
-    if (!user) {
-      return failureResponse(res, 'User not found with this phone number', 404);
-    }
-
-    // Generate new OTP
-    const otpCode = otpService.generateOTP();
-    await otpService.storeOTP(user.user_id, null, otpCode); // Pass null for admin_id
-    
-    // Send OTP via Telegram
-    await otpService.sendOTPViaTelegram(user, otpCode);
-    
-    successResponse(res, null, 'OTP sent successfully via Telegram. Please check your Telegram for the code.');
-  } catch (error) {
-    next(new AppError(error.message, 500));
-  }
-};
-
 module.exports = {
   register,
   verifyOTP,
@@ -474,6 +441,5 @@ module.exports = {
   logout,
   refreshToken,
   forgotPassword,
-  resetPassword,
-  sendOTPPhone
+  resetPassword
 };
