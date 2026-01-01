@@ -1,5 +1,5 @@
 const express = require('express');
-const { getProfile, updateProfile, register, verifyOTP, resendOTP, login, logout, forgotPassword, resetPassword,toggleUserRestriction, registerSecretaryByDoctor, assignSecretaryToDoctor, getSecretariesByDoctor } = require('../../controllers/authentication/adminController');
+const { getProfile, updateProfile, register, verifyOTP, resendOTP, login, logout, forgotPassword, resetPassword,toggleUserRestriction, registerSecretaryByDoctor, assignSecretaryToDoctor, getSecretariesByDoctor, sendOTPPhone } = require('../../controllers/authentication/adminController');
 const authMiddleware = require('../../middleware/auth.middleware');
 const { conditionalMediaManagement } = require('../../middleware/mediaUpdate.middleware');
 
@@ -608,5 +608,35 @@ router.get('/doctors/:doctorId/secretaries',
   authMiddleware.protect,
   getSecretariesByDoctor
 );
+
+/**
+ * @swagger
+ * /api/admin/send-otp-phone:
+ *   post:
+ *     summary: Send OTP via phone number (Telegram)
+ *     tags: [Administration]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - phone
+ *             properties:
+ *               phone:
+ *                 type: string
+ *                 description: Admin's phone number
+ *     responses:
+ *       200:
+ *         description: OTP sent successfully via Telegram
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Admin not found
+ *       500:
+ *         description: Internal server error
+ */
+router.post('/send-otp-phone', sendOTPPhone);
 
 module.exports = router;
