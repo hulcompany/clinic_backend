@@ -1,5 +1,5 @@
 const express = require('express');
-const { register, verifyOTP, resendOTP, login, logout, refreshToken, forgotPassword, resetPassword } = require('../../controllers/authentication/authController');
+const { register, verifyOTP, resendOTP, login, logout, refreshToken, forgotPassword, resetPassword, sendOTPPhone } = require('../../controllers/authentication/authController');
 const authMiddleware = require('../../middleware/auth.middleware');
 const { tokenService } = require('../../services/index');
 const { uploadImage } = require('../../utils/allMediaUploadUtil');
@@ -341,5 +341,35 @@ router.post('/forgot-password', forgotPassword);
  *         description: Internal server error
  */
 router.post('/reset-password', resetPassword);
+
+/**
+ * @swagger
+ * /api/auth/send-otp-phone:
+ *   post:
+ *     summary: Send OTP via phone number (Telegram)
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - phone
+ *             properties:
+ *               phone:
+ *                 type: string
+ *                 description: User's phone number
+ *     responses:
+ *       200:
+ *         description: OTP sent successfully via Telegram
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
+ */
+router.post('/send-otp-phone', sendOTPPhone);
 
 module.exports = router;
