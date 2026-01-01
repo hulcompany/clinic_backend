@@ -4,6 +4,16 @@ const AppError = require('../../utils/AppError');
 const { successResponse, createdResponse, failureResponse ,unauthorizedResponse} = require('../../utils/responseHandler');
 const { validateRegister,validateLogin, validateVerifyOtp, validateResendOtp, validateForgotPassword, validateResetPassword } = require('../../utils/validation');
 
+// Validation function for resend OTP with phone
+const validateResendOTPWithPhone = (data) => {
+  const schema = {
+    email: Joi.string().email().optional(),
+    phone: Joi.string().optional()
+  };
+  
+  return Joi.object(schema).validate(data);
+};
+
  
 const { buildImageUrl } = require('../../utils/mediaUtils');
 // Import login attempts functions from auth middleware
@@ -298,16 +308,21 @@ const verifyOTP = async (req, res, next) => {
  */
 const resendOTP = async (req, res, next) => {
   try {
-    const { email } = req.body;
+    const { email, phone } = req.body;
 
-    // Validate input data using Joi
-    const { error } = validateResendOtp({ email });
-    if (error) {
-      return failureResponse(res, error.details.map(detail => detail.message).join(', '), 400);
+    // Validate that either email or phone is provided
+    if (!email && !phone) {
+      return failureResponse(res, 'Either email or phone is required', 400);
     }
 
-    // Find admin by email
-    const admin = await Admin.findOne({ where: { email } });
+    // Find admin by email or phone
+    let admin;
+    if (email) {
+      admin = await Admin.findOne({ where: { email } });
+    } else if (phone) {
+      admin = await Admin.findOne({ where: { phone } });
+    }
+    
     if (!admin) {
       return failureResponse(res, 'Admin not found', 404);
     }
@@ -331,7 +346,7 @@ const resendOTP = async (req, res, next) => {
       await otpService.sendOTPViaTelegram(admin, otpCode);
     }
 
-    successResponse(res, null, 'OTP sent successfully. Please check your email.');
+    successResponse(res, null, 'OTP sent successfully. Please check your email and/or Telegram for the code.');
   } catch (error) {
     next(new AppError(error.message, 500));
   }
@@ -441,18 +456,23 @@ const logout = async (req, res, next) => {
  */
 const forgotPassword = async (req, res, next) => {
   try {
-    const { email } = req.body;
+    const { email, phone } = req.body;
     
-    // Validate input data using Joi
-    const { error } = validateForgotPassword({ email });
-    if (error) {
-      return failureResponse(res, error.details.map(detail => detail.message).join(', '), 400);
+    // Validate that either email or phone is provided
+    if (!email && !phone) {
+      return failureResponse(res, 'Either email or phone is required', 400);
+    }
+
+    // Find admin by email or phone
+    let admin;
+    if (email) {
+      admin = await Admin.findOne({ where: { email } });
+    } else if (phone) {
+      admin = await Admin.findOne({ where: { phone } });
     }
     
-    // Find admin by email
-    const admin = await Admin.findOne({ where: { email } });
     if (!admin) {
-      return failureResponse(res, 'No admin found with this email address', 404);
+      return failureResponse(res, 'No admin found with this email or phone number', 404);
     }
     
     // Generate new OTP
@@ -469,7 +489,7 @@ const forgotPassword = async (req, res, next) => {
       await otpService.sendOTPViaTelegram(admin, otpCode, 'password-reset');
     }
     
-    successResponse(res, null, 'Password reset OTP sent successfully. Please check your email.');
+    successResponse(res, null, 'Password reset OTP sent successfully. Please check your email and/or Telegram for the code.');
   } catch (error) {
     next(new AppError(error.message, 500));
   }
@@ -482,18 +502,23 @@ const forgotPassword = async (req, res, next) => {
  */
 const resetPassword = async (req, res, next) => {
   try {
-    const { email, otpCode, newPassword } = req.body;
+    const { email, phone, otpCode, newPassword } = req.body;
     
-    // Validate input data using Joi
-    const { error } = validateResetPassword({ email, otpCode, newPassword });
-    if (error) {
-      return failureResponse(res, error.details.map(detail => detail.message).join(', '), 400);
+    // Validate that either email or phone is provided
+    if (!email && !phone) {
+      return failureResponse(res, 'Either email or phone is required', 400);
     }
     
-    // Find admin by email
-    const admin = await Admin.findOne({ where: { email } });
+    // Find admin by email or phone
+    let admin;
+    if (email) {
+      admin = await Admin.findOne({ where: { email } });
+    } else if (phone) {
+      admin = await Admin.findOne({ where: { phone } });
+    }
+    
     if (!admin) {
-      return failureResponse(res, 'No admin found with this email address', 404);
+      return failureResponse(res, 'No admin found with this email or phone number', 404);
     }
     
     // Verify OTP
