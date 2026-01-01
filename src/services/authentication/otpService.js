@@ -26,6 +26,7 @@ console.log('Environment Variables Check:', {
 
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const TelegramBot = require('node-telegram-bot-api');
 const fs = require('fs').promises;
 const path = require('path');
 const handlebars = require('handlebars');
@@ -221,9 +222,71 @@ const sendOTPViaEmail = async (user, otpCode, context = 'verification') => {
   }
 };
 
+/**
+ * Send OTP via Telegram
+ * @param {User|Admin} user - User or Admin object
+ * @param {string} otpCode - OTP code to send
+ * @param {string} context - Context for message (default: 'verification')
+ */
+const sendOTPViaTelegram = async (user, otpCode, context = 'verification') => {
+  try {
+    const token = process.env.TELEGRAM_BOT_TOKEN;
+    
+    if (!token) {
+      console.error('Telegram bot token not configured');
+      throw new Error('Telegram configuration is missing');
+    }
+    
+    const bot = new TelegramBot(token);
+    
+    // Prepare message based on context
+    const messageSubject = context === 'password-reset' 
+      ? 'Password Reset OTP' 
+      : 'Account Verification OTP';
+    
+    const message = `
+${messageSubject}
+
+Hello ${user.full_name || user.name || 'User'},
+
+Your OTP code is: *${otpCode}*
+
+This code will expire in 10 minutes.
+
+Thank you for using our clinic system.
+    `;
+    
+    // Use user's Telegram chat ID if available, otherwise use default chat ID
+    const targetChatId = user.telegram_chat_id || process.env.TELEGRAM_CHAT_ID;
+    
+    if (!targetChatId) {
+      console.error('No Telegram chat ID available for user');
+      throw new Error('No Telegram chat ID available');
+    }
+    
+    console.log('Attempting to send Telegram message...');
+    console.log('Telegram message details:', {
+      chatId: targetChatId,
+      message: message,
+      otpCode: otpCode,
+      userId: user.user_id
+    });
+    
+    await bot.sendMessage(targetChatId, message, { parse_mode: 'Markdown' });
+    
+    console.log(`OTP ${otpCode} sent successfully via Telegram to chat ID: ${targetChatId}`);
+  } catch (error) {
+    console.error('Failed to send OTP via Telegram:', error.message);
+    console.error('Error details:', error);
+    console.error('Stack trace:', error.stack);
+    throw new Error('Failed to send verification OTP via Telegram. Please try again later.');
+  }
+};
+
 module.exports = {
   generateOTP,
   storeOTP,
   validateOTP,
-  sendOTPViaEmail
+  sendOTPViaEmail,
+  sendOTPViaTelegram
 };
