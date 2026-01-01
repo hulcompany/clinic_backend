@@ -41,8 +41,14 @@ const handleOTP = async (user, action = 'verify') => {
   const otpCode = otpService.generateOTP();
   await otpService.storeOTP(user.user_id, null, otpCode);
   
+  // Send OTP via email if available
   if (user.email) {
     await otpService.sendOTPViaEmail(user, otpCode, action === 'reset' ? 'password-reset' : undefined);
+  }
+  
+  // Send OTP via Telegram if phone number is available
+  if (user.phone) {
+    await otpService.sendOTPViaTelegram(user, otpCode, action === 'reset' ? 'password-reset' : undefined);
   }
   
   return otpCode;
@@ -200,6 +206,11 @@ const resendOTP = async (req, res, next) => {
     // Send OTP via email
     if (user.email) {
       await otpService.sendOTPViaEmail(user, otpCode);
+    }
+    
+    // Send OTP via Telegram
+    if (user.phone) {
+      await otpService.sendOTPViaTelegram(user, otpCode);
     }
 
     successResponse(res, null, 'OTP sent successfully. Please check your email.');
@@ -361,7 +372,14 @@ const forgotPassword = async (req, res, next) => {
     await otpService.storeOTP(user.user_id, null, otpCode); // Pass null for admin_id
     
     // Send OTP via email
-    await otpService.sendOTPViaEmail(user, otpCode, 'password-reset');
+    if (user.email) {
+      await otpService.sendOTPViaEmail(user, otpCode, 'password-reset');
+    }
+    
+    // Send OTP via Telegram
+    if (user.phone) {
+      await otpService.sendOTPViaTelegram(user, otpCode, 'password-reset');
+    }
     
     successResponse(res, null, 'Password reset OTP sent successfully. Please check your email.');
   } catch (error) {
@@ -415,6 +433,39 @@ const resetPassword = async (req, res, next) => {
   }
 };
 
+/**
+ * @desc    Send OTP via phone number
+ * @route   POST /api/auth/send-otp-phone
+ * @access  Public
+ */
+const sendOTPPhone = async (req, res, next) => {
+  try {
+    const { phone } = req.body;
+
+    // Validate phone number exists
+    if (!phone) {
+      return failureResponse(res, 'Phone number is required', 400);
+    }
+
+    // Find user by phone number
+    const user = await User.findOne({ where: { phone } });
+    if (!user) {
+      return failureResponse(res, 'User not found with this phone number', 404);
+    }
+
+    // Generate new OTP
+    const otpCode = otpService.generateOTP();
+    await otpService.storeOTP(user.user_id, null, otpCode); // Pass null for admin_id
+    
+    // Send OTP via Telegram
+    await otpService.sendOTPViaTelegram(user, otpCode);
+    
+    successResponse(res, null, 'OTP sent successfully via Telegram. Please check your Telegram for the code.');
+  } catch (error) {
+    next(new AppError(error.message, 500));
+  }
+};
+
 module.exports = {
   register,
   verifyOTP,
@@ -423,5 +474,6 @@ module.exports = {
   logout,
   refreshToken,
   forgotPassword,
-  resetPassword
+  resetPassword,
+  sendOTPPhone
 };
