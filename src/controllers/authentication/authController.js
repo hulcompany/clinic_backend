@@ -9,6 +9,16 @@ const {
 } = require('../../utils/responseHandler');
 const { buildImageUrl } = require('../../utils/mediaUtils');
 const { validateRegister, validateLogin, validateVerifyOtp, validateResendOtp, validateForgotPassword, validateResetPassword } = require('../../utils/validation');
+
+// Validation function for resend OTP with phone
+const validateResendOTPWithPhone = (data) => {
+  const schema = {
+    email: Joi.string().email().optional(),
+    phone: Joi.string().optional()
+  };
+  
+  return Joi.object(schema).validate(data);
+};
 // Import login attempts functions from auth middleware
 const { resetLoginAttemptsForIdentifier, incrementFailedAttempts } = require('../../middleware/auth.middleware');
 
@@ -185,16 +195,21 @@ const verifyOTP = async (req, res, next) => {
  */
 const resendOTP = async (req, res, next) => {
   try {
-    const { email } = req.body;
+    const { email, phone } = req.body;
 
-    // Validate input data using Joi
-    const { error } = validateResendOtp({ email });
-    if (error) {
-      return failureResponse(res, error.details.map(detail => detail.message).join(', '), 400);
+    // Validate that either email or phone is provided
+    if (!email && !phone) {
+      return failureResponse(res, 'Either email or phone is required', 400);
     }
 
-    // Find user by email
-    const user = await User.findOne({ where: { email } });
+    // Find user by email or phone
+    let user;
+    if (email) {
+      user = await User.findOne({ where: { email } });
+    } else if (phone) {
+      user = await User.findOne({ where: { phone } });
+    }
+    
     if (!user) {
       return failureResponse(res, 'User not found', 404);
     }
@@ -213,7 +228,7 @@ const resendOTP = async (req, res, next) => {
       await otpService.sendOTPViaTelegram(user, otpCode);
     }
 
-    successResponse(res, null, 'OTP sent successfully. Please check your email.');
+    successResponse(res, null, 'OTP sent successfully. Please check your email and/or Telegram for the code.');
   } catch (error) {
     next(new AppError(error.message, 500));
   }
@@ -353,18 +368,23 @@ const refreshToken = async (req, res, next) => {
  */
 const forgotPassword = async (req, res, next) => {
   try {
-    const { email } = req.body;
+    const { email, phone } = req.body;
     
-    // Validate input data using Joi
-    const { error } = validateForgotPassword({ email });
-    if (error) {
-      return failureResponse(res, error.details.map(detail => detail.message).join(', '), 400);
+    // Validate that either email or phone is provided
+    if (!email && !phone) {
+      return failureResponse(res, 'Either email or phone is required', 400);
+    }
+
+    // Find user by email or phone
+    let user;
+    if (email) {
+      user = await User.findOne({ where: { email } });
+    } else if (phone) {
+      user = await User.findOne({ where: { phone } });
     }
     
-    // Find user by email
-    const user = await User.findOne({ where: { email } });
     if (!user) {
-      return failureResponse(res, 'No user found with this email address', 404);
+      return failureResponse(res, 'No user found with this email or phone number', 404);
     }
     
     // Generate new OTP
@@ -381,7 +401,7 @@ const forgotPassword = async (req, res, next) => {
       await otpService.sendOTPViaTelegram(user, otpCode, 'password-reset');
     }
     
-    successResponse(res, null, 'Password reset OTP sent successfully. Please check your email.');
+    successResponse(res, null, 'Password reset OTP sent successfully. Please check your email and/or Telegram for the code.');
   } catch (error) {
     next(new AppError(error.message, 500));
   }
@@ -394,18 +414,23 @@ const forgotPassword = async (req, res, next) => {
  */
 const resetPassword = async (req, res, next) => {
   try {
-    const { email, otpCode, newPassword } = req.body;
+    const { email, phone, otpCode, newPassword } = req.body;
     
-    // Validate input data using Joi
-    const { error } = validateResetPassword({ email, otpCode, newPassword });
-    if (error) {
-      return failureResponse(res, error.details.map(detail => detail.message).join(', '), 400);
+    // Validate that either email or phone is provided
+    if (!email && !phone) {
+      return failureResponse(res, 'Either email or phone is required', 400);
     }
     
-    // Find user by email
-    const user = await User.findOne({ where: { email } });
+    // Find user by email or phone
+    let user;
+    if (email) {
+      user = await User.findOne({ where: { email } });
+    } else if (phone) {
+      user = await User.findOne({ where: { phone } });
+    }
+    
     if (!user) {
-      return failureResponse(res, 'No user found with this email address', 404);
+      return failureResponse(res, 'No user found with this email or phone number', 404);
     }
     
     // Verify OTP
