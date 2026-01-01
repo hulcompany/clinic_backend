@@ -67,6 +67,12 @@ const Admin = sequelize.define('Admin', {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
     field: 'created_at'
+  },
+  telegram_chat_id: {
+    type: DataTypes.STRING(50),
+    allowNull: true,
+    comment: 'Telegram chat ID for the admin',
+    field: 'telegram_chat_id'
   }
 }, {
   tableName: 'admins',
