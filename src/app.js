@@ -40,7 +40,14 @@ app.use(helmet({
         directives: {
             defaultSrc: ["'self'"],
             styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"],
-            scriptSrc: ["'self'", "https://cdn.jsdelivr.net"]
+            scriptSrc: ["'self'", "https://cdn.jsdelivr.net"],
+            connectSrc: [
+                "'self'",
+                "https://samialhasan.com",
+                "http://localhost:3000",
+                "http://localhost:4000",
+                "http://localhost:4001"
+            ]
         }
     }
 }));
@@ -225,4 +232,5 @@ module.exports = app;
 
 
 //npx sequelize-cli db:migrate --name xxx.js
+
 
