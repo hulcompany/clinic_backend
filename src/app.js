@@ -25,7 +25,12 @@ const { errorHandler } = require('./middleware/errorHandler');
 const api = require('./api');
 const { startWeeklyCleanupJob, startDailyAppointmentReminderJob } = require('./utils/cleanupJobs');
 const WebSocketService = require('./services/chat/websocket.service');
-
+// Initialize Telegram bot
+try {
+  require('./controllers/authentication/telegramBot.controller');
+} catch (error) {
+  console.error('Error initializing Telegram bot:', error.message);
+}
 const app = express();
 
 // Serve static files from the public directory
@@ -232,5 +237,6 @@ module.exports = app;
 
 
 //npx sequelize-cli db:migrate --name xxx.js
+
 
 
