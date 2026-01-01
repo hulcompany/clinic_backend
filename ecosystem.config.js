@@ -37,6 +37,8 @@ module.exports = {
         SMTP_PASS: 'your-app-specific-password',      // ⭐⭐ غير إلى كلمة مرور التطبيق ⭐⭐
         EMAIL_FROM: 'noreply@samialhasan.com',
         EMAIL_REPLY_TO: 'support@samialhasan.com',
+        TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN || '8550372816:AAGS3-1WB2YBo70g63_RBrH1rjYWYXpCJS8',
+        TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID || '-1003519619799'
         
         // ========== مسارات الملفات والوسائط ==========
         UPLOAD_BASE_PATH: '/var/www/clinicsys/backend/public/uploads/',
@@ -109,6 +111,8 @@ module.exports = {
         SMTP_USER: 'production@samialhasan.com',      // ⭐⭐ إيميل الإنتاج ⭐⭐
         SMTP_PASS: 'ProdEmailPass123!@#',
         
+        TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN || '8550372816:AAGS3-1WB2YBo70g63_RBrH1rjYWYXpCJS8',
+        TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID || '-1003519619799'
         // ⭐⭐ WebSocket للإنتاج ⭐⭐
         WS_PORT: 4002,                                // ⭐⭐ تأكد أنه 4002 ⭐⭐
         
@@ -188,6 +192,7 @@ module.exports = {
   }
 }
 };
+
 
 
 
