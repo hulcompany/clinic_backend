@@ -51,10 +51,10 @@ RefreshToken.init({
 });
 
 // Define associations
-RefreshToken.belongsTo(User, { foreignKey: 'userId', constraints: false });
+RefreshToken.belongsTo(User, { foreignKey: 'userId' });
 User.hasMany(RefreshToken, { foreignKey: 'userId' });
 
-RefreshToken.belongsTo(Admin, { foreignKey: 'adminId', constraints: false });
+RefreshToken.belongsTo(Admin, { foreignKey: 'adminId' });
 Admin.hasMany(RefreshToken, { foreignKey: 'adminId' });
 
 module.exports = RefreshToken;
