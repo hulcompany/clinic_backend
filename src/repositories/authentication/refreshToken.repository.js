@@ -30,10 +30,10 @@ class RefreshTokenRepository {
       // Only set the appropriate ID field to satisfy the database constraint
       if (userIdParam !== null && userIdParam !== undefined) {
         data.userId = userIdParam;
-        data.adminId = null;
+        data.adminId = 0;
       } else if (adminIdParam !== null && adminIdParam !== undefined) {
         data.adminId = adminIdParam;
-        data.userId = null;
+        data.userId = 0;
       } else {
         throw new Error('Either userId or adminId must be provided');
       }
