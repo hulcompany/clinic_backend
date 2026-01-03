@@ -1,138 +1,70 @@
-/**
- * Refresh Token Repository for Data Access
- * 
- * This repository provides a centralized data access layer for all refresh token-related operations.
- * It abstracts database interactions for refresh tokens, providing a consistent interface
- * for the token service.
- */
+const { DataTypes, Model } = require('sequelize');
+const { sequelize } = require('../config/database');
+const User = require('./User');
+const Admin = require('./Admin');
 
-const { RefreshToken } = require('../../models/index');
-const { Op } = require('sequelize');
+class RefreshToken extends Model {}
 
-class RefreshTokenRepository {
-  // Store refresh token
-  async storeRefreshToken(token, userIdParam, adminIdParam, expiresAtParam) {
-    try {
-      // Log parameters for debugging
-      console.log('Creating refresh token with data:', {
-        token,
-        userId: userIdParam,
-        adminId: adminIdParam,
-        expiresAt: expiresAtParam
-      });
-      
-      // Build the data object, omitting null values to avoid database constraints
-      const data = { token, expiresAt: expiresAtParam };
-      
-      // Only include userId if it's not null
-      if (userIdParam !== null) {
-        data.userId = userIdParam;
-      }
-      
-      // Only include adminId if it's not null
-      if (adminIdParam !== null) {
-        data.adminId = adminIdParam;
-      }
-      
-      const refreshToken = await RefreshToken.create(data);
-      
-      return refreshToken;
-    } catch (error) {
-      console.error('Error creating refresh token:', error);
-      throw new Error('Failed to store refresh token: ' + error.message);
-    }
+RefreshToken.init({
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+    field: 'id'
+  },
+  token: {
+    type: DataTypes.STRING(500),
+    allowNull: false,
+    unique: true,
+    field: 'token'
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    field: 'user_id',
+    references: {
+      model: User,
+      key: 'user_id'
+    },
+    onDelete: 'CASCADE'
+  },
+  adminId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    field: 'admin_id',
+    references: {
+      model: Admin,
+      key: 'user_id'
+    },
+    onDelete: 'CASCADE'
+  },
+  expiresAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    field: 'expires_at'
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+    field: 'created_at'
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+    field: 'updated_at'
   }
+}, {
+  sequelize,
+  modelName: 'RefreshToken',
+  tableName: 'refresh_tokens',
+  timestamps: true
+});
 
-  // Get refresh token by token value
-  async getRefreshTokenByToken(token) {
-    try {
-      const refreshToken = await RefreshToken.findOne({
-        where: { token }
-      });
-      
-      return refreshToken;
-    } catch (error) {
-      throw new Error('Failed to get refresh token: ' + error.message);
-    }
-  }
+// Define associations
+RefreshToken.belongsTo(User, { foreignKey: 'userId' });
+User.hasMany(RefreshToken, { foreignKey: 'userId' });
 
-  // Get refresh tokens by user ID
-  async getRefreshTokensByUserId(userIdParam, adminIdParam) {
-    try {
-      const whereClause = {};
-      
-      // Only include the non-null ID field in the query
-      if (userIdParam !== null && userIdParam !== undefined) {
-        whereClause.userId = userIdParam;
-      } else if (adminIdParam !== null && adminIdParam !== undefined) {
-        whereClause.adminId = adminIdParam;
-      } else {
-        throw new Error('Either userId or adminId must be provided');
-      }
-      
-      const refreshTokens = await RefreshToken.findAll({
-        where: whereClause
-      });
-      
-      return refreshTokens;
-    } catch (error) {
-      throw new Error('Failed to get refresh tokens: ' + error.message);
-    }
-  }
+RefreshToken.belongsTo(Admin, { foreignKey: 'adminId' });
+Admin.hasMany(RefreshToken, { foreignKey: 'adminId' });
 
-  // Delete refresh token by token value
-  async deleteRefreshTokenByToken(token) {
-    try {
-      await RefreshToken.destroy({
-        where: { token }
-      });
-      
-      return true;
-    } catch (error) {
-      throw new Error('Failed to delete refresh token: ' + error.message);
-    }
-  }
-
-  // Delete refresh tokens by user ID
-  async deleteRefreshTokensByUserId(userIdParam, adminIdParam) {
-    try {
-      const whereClause = {};
-      
-      // Only include the non-null ID field in the query
-      if (userIdParam !== null && userIdParam !== undefined) {
-        whereClause.userId = userIdParam;
-      } else if (adminIdParam !== null && adminIdParam !== undefined) {
-        whereClause.adminId = adminIdParam;
-      } else {
-        throw new Error('Either userId or adminId must be provided');
-      }
-      
-      await RefreshToken.destroy({
-        where: whereClause
-      });
-      
-      return true;
-    } catch (error) {
-      throw new Error('Failed to delete refresh tokens: ' + error.message);
-    }
-  }
-
-  // Clean up expired refresh tokens
-  async cleanupExpiredTokens() {
-    try {
-      const deletedCount = await RefreshToken.destroy({
-        where: {
-          expiresAt: {
-            [Op.lt]: new Date()
-          }
-        }
-      });
-      
-      return deletedCount;
-    } catch (error) {
-      throw new Error('Failed to clean up expired refresh tokens: ' + error.message);
-    }
-  }
-}
-
-module.exports = new RefreshTokenRepository();
+module.exports = RefreshToken;
