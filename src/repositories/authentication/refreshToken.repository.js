@@ -21,18 +21,19 @@ class RefreshTokenRepository {
         expiresAt: expiresAtParam
       });
       
-      // Build the data object, omitting null values to avoid database constraints
-      const data = { token, expiresAt: expiresAtParam };
-      
-      // Only include userId if it's not null
-      if (userIdParam !== null) {
-        data.userId = userIdParam;
+      // Validate that exactly one of userId or adminId is provided (satisfies database constraint)
+      if ((userIdParam === null && adminIdParam === null) || 
+          (userIdParam !== null && adminIdParam !== null)) {
+        throw new Error('Exactly one of userId or adminId must be provided');
       }
       
-      // Only include adminId if it's not null
-      if (adminIdParam !== null) {
-        data.adminId = adminIdParam;
-      }
+      // Build the data object using model attribute names for proper field mapping
+      const data = {
+        token,
+        expiresAt: expiresAtParam,
+        userId: userIdParam,
+        adminId: adminIdParam
+      };
       
       const refreshToken = await RefreshToken.create(data);
       
@@ -59,6 +60,12 @@ class RefreshTokenRepository {
   // Get refresh tokens by user ID
   async getRefreshTokensByUserId(userIdParam, adminIdParam) {
     try {
+      // Validate that exactly one of userId or adminId is provided
+      if ((userIdParam === null && adminIdParam === null) || 
+          (userIdParam !== null && adminIdParam !== null)) {
+        throw new Error('Exactly one of userId or adminId must be provided');
+      }
+      
       const refreshTokens = await RefreshToken.findAll({
         where: {
           userId: userIdParam,
@@ -88,6 +95,12 @@ class RefreshTokenRepository {
   // Delete refresh tokens by user ID
   async deleteRefreshTokensByUserId(userIdParam, adminIdParam) {
     try {
+      // Validate that exactly one of userId or adminId is provided
+      if ((userIdParam === null && adminIdParam === null) || 
+          (userIdParam !== null && adminIdParam !== null)) {
+        throw new Error('Exactly one of userId or adminId must be provided');
+      }
+      
       await RefreshToken.destroy({
         where: {
           userId: userIdParam,
