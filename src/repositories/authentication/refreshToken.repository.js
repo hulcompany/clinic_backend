@@ -43,9 +43,7 @@ class RefreshTokenRepository {
         attributes.userId = null;
       }
       
-      const refreshToken = await RefreshToken.create(attributes, {
-        validate: false // Skip validation to prevent interference with our constraint handling
-      });
+      const refreshToken = await RefreshToken.create(attributes);
       
       return refreshToken;
     } catch (error) {
