@@ -59,11 +59,19 @@ class RefreshTokenRepository {
   // Get refresh tokens by user ID
   async getRefreshTokensByUserId(userIdParam, adminIdParam) {
     try {
+      const whereClause = {};
+      
+      // Only include the non-null ID field in the query
+      if (userIdParam !== null && userIdParam !== undefined) {
+        whereClause.userId = userIdParam;
+      } else if (adminIdParam !== null && adminIdParam !== undefined) {
+        whereClause.adminId = adminIdParam;
+      } else {
+        throw new Error('Either userId or adminId must be provided');
+      }
+      
       const refreshTokens = await RefreshToken.findAll({
-        where: {
-          userId: userIdParam,
-          adminId: adminIdParam
-        }
+        where: whereClause
       });
       
       return refreshTokens;
@@ -88,11 +96,19 @@ class RefreshTokenRepository {
   // Delete refresh tokens by user ID
   async deleteRefreshTokensByUserId(userIdParam, adminIdParam) {
     try {
+      const whereClause = {};
+      
+      // Only include the non-null ID field in the query
+      if (userIdParam !== null && userIdParam !== undefined) {
+        whereClause.userId = userIdParam;
+      } else if (adminIdParam !== null && adminIdParam !== undefined) {
+        whereClause.adminId = adminIdParam;
+      } else {
+        throw new Error('Either userId or adminId must be provided');
+      }
+      
       await RefreshToken.destroy({
-        where: {
-          userId: userIdParam,
-          adminId: adminIdParam
-        }
+        where: whereClause
       });
       
       return true;
