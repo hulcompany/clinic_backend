@@ -21,21 +21,17 @@ class RefreshTokenRepository {
         expiresAt: expiresAtParam
       });
       
-      // Build the data object, ensuring exactly one ID field is set based on the input parameters
-      const data = {
-        token,
-        expiresAt: expiresAtParam
-      };
+      // Build the data object, omitting null values to avoid database constraints
+      const data = { token, expiresAt: expiresAtParam };
       
-      // Only set the appropriate ID field to satisfy the database constraint
-      if (userIdParam !== null && userIdParam !== undefined) {
+      // Only include userId if it's not null
+      if (userIdParam !== null) {
         data.userId = userIdParam;
-        data.adminId = null;
-      } else if (adminIdParam !== null && adminIdParam !== undefined) {
+      }
+      
+      // Only include adminId if it's not null
+      if (adminIdParam !== null) {
         data.adminId = adminIdParam;
-        data.userId = null;
-      } else {
-        throw new Error('Either userId or adminId must be provided');
       }
       
       const refreshToken = await RefreshToken.create(data);
