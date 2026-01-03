@@ -21,19 +21,23 @@ class RefreshTokenRepository {
         expiresAt: expiresAtParam
       });
       
-      // Build the data object with proper field mapping
-      // Ensure we always provide values for both userId and adminId to satisfy database constraint
+      // Validate that exactly one of userId or adminId is provided (satisfies database constraint)
+      if ((userIdParam === null && adminIdParam === null) || 
+          (userIdParam !== null && adminIdParam !== null)) {
+        throw new Error('Exactly one of userId or adminId must be provided');
+      }
+      
+      // Build the data object using model attribute names for proper field mapping
       const data = {
         token,
-        expiresAt: expiresAtParam,
-        userId: userIdParam || null,
-        adminId: adminIdParam || null
+        expiresAt: expiresAtParam
       };
       
-      // Validate that exactly one of userId or adminId is provided (satisfies database constraint)
-      if ((data.userId === null && data.adminId === null) || 
-          (data.userId !== null && data.adminId !== null)) {
-        throw new Error('Exactly one of userId or adminId must be provided');
+      // Include only the appropriate ID field to satisfy the database constraint
+      if (userIdParam !== null) {
+        data.userId = userIdParam;
+      } else {
+        data.adminId = adminIdParam;
       }
       
       const refreshToken = await RefreshToken.create(data);
@@ -69,8 +73,8 @@ class RefreshTokenRepository {
       
       const refreshTokens = await RefreshToken.findAll({
         where: {
-          user_id: userIdParam,
-          admin_id: adminIdParam
+          userId: userIdParam,
+          adminId: adminIdParam
         }
       });
       
@@ -104,8 +108,8 @@ class RefreshTokenRepository {
       
       await RefreshToken.destroy({
         where: {
-          user_id: userIdParam,
-          admin_id: adminIdParam
+          userId: userIdParam,
+          adminId: adminIdParam
         }
       });
       
