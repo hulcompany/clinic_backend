@@ -21,6 +21,12 @@ class RefreshTokenRepository {
         expiresAt: expiresAtParam
       });
       
+      // Validate that exactly one of userId or adminId is provided (satisfies database constraint)
+      if ((userIdParam === null && adminIdParam === null) || 
+          (userIdParam !== null && adminIdParam !== null)) {
+        throw new Error('Exactly one of userId or adminId must be provided');
+      }
+      
       // Build the data object, omitting null values to avoid database constraints
       const data = { token, expiresAt: expiresAtParam };
       
