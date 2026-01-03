@@ -21,20 +21,24 @@ class RefreshTokenRepository {
         expiresAt: expiresAtParam
       });
       
-      // Use raw query to ensure proper insertion that satisfies the database constraint
-      const result = await RefreshToken.sequelize.query(
-        'INSERT INTO refresh_tokens (token, user_id, admin_id, expires_at) VALUES (?, ?, ?, ?)',
-        {
-          replacements: [token, userIdParam, adminIdParam, expiresAtParam],
-          type: RefreshToken.sequelize.QueryTypes.INSERT
-        }
-      );
+      // Build the data object, ensuring exactly one ID field is set based on the input parameters
+      const data = {
+        token,
+        expiresAt: expiresAtParam
+      };
       
-      // Fetch the created record to return
-      const refreshToken = await RefreshToken.findOne({
-        where: { token: token },
-        order: [['createdAt', 'DESC']]
-      });
+      // Only set the appropriate ID field to satisfy the database constraint
+      if (userIdParam !== null && userIdParam !== undefined) {
+        data.userId = userIdParam;
+        data.adminId = null;
+      } else if (adminIdParam !== null && adminIdParam !== undefined) {
+        data.adminId = adminIdParam;
+        data.userId = null;
+      } else {
+        throw new Error('Either userId or adminId must be provided');
+      }
+      
+      const refreshToken = await RefreshToken.create(data);
       
       return refreshToken;
     } catch (error) {
