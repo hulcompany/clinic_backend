@@ -21,22 +21,12 @@ RefreshToken.init({
   userId: {
     type: DataTypes.INTEGER,
     allowNull: true,
-    field: 'user_id',
-    references: {
-      model: User,
-      key: 'user_id'
-    },
-    onDelete: 'CASCADE'
+    field: 'user_id'
   },
   adminId: {
     type: DataTypes.INTEGER,
     allowNull: true,
-    field: 'admin_id',
-    references: {
-      model: Admin,
-      key: 'user_id'
-    },
-    onDelete: 'CASCADE'
+    field: 'admin_id'
   },
   expiresAt: {
     type: DataTypes.DATE,
@@ -61,10 +51,10 @@ RefreshToken.init({
 });
 
 // Define associations
-RefreshToken.belongsTo(User, { foreignKey: 'userId' });
+RefreshToken.belongsTo(User, { foreignKey: 'userId', constraints: false });
 User.hasMany(RefreshToken, { foreignKey: 'userId' });
 
-RefreshToken.belongsTo(Admin, { foreignKey: 'adminId' });
+RefreshToken.belongsTo(Admin, { foreignKey: 'adminId', constraints: false });
 Admin.hasMany(RefreshToken, { foreignKey: 'adminId' });
 
 module.exports = RefreshToken;
