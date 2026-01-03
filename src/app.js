@@ -38,41 +38,48 @@ app.use('/public', express.static(path.join(__dirname, '../public')));
 
 // Initialize Passport
 app.use(passport.initialize());
-
+ 
 // Basic Middleware
-app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-            styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"],
-            scriptSrc: ["'self'", "https://cdn.jsdelivr.net"],
-            connectSrc: [
-                "'self'",
-                "https://samialhasan.com",
-                "http://localhost:3000",
-                "http://localhost:4000",
-                "http://localhost:4001"
-            ]
-        }
-    }
-}));
-
-app.use(cors({
-    origin: [
+const allowedOrigins = [
         "https://samialhasan.com",
+        "https://www.samialhasan.com",
         "http://localhost:3666",
         "http://localhost:3000",
         "http://localhost:4000",
         "http://localhost:4001",
         "http://localhost:3001"
-    ],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "x-access-token"]
+];
+app.set("trust proxy", 1);
+app.use(helmet({
+  contentSecurityPolicy: false,
+  crossOriginEmbedderPolicy: false
+}));
+
+
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // السماح لـ server-side requests
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: [
+    "Content-Type",
+    "Authorization",
+    "X-Requested-With"
+  ]
 }));
 
 // Support for preflight OPTIONS requests
 app.options("*", cors());
+
 
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
@@ -237,6 +244,7 @@ module.exports = app;
 
 
 //npx sequelize-cli db:migrate --name xxx.js
+
 
 
 
