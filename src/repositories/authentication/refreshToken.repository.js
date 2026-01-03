@@ -21,13 +21,18 @@ class RefreshTokenRepository {
         expiresAt: expiresAtParam
       });
       
-      // Build the data object, including both fields with proper null values
+      // Build the data object, including only the appropriate ID field to satisfy the database constraint
       const data = {
         token,
-        expiresAt: expiresAtParam,
-        userId: userIdParam,
-        adminId: adminIdParam
+        expiresAt: expiresAtParam
       };
+      
+      // Include only the non-null ID field
+      if (userIdParam !== null) {
+        data.userId = userIdParam;
+      } else if (adminIdParam !== null) {
+        data.adminId = adminIdParam;
+      }
       
       const refreshToken = await RefreshToken.create(data);
       
