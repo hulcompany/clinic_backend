@@ -21,12 +21,22 @@ RefreshToken.init({
   userId: {
     type: DataTypes.INTEGER,
     allowNull: true,
-    field: 'user_id'
+    field: 'user_id',
+    references: {
+      model: User,
+      key: 'user_id'
+    },
+    onDelete: 'CASCADE'
   },
   adminId: {
     type: DataTypes.INTEGER,
     allowNull: true,
-    field: 'admin_id'
+    field: 'admin_id',
+    references: {
+      model: Admin,
+      key: 'user_id'
+    },
+    onDelete: 'CASCADE'
   },
   expiresAt: {
     type: DataTypes.DATE,
