@@ -62,10 +62,20 @@ class AdminService {
    */
   async loginAdmin(credentials) {
     try {
-      const { email, password } = credentials;
+      const { email, phone, password } = credentials;
 
-      // Find admin by email
-      const admin = await adminRepository.getAdminByEmail(email);
+      // Validate that either email or phone is provided
+      if (!email && !phone) {
+        throw new AppError('Either email or phone number must be provided', 400);
+      }
+
+      // Find admin by email or phone
+      let admin = null;
+      if (email) {
+        admin = await adminRepository.getAdminByEmail(email);
+      } else if (phone) {
+        admin = await adminRepository.getAdminByPhone(phone);
+      }
 
       // Check if admin exists
       if (!admin) {
@@ -81,7 +91,7 @@ class AdminService {
 
       // Check if admin account is active/verified
       if (!admin.is_active) {
-        throw new AppError('Please verify your email before logging in', 401);
+        throw new AppError('Please verify your email or phone before logging in', 401);
       }
 
       // Remove password from response
