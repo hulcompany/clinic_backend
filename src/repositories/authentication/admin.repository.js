@@ -35,6 +35,19 @@ class AdminRepository {
     }
   }
 
+  // Get admin by phone
+  async getAdminByPhone(phone) {
+    try {
+      const admin = await Admin.findOne({
+        where: { phone }
+      });
+      
+      return admin;
+    } catch (error) {
+      throw new Error('Failed to get admin by phone: ' + error.message);
+    }
+  }
+
   // Get all admins with pagination
   async getAllAdmins(page = 1, limit = 20) {
     try {
