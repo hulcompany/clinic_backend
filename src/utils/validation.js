@@ -29,12 +29,24 @@ const registerSchema = Joi.object({
 
 // Validation schema for user login
 const loginSchema = Joi.object({
-  email: Joi.string().required().messages({
-    'string.empty': 'Email or phone number is required'
+  email: Joi.string().email().optional().messages({
+    'string.email': 'Please provide a valid email address'
+  }),
+  phone: Joi.string().min(10).max(20).optional().messages({
+    'string.min': 'Phone number must be at least 10 characters long',
+    'string.max': 'Phone number cannot be more than 20 characters long'
   }),
   password: Joi.string().required().messages({
     'string.empty': 'Password is required'
   })
+}).custom((value, helpers) => {
+  // Custom validation to ensure either email or phone is provided
+  if (!value.email && !value.phone) {
+    return helpers.error('any.invalid');
+  }
+  return value;
+}).messages({
+  'any.invalid': 'Either email or phone number must be provided'
 });
 
 // Validation schema for OTP verification
