@@ -42,14 +42,19 @@ const registerUser = async (userData) => {
 
 // Login user
 const loginUser = async (credentials) => {
-  const { email, password } = credentials;
+  const { email, phone, password } = credentials;
+
+  // Validate that either email or phone is provided
+  if (!email && !phone) {
+    throw new Error('Either email or phone number must be provided');
+  }
 
   // Find user by email or phone
   let user = null;
-  if (email.includes('@')) {
+  if (email) {
     user = await userRepository.getUserByEmail(email);
-  } else {
-    user = await userRepository.getUserByPhone(email);
+  } else if (phone) {
+    user = await userRepository.getUserByPhone(phone);
   }
 
   if (!user) {
@@ -70,7 +75,7 @@ const loginUser = async (credentials) => {
 
   // Check if user account is active/verified
   if (!user.is_active) {
-    throw new Error('Please verify your email before logging in');
+    throw new Error('Please verify your email or phone before logging in');
   }
 
   return {
