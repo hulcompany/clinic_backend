@@ -139,16 +139,22 @@ const register = async (req, res, next) => {
  */
 const verifyOTP = async (req, res, next) => {
   try {
-    const { email, otpCode } = req.body;
+    const { email, phone, otpCode } = req.body;
 
     // Validate input data using Joi
-    const { error } = validateVerifyOtp({ email, otpCode });
+    const { error } = validateVerifyOtp({ email, phone, otpCode });
     if (error) {
       return failureResponse(res, error.details.map(detail => detail.message).join(', '), 400);
     }
 
-    // Find user by email
-    const user = await User.findOne({ where: { email } });
+    // Find user by email or phone
+    let user;
+    if (email) {
+      user = await User.findOne({ where: { email } });
+    } else if (phone) {
+      user = await User.findOne({ where: { phone } });
+    }
+    
     if (!user) {
       return failureResponse(res, 'User not found', 404);
     }
@@ -182,7 +188,7 @@ const verifyOTP = async (req, res, next) => {
       token: tokens.accessToken,
       refreshToken: tokens.refreshToken,
       user: formatUserResponse(updatedUser)
-    }, 'Email verified successfully');
+    }, 'Account verified successfully');
   } catch (error) {
     next(new AppError(error.message, 500));
   }
@@ -241,27 +247,32 @@ const resendOTP = async (req, res, next) => {
  */
 const login = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { email, phone, password } = req.body;
 
     // Validate input data using Joi
-    const { error } = validateLogin({ email, password });
+    const { error } = validateLogin({ email, phone, password });
     if (error) {
       return failureResponse(res, error.details.map(detail => detail.message).join(', '), 400);
     }
 
+    // Validate that either email or phone is provided
+    if (!email && !phone) {
+      return failureResponse(res, 'Either email or phone is required', 400);
+    }
+
     // Login user through auth service
-    const result = await authService.loginUser({ email, password });
+    const result = await authService.loginUser({ email, phone, password });
 
     // Check if user account is active
     if (result.user.is_active == 0 || result.user.is_active == false) {
-      return unauthorizedResponse(res, 'Please verify your email before logging in');
+      return unauthorizedResponse(res, 'Please verify your email or phone before logging in');
     }
 
     // Generate tokens
     const tokens = await handleTokens(result.user);
 
     // Reset login attempts after successful login
-    const identifier = email || req.body.phone || req.ip;
+    const identifier = email || phone || req.ip;
     resetLoginAttemptsForIdentifier(identifier);
     
     successResponse(res, {
