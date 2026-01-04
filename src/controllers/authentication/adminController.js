@@ -252,16 +252,22 @@ const register = async (req, res, next) => {
  */
 const verifyOTP = async (req, res, next) => {
   try {
-    const { email, otpCode } = req.body;
+    const { email, phone, otpCode } = req.body;
 
     // Validate input data using Joi
-    const { error } = validateVerifyOtp({ email, otpCode });
+    const { error } = validateVerifyOtp({ email, phone, otpCode });
     if (error) {
       return failureResponse(res, error.details.map(detail => detail.message).join(', '), 400);
     }
 
-    // Find admin by email
-    const admin = await Admin.findOne({ where: { email } });
+    // Find admin by email or phone
+    let admin;
+    if (email) {
+      admin = await Admin.findOne({ where: { email } });
+    } else if (phone) {
+      admin = await Admin.findOne({ where: { phone } });
+    }
+    
     if (!admin) {
       return failureResponse(res, 'Admin not found', 404);
     }
@@ -294,8 +300,8 @@ const verifyOTP = async (req, res, next) => {
     successResponse(res, {
       token: tokens.accessToken,
       refreshToken: tokens.refreshToken,
-      admin: formatAdminResponse(admin)
-    }, 'Email verified successfully. Your account is now active.');
+      admin: formatAdminResponse(updatedAdmin)
+    }, 'Account verified successfully. Your account is now active.');
   } catch (error) {
     next(new AppError(error.message, 500));
   }
@@ -359,27 +365,32 @@ const resendOTP = async (req, res, next) => {
  */
 const login = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { email, phone, password } = req.body;
 
     // Validate input data using Joi
-    const { error } = validateLogin({ email, password });
+    const { error } = validateLogin({ email, phone, password });
     if (error) {
       return failureResponse(res, error.details.map(detail => detail.message).join(', '), 400);
     }
 
+    // Validate that either email or phone is provided
+    if (!email && !phone) {
+      return failureResponse(res, 'Either email or phone is required', 400);
+    }
+
     // Login admin through admin service (includes verification check)
-    const result = await adminService.loginAdmin({ email, password });
+    const result = await adminService.loginAdmin({ email, phone, password });
 
     // Check if admin account is active
     if (result.admin.is_active == 0 || result.admin.is_active == false) {
-      return unauthorizedResponse(res, 'Please verify your email before logging in');
+      return unauthorizedResponse(res, 'Please verify your email or phone before logging in');
     }
 
     // Generate tokens
     const tokens = await handleTokens(result.admin);
 
     // Reset login attempts after successful login
-    const identifier = email || req.body.phone || req.ip;
+    const identifier = email || phone || req.ip;
     resetLoginAttemptsForIdentifier(identifier);
     
     successResponse(res, {
