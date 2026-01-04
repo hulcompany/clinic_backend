@@ -39,28 +39,60 @@ const loginSchema = Joi.object({
 
 // Validation schema for OTP verification
 const verifyOtpSchema = Joi.object({
-  email: Joi.string().email().required(),
+  email: Joi.string().email().optional(),
+  phone: Joi.string().min(10).max(20).optional(),
   otpCode: Joi.string().length(6).required()
+}).custom((value, helpers) => {
+  // Custom validation to ensure either email or phone is provided
+  if (!value.email && !value.phone) {
+    return helpers.error('any.invalid');
+  }
+  return value;
+}).messages({
+  'any.invalid': 'Either email or phone number must be provided'
 });
 
 // Validation schema for resending OTP
 const resendOtpSchema = Joi.object({
-  email: Joi.string().email().required()
+  email: Joi.string().email().optional(),
+  phone: Joi.string().min(10).max(20).optional()
+}).custom((value, helpers) => {
+  // Custom validation to ensure either email or phone is provided
+  if (!value.email && !value.phone) {
+    return helpers.error('any.invalid');
+  }
+  return value;
+}).messages({
+  'any.invalid': 'Either email or phone number must be provided'
 });
 
 // Validation schema for forgot password
 const forgotPasswordSchema = Joi.object({
-  email: Joi.string().email().required().messages({
-    'string.email': 'Please provide a valid email address',
-    'any.required': 'Email is required'
+  email: Joi.string().email().optional().messages({
+    'string.email': 'Please provide a valid email address'
+  }),
+  phone: Joi.string().min(10).max(20).optional().messages({
+    'string.min': 'Phone number must be at least 10 characters long',
+    'string.max': 'Phone number cannot be more than 20 characters long'
   })
+}).custom((value, helpers) => {
+  // Custom validation to ensure either email or phone is provided
+  if (!value.email && !value.phone) {
+    return helpers.error('any.invalid');
+  }
+  return value;
+}).messages({
+  'any.invalid': 'Either email or phone number must be provided'
 });
 
 // Validation schema for resetting password
 const resetPasswordSchema = Joi.object({
-  email: Joi.string().email().required().messages({
-    'string.email': 'Please provide a valid email address',
-    'any.required': 'Email is required'
+  email: Joi.string().email().optional().messages({
+    'string.email': 'Please provide a valid email address'
+  }),
+  phone: Joi.string().min(10).max(20).optional().messages({
+    'string.min': 'Phone number must be at least 10 characters long',
+    'string.max': 'Phone number cannot be more than 20 characters long'
   }),
   otpCode: Joi.string().length(6).pattern(/^[0-9]+$/).required().messages({
     'string.length': 'OTP code must be exactly 6 digits',
@@ -71,6 +103,14 @@ const resetPasswordSchema = Joi.object({
     'string.min': 'Password must be at least 6 characters long',
     'any.required': 'New password is required'
   })
+}).custom((value, helpers) => {
+  // Custom validation to ensure either email or phone is provided
+  if (!value.email && !value.phone) {
+    return helpers.error('any.invalid');
+  }
+  return value;
+}).messages({
+  'any.invalid': 'Either email or phone number must be provided'
 });
 
 // Validate registration data
