@@ -99,6 +99,7 @@ instances	max	1	✅ منع تكرار العمليات
         NODE_ENV: 'production',
         PORT: 4000,
         LOG_LEVEL: 'error',
+        NEXT_PORT: 4003,
         
         // ⭐⭐ إعدادات قاعدة بيانات الإنتاج ⭐⭐
         MYSQL_HOST: '127.0.0.1',
@@ -192,6 +193,7 @@ instances	max	1	✅ منع تكرار العمليات
     }
   }
 };
+
 
 
 
