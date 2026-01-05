@@ -8,6 +8,28 @@
 
 require('express-async-errors');
 require('dotenv').config();
+// =============== أضف من هنا ===============
+// Garbage Collector manual optimization
+/*
+1. مفهوم Garbage Collector (جامع القمامة) في Node.js:
+هو جزء من محرك V8 (المحرك الذي يشغل JavaScript في Node.js)
+
+وظيفته: تنظيف الذاكرة تلقائياً من الكائنات التي لم تعد مستخدمة
+الـ global.gc() مدمج في Node.js، لكنه معطل افتراضياً لأسباب أمنية.
+node --expose-gc src/app.js
+
+*/
+if (global.gc) {// 1. تحقق إذا كان GC متاحاً
+  console.log('🧹 Manual Garbage Collector enabled');
+  // تنظيف كل 10 دقائق
+  setInterval(() => {// 2. أنشئ مؤقتاً كل 10 دقائق
+    global.gc();// 3. استدعِ GC يدوياً
+    console.log('🧹 Manual garbage collection executed');
+  }, 10 * 60 * 1000);
+} else {
+  console.log('⚠️ Garbage Collector not available, run with --expose-gc');
+}
+// =============== إلى هنا ===============
 const express = require('express');
 const http = require('http');
 const helmet = require('helmet');
@@ -244,6 +266,7 @@ module.exports = app;
 
 
 //npx sequelize-cli db:migrate --name xxx.js
+
 
 
 
