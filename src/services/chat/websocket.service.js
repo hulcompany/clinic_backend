@@ -108,7 +108,7 @@ class WebSocketService {
 
   initializeSocket(server) {
     // Determine CORS origin based on environment
-    const corsOrigin = process.env.WS_CORS_ORIGIN || process.env.CLIENT_URL || process.env.DOMAIN || 'http://localhost:3000';
+    const corsOrigin = process.env.WS_CORS_ORIGIN || process.env.CLIENT_URL || process.env.DOMAIN || 'http://localhost:4002';
     
     try {
       this.io = require('socket.io')(server, {
@@ -125,14 +125,32 @@ class WebSocketService {
         pingInterval: parseInt(process.env.WS_PING_INTERVAL) || 30000,
         pingTimeout: parseInt(process.env.WS_PING_TIMEOUT) || 5000,
         // Additional production settings
+        maxHttpBufferSize: 10e6,       // 10MB بدلاً من 100KB
+        connectTimeout: 60000,         
+        serveClient: false,
+        httpCompression: true,
+        cookie: false,
         transports: ['websocket', 'polling'],
-        allowEIO3: true
+        allowEIO3: true,
+        // ⭐⭐ إضافة maxPayload للتوافق ⭐⭐
+        maxPayload: 10e6              // 10MB أيضاً
+              // ⭐⭐ إعدادات إضافية للأمان ⭐⭐
+        pingTimeout: 30000,            // 30 ثانية للملفات الكبيرة
+        upgradeTimeout: 40000,         // 40 ثانية للترقية
+        perMessageDeflate: {
+          threshold: 1024,             // ضغط الرسائل فوق 1KB
+          concurrencyLimit: 10         // تحديد التزامن
+        }
       });
       
       // Initialize monitoring service
       this.monitoringService = new WebSocketMonitoringService(this);
       
-      logger.logConnection('N/A', 'initialized', { corsOrigin });
+      logger.logConnection('N/A', 'initialized', { corsOrigin ,
+        maxBufferSize: '10MB',
+        warning: 'Large buffer size may cause memory issues' });
+          // ⭐⭐ إضافة تنظيف للذاكرة كل 5 دقائق ⭐⭐
+      this.startMemoryCleanup();
     } catch (error) {
       logger.logError(error, 'WebSocket initialization failed');
       if (this.monitoringService) {
@@ -188,6 +206,15 @@ class WebSocketService {
       if (this.monitoringService) {
         this.monitoringService.trackConnection();
       }
+        // ⭐⭐ تحديث وقت النشاط الأخير عند الاتصال ⭐⭐
+      socket.lastActivity = Date.now();
+      
+      // ⭐⭐ تتبع استخدام الذاكرة ⭐⭐
+      socket.memoryUsage = {
+        messagesSent: 0,
+        filesUploaded: 0,
+        totalDataSize: 0
+      };
 
       /**
        * ====================
@@ -294,6 +321,26 @@ class WebSocketService {
        */
       socket.on('send_message', async (data) => {
         try {
+                    // تحديث وقت النشاط
+          socket.lastActivity = Date.now();
+          
+          // ⭐⭐ تحقق من حجم الرسالة (10MB حد أقصى) ⭐⭐
+          const MAX_MESSAGE_SIZE = 10 * 1024 * 1024; // 10MB
+          const messageSize = JSON.stringify(data).length;
+          
+          if (messageSize > MAX_MESSAGE_SIZE) {
+            socket.emit('error', {
+              message: 'Message too large. Maximum size is 10MB.',
+              maxSize: '10MB',
+              actualSize: (messageSize / (1024*1024)).toFixed(2) + 'MB'
+            });
+            return;
+          }
+          
+          // تحديث تتبع الذاكرة
+          socket.memoryUsage.messagesSent++;
+          socket.memoryUsage.totalDataSize += messageSize;
+          
           // Use authenticated user ID instead of client-provided ID
           const senderId = socket.user.id;
           
@@ -352,6 +399,11 @@ class WebSocketService {
           if (this.monitoringService) {
             this.monitoringService.trackMessage();
           }
+          // ⭐⭐ تحذير إذا كانت الرسالة كبيرة ⭐⭐
+          if (messageSize > 5 * 1024 * 1024) { // أكبر من 5MB
+            console.warn(`[WEBSOCKET WARNING] Large message sent (${(messageSize/(1024*1024)).toFixed(2)}MB) by user ${senderId}`);
+          }
+          
         } catch (error) {
           handleSocketError(socket, error, `Error sending message to chat ${data?.chatId}`, 'Failed to send message');
         }
@@ -362,6 +414,35 @@ class WebSocketService {
        */
       socket.on('upload_file', async (data) => {
         try {
+                    // تحديث وقت النشاط
+          socket.lastActivity = Date.now();
+          
+          // ⭐⭐ تحقق من حجم الملف (10MB حد أقصى) ⭐⭐
+          const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+          
+          // حساب حجم الملف
+          let fileSize = 0;
+          if (data.fileSize) {
+            fileSize = data.fileSize;
+          } else if (data.fileData && data.fileData.length) {
+            fileSize = data.fileData.length;
+          } else if (data.chunkData && data.chunkData.length) {
+            fileSize = data.chunkData.length;
+          }
+          
+          if (fileSize > MAX_FILE_SIZE) {
+            socket.emit('error', {
+              message: 'File size exceeds 10MB limit. Please compress or use smaller file.',
+              maxSize: '10MB',
+              actualSize: (fileSize / (1024*1024)).toFixed(2) + 'MB'
+            });
+            return;
+          }
+          
+          // تحديث تتبع الذاكرة
+          socket.memoryUsage.filesUploaded++;
+          socket.memoryUsage.totalDataSize += fileSize;
+          
           // Use authenticated user ID
           const senderId = socket.user.id;
           
@@ -378,7 +459,10 @@ class WebSocketService {
             socket.emit('error', { message: 'You must join the chat room before uploading files' });
             return;
           }
-          
+                    // ⭐⭐ تحذير للملفات الكبيرة ⭐⭐
+          if (fileSize > 10 * 1024 * 1024) { // أكبر من 10MB
+            console.warn(`[WEBSOCKET WARNING] Large file upload (${(fileSize/(1024*1024)).toFixed(2)}MB) by user ${senderId}`);
+          }
           // In a real implementation, you would save the file to disk/storage
           // and then create a message record with the file URL
           
@@ -546,6 +630,71 @@ class WebSocketService {
         }
       });
     });
+      // ⭐⭐ تنظيف الاتصالات غير النشطة كل 5 دقائق ⭐⭐
+    this.startInactiveConnectionCleanup();
+  }
+  /**
+   * تنظيف الاتصالات غير النشطة
+   */
+  startInactiveConnectionCleanup() {
+    setInterval(() => {
+      try {
+        const sockets = this.io.sockets.sockets;
+        const now = Date.now();
+        let cleaned = 0;
+        let totalMemoryUsage = 0;
+        
+        sockets.forEach((socket) => {
+          // تنظيف الاتصالات غير النشطة لأكثر من 2 ساعة
+          if (socket.lastActivity && (now - socket.lastActivity > 2 * 60 * 60 * 1000)) {
+            socket.disconnect(true);
+            cleaned++;
+            
+            // تسجيل استخدام الذاكرة
+            if (socket.memoryUsage) {
+              totalMemoryUsage += socket.memoryUsage.totalDataSize;
+            }
+            
+            console.log(`[WEBSOCKET CLEANUP] Cleaned inactive socket after 2 hours: ${socket.id}`);
+          }
+        });
+        
+        if (cleaned > 0) {
+          console.log(`[WEBSOCKET CLEANUP] Total cleaned: ${cleaned} inactive connections`);
+          console.log(`[WEBSOCKET CLEANUP] Total memory freed: ${(totalMemoryUsage/(1024*1024)).toFixed(2)}MB`);
+        }
+      } catch (error) {
+        console.error('[WEBSOCKET CLEANUP] Error:', error.message);
+      }
+    }, 5 * 60 * 1000); // كل 5 دقائق
+  }
+  
+  /**
+   * تنظيف الذاكرة الدورية
+   */
+  startMemoryCleanup() {
+    setInterval(() => {
+      try {
+        const memoryUsage = process.memoryUsage();
+        const usedMB = Math.round(memoryUsage.heapUsed / 1024 / 1024);
+        const totalMB = Math.round(memoryUsage.heapTotal / 1024 / 1024);
+        
+        console.log(`[WEBSOCKET MEMORY] Heap used: ${usedMB}MB / ${totalMB}MB`);
+        
+        // تحذير إذا كانت الذاكرة عالية
+        if (usedMB > 300) { // أكثر من 300MB
+          console.warn(`[WEBSOCKET WARNING] High memory usage: ${usedMB}MB`);
+          
+          // محاولة إجبار GC إذا كان متاحاً
+          if (global.gc) {
+            console.log('[WEBSOCKET MEMORY] Forcing garbage collection...');
+            global.gc();
+          }
+        }
+      } catch (error) {
+        console.error('[WEBSOCKET MEMORY] Error:', error.message);
+      }
+    }, 60 * 1000); // كل دقيقة
   }
 
   // Method to emit event to specific user
@@ -562,6 +711,7 @@ class WebSocketService {
       return false;
     }
   }
+ 
 
   // Method to emit event to all users in a chat
   emitToChat(chatId, event, data) {
@@ -594,5 +744,6 @@ class WebSocketService {
     }
   }
 }
+
 
 module.exports = WebSocketService;
