@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
   apps: [
     {
@@ -97,8 +99,8 @@ module.exports = {
         MYSQL_PASSWORD: 'Driv+123o',
         
         // ⭐⭐ أسرار JWT للإنتاج ⭐⭐
-        JWT_SECRET: 'clinic_jwt_prod_secret_2024_!@#$%^&*()_change_this',
-        JWT_REFRESH_SECRET: 'clinic_refresh_secret_2024_!@#$%^&*()_change_too',
+        JWT_SECRET:process.env.JWT_SECRET || 'clinic_jwt_prod_secret_2024_!@#$%^&*()_change_this',
+        JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET || 'clinic_refresh_secret_2024_!@#$%^&*()_change_too',
                 
         // ⭐⭐ إعدادات البريد للإنتاج ⭐⭐
         SMTP_USER: 'production@samialhasan.com',
@@ -183,5 +185,6 @@ module.exports = {
     }
   }
 };
+
 
 
