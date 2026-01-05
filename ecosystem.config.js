@@ -100,7 +100,12 @@ instances	max	1	✅ منع تكرار العمليات
         PORT: 4000,
         LOG_LEVEL: 'error',
         NEXT_PORT: 4003,
-        
+
+    // ⭐⭐ أضف هذه الإعدادات الجديدة ⭐⭐
+        GC_INTERVAL: '600000', // كل 10 دقائق (600000 مللي ثانية)
+        GC_LOG_LEVEL: 'info',
+        MONITOR_MEMORY: 'true'
+          
         // ⭐⭐ إعدادات قاعدة بيانات الإنتاج ⭐⭐
         MYSQL_HOST: '127.0.0.1',
         MYSQL_USER: 'root',
@@ -193,6 +198,7 @@ instances	max	1	✅ منع تكرار العمليات
     }
   }
 };
+
 
 
 
