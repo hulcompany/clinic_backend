@@ -136,7 +136,7 @@ module.exports = {
       node_args: [
         '--max-old-space-size=4096',  // ⬅️ 4GB بدلاً من 2GB
         '--expose-gc'  // ⬅️ إضافة لتفعيل Garbage Collection يدوياً
-      ]
+      ],
 
       
       // ========== إعدادات إضافية ==========
@@ -185,6 +185,7 @@ module.exports = {
     }
   }
 };
+
 
 
 
