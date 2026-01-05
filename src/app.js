@@ -180,7 +180,7 @@ const PORT = process.env.PORT || 4000;
 const server = http.createServer(app);
 
 // Create separate HTTP server for WebSocket service
-const wsPort = process.env.WS_PORT || 4001;
+const wsPort = process.env.WS_PORT || 4002;
 const wsServer = http.createServer();
 
 // Initialize WebSocket service
@@ -244,6 +244,7 @@ module.exports = app;
 
 
 //npx sequelize-cli db:migrate --name xxx.js
+
 
 
 
