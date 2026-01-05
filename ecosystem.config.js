@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'clinic_backend',
       script: './src/app.js',
-      cwd: '/var/www/clinicsys/backend',
+      cwd: '/root/clinic-source/backend',
       instances: 'max',
       exec_mode: 'cluster',
       
@@ -41,10 +41,10 @@ module.exports = {
         TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID || '-1003519619799',
         
         // ========== مسارات الملفات والوسائط ==========
-        UPLOAD_BASE_PATH: '/var/www/clinicsys/backend/public/uploads/',
-        UPLOAD_IMAGES_PATH: '/var/www/clinicsys/backend/public/uploads/images/',
-        UPLOAD_VIDEOS_PATH: '/var/www/clinicsys/backend/public/uploads/videos/',
-        UPLOAD_AUDIOS_PATH: '/var/www/clinicsys/backend/public/uploads/audios/',
+        UPLOAD_BASE_PATH: '/root/clinic-source/backend/public/uploads/',
+        UPLOAD_IMAGES_PATH: '/root/clinic-source/backend/public/uploads/images/',
+        UPLOAD_VIDEOS_PATH: '/root/clinic-source/backend/public/uploads/videos/',
+        UPLOAD_AUDIOS_PATH: '/root/clinic-source/backend/public/uploads/audios/',
         MAX_UPLOAD_SIZE: '50mb',
         
         // ========== روابط الويب ==========
@@ -123,9 +123,9 @@ module.exports = {
       },
       
       // ========== إعدادات PM2 ==========
-      error_file: '/var/www/clinicsys/backend/logs/err.log',
-      out_file: '/var/www/clinicsys/backend/logs/out.log',
-      log_file: '/var/www/clinicsys/backend/logs/combined.log',
+      error_file: '/root/clinic-source/backend/logs/err.log',
+      out_file: '/root/clinic-source/backend/logs/out.log',
+      log_file: '/root/clinic-source/backend/logs/combined.log',
       log_date_format: 'YYYY-MM-DD HH:mm:ss',
       time: true,
       
@@ -192,3 +192,4 @@ module.exports = {
   }
 }
 };
+
