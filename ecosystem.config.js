@@ -132,9 +132,10 @@ module.exports = {
       
       // ========== إعدادات Node.js ==========
       node_args: [
-        '--max-old-space-size=2048' // ⬅️ خففت من 4096 إلى 2048
-        // ⬅️ حذفت '--inspect=0.0.0.0:9229' لتجنب مشاكل المنافذ
-      ],
+        '--max-old-space-size=4096',  // ⬅️ 4GB بدلاً من 2GB
+        '--expose-gc'  // ⬅️ إضافة لتفعيل Garbage Collection يدوياً
+      ]
+
       
       // ========== إعدادات إضافية ==========
       autorestart: true,
@@ -182,4 +183,5 @@ module.exports = {
     }
   }
 };
+
 
