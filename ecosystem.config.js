@@ -104,7 +104,7 @@ instances	max	1	✅ منع تكرار العمليات
     // ⭐⭐ أضف هذه الإعدادات الجديدة ⭐⭐
         GC_INTERVAL: '600000', // كل 10 دقائق (600000 مللي ثانية)
         GC_LOG_LEVEL: 'info',
-        MONITOR_MEMORY: 'true'
+        MONITOR_MEMORY: 'true',
           
         // ⭐⭐ إعدادات قاعدة بيانات الإنتاج ⭐⭐
         MYSQL_HOST: '127.0.0.1',
@@ -198,6 +198,7 @@ instances	max	1	✅ منع تكرار العمليات
     }
   }
 };
+
 
 
 
