@@ -58,8 +58,8 @@ module.exports = {
         // ========== WebSocket ==========
         WS_PORT: 4002,
         WS_CORS_ORIGIN: 'https://samialhasan.com',
-        WS_PING_INTERVAL: 30000,
-        WS_PING_TIMEOUT: 5000,
+        WS_PING_INTERVAL: 15000,
+        WS_PING_TIMEOUT: 30000,
         
         // ========== إعدادات التطبيق ==========
         APP_NAME: 'Clinic Management System',
@@ -134,7 +134,7 @@ module.exports = {
       
       // ========== إعدادات Node.js ==========
       node_args: [
-        '--max-old-space-size=4096',  // ⬅️ 4GB بدلاً من 2GB
+        '--max-old-space-size=256',  // ⬅️ 256MB بدلاً من 4GB (كان كبيراً جداً)
         '--expose-gc'  // ⬅️ إضافة لتفعيل Garbage Collection يدوياً
       ],
 
@@ -185,6 +185,7 @@ module.exports = {
     }
   }
 };
+
 
 
 
