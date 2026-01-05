@@ -4,8 +4,8 @@ module.exports = {
       name: 'clinic_backend',
       script: './src/app.js',
       cwd: '/root/clinic-source/backend',
-      instances: 'max',
-      exec_mode: 'cluster',
+      instances: 1, // ⬅️ غير من 'max' إلى 1 لتجنب مشاكل الذاكرة
+      exec_mode: 'fork', // ⬅️ غير من 'cluster' إلى 'fork' للتشخيص الأسهل
       
       // ⭐⭐ الإعدادات العامة ⭐⭐
       env: {
@@ -14,31 +14,31 @@ module.exports = {
         PORT: 4000,
         HOST: '0.0.0.0',
         
-        // ========== إعدادات قاعدة البيانات ⭐⭐(عدل هذه القيم)⭐⭐ ==========
+        // ========== إعدادات قاعدة البيانات ⭐⭐(تم التعديل)⭐⭐ ==========
         MYSQL_HOST: '127.0.0.1',
         MYSQL_PORT: 3306,
-        MYSQL_USER: 'root',                    // ⭐⭐ غير إلى مستخدمك ⭐⭐
-        MYSQL_PASSWORD: 'Driv+123o',     // ⭐⭐ غير إلى كلمة مرور قوية ⭐⭐
+        MYSQL_USER: 'root',
+        MYSQL_PASSWORD: 'Driv+123o',
         MYSQL_DATABASE: 'clinic_db',
         MYSQL_CONNECTION_LIMIT: 10,
         MYSQL_CHARSET: 'utf8mb4',
         
-        // ========== JWT وإعدادات المصادقة ⭐⭐(غير هذه الأسرار)⭐⭐ ==========
+        // ========== JWT وإعدادات المصادقة ⭐⭐(تم التعديل)⭐⭐ ==========
         JWT_SECRET: 'clinic_jwt_prod_secret_2024_!@#$%^&*()_change_this',
         JWT_EXPIRE: '3h',
         JWT_REFRESH_SECRET: 'clinic_refresh_secret_2024_!@#$%^&*()_change_too',
         JWT_REFRESH_EXPIRE: '30d',
         
-        // ========== إعدادات البريد الإلكتروني ⭐⭐(أدخل بياناتك الحقيقية)⭐⭐ ==========
+        // ========== إعدادات البريد الإلكتروني ⭐⭐(عدل حسب حاجتك)⭐⭐ ==========
         SMTP_HOST: 'smtp.gmail.com',
         SMTP_PORT: 587,
         SMTP_SECURE: false,
-        SMTP_USER: 'your-email@gmail.com',            // ⭐⭐ غير إلى إيميلك ⭐⭐
-        SMTP_PASS: 'your-app-specific-password',      // ⭐⭐ غير إلى كلمة مرور التطبيق ⭐⭐
+        SMTP_USER: 'your-email@gmail.com',
+        SMTP_PASS: 'your-app-specific-password',
         EMAIL_FROM: 'noreply@samialhasan.com',
         EMAIL_REPLY_TO: 'support@samialhasan.com',
-        TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN || '8550372816:AAGS3-1WB2YBo70g63_RBrH1rjYWYXpCJS8',
-        TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID || '-1003519619799',
+        TELEGRAM_BOT_TOKEN: '8550372816:AAGS3-1WB2YBo70g63_RBrH1rjYWYXpCJS8',
+        TELEGRAM_CHAT_ID: '-1003519619799',
         
         // ========== مسارات الملفات والوسائط ==========
         UPLOAD_BASE_PATH: '/root/clinic-source/backend/public/uploads/',
@@ -54,7 +54,7 @@ module.exports = {
         API_VERSION: 'v1',
         
         // ========== WebSocket ==========
-        WS_PORT: 4002,                                // ⭐⭐ غير من   4002 ⭐⭐
+        WS_PORT: 4002,
         WS_CORS_ORIGIN: 'https://samialhasan.com',
         WS_PING_INTERVAL: 30000,
         WS_PING_TIMEOUT: 5000,
@@ -65,25 +65,18 @@ module.exports = {
         TIMEZONE: 'Europe/London',
         LOG_LEVEL: 'debug',
         
-        // ========== إعدادات الأمان ⭐⭐(غير هذه القيم)⭐⭐ ==========
-        // معناه: 100 طلب في الدقيقة لكل IP
-        // لمنع: هجمات DDoS، Brute Force، إساءة استخدام API
+        // ========== إعدادات الأمان ==========
         API_RATE_LIMIT: 100,
-        //   قوة تشفير كلمات المرور  
-       // 12 = 2^12 = 4096 دورة تشفير
-       // كلما زاد الرقم = أقوى ولكن أبطأ
-       //   في bcrypt
         PASSWORD_SALT_ROUNDS: 10,
-        // يستخدم لتشفير: بيانات بطاقات الائتمان، رسائل خاصة، ملفات حساسة
         CRYPTO_SECRET_KEY: 'k5G8fL2pQ9wR1tY7uI3oP6aZ4xV0cN9bM',
         
         // ========== إعدادات التخزين المؤقت ==========
         REDIS_HOST: 'localhost',
         REDIS_PORT: 6379,
-        REDIS_PASSWORD: '',                           // ⭐⭐ إذا كان لديك Redis ⭐⭐
+        REDIS_PASSWORD: '',
         CACHE_TTL: 3600,
         
-        // ========== خدمات خارجية (API Keys) ⭐⭐(أضف مفاتيحك)⭐⭐ ==========
+        // ========== خدمات خارجية (API Keys) ==========
         GOOGLE_API_KEY: '',
         STRIPE_SECRET_KEY: '',
         AWS_ACCESS_KEY_ID: '',
@@ -95,31 +88,32 @@ module.exports = {
       // ⭐⭐ إعدادات الإنتاج (تتجاوز الإعدادات العامة) ⭐⭐
       env_production: {
         NODE_ENV: 'production',
-        PORT: 4000,                                   // ⭐⭐ تأكد أنه 4000 ⭐⭐
+        PORT: 4000,
         LOG_LEVEL: 'error',
         
         // ⭐⭐ إعدادات قاعدة بيانات الإنتاج ⭐⭐
         MYSQL_HOST: '127.0.0.1',
-        MYSQL_USER: 'root',               // ⭐⭐ مستخدم مختلف للإنتاج ⭐⭐
-        MYSQL_PASSWORD: 'Driv+123o',      // ⭐⭐ كلمة مرور أقوى ⭐⭐
+        MYSQL_USER: 'root',
+        MYSQL_PASSWORD: 'Driv+123o',
         
-        // ⭐⭐ أسرار JWT للإنتاج (مختلفة عن التطوير) ⭐⭐
+        // ⭐⭐ أسرار JWT للإنتاج ⭐⭐
         JWT_SECRET: 'clinic_prod_jwt_2025_' + require('crypto').randomBytes(32).toString('hex'),
         JWT_REFRESH_SECRET: 'clinic_prod_refresh_20245_' + require('crypto').randomBytes(32).toString('hex'),
         
         // ⭐⭐ إعدادات البريد للإنتاج ⭐⭐
-        SMTP_USER: 'production@samialhasan.com',      // ⭐⭐ إيميل الإنتاج ⭐⭐
+        SMTP_USER: 'production@samialhasan.com',
         SMTP_PASS: 'ProdEmailPass123!@#',
         
-        TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN || '8550372816:AAGS3-1WB2YBo70g63_RBrH1rjYWYXpCJS8',
-        TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID || '-1003519619799',
+        TELEGRAM_BOT_TOKEN: '8550372816:AAGS3-1WB2YBo70g63_RBrH1rjYWYXpCJS8',
+        TELEGRAM_CHAT_ID: '-1003519619799',
+        
         // ⭐⭐ WebSocket للإنتاج ⭐⭐
-        WS_PORT: 4002,                                // ⭐⭐ تأكد أنه 4002 ⭐⭐
+        WS_PORT: 4002,
         
         // ⭐⭐ إعدادات المراقبة ⭐⭐
         LOG_LEVEL: 'warn',
         ENABLE_METRICS: true,
-        SENTRY_DSN: ''                                // ⭐⭐ أضف DSN إذا كنت تستخدم Sentry ⭐⭐
+        SENTRY_DSN: ''
       },
       
       // ========== إعدادات PM2 ==========
@@ -132,16 +126,15 @@ module.exports = {
       // ========== إعدادات الأداء ==========
       max_restarts: 10,
       min_uptime: '30s',
-      max_memory_restart: '2G',
+      max_memory_restart: '1G', // ⬅️ خففت من 2G إلى 1G
       kill_timeout: 5000,
       listen_timeout: 8000,
       
       // ========== إعدادات Node.js ==========
       node_args: [
-        '--max-old-space-size=4096',
-        '--inspect=0.0.0.0:9229'
+        '--max-old-space-size=2048' // ⬅️ خففت من 4096 إلى 2048
+        // ⬅️ حذفت '--inspect=0.0.0.0:9229' لتجنب مشاكل المنافذ
       ],
-      interpreter_args: '--harmony',
       
       // ========== إعدادات إضافية ==========
       autorestart: true,
@@ -169,27 +162,23 @@ module.exports = {
         PORT: 4000,
         LOG_LEVEL: 'info'
       }
-    },
-    
-     
-     
+    }
   ],
   
   // ⭐⭐ إعدادات النشر (Deployment) ⭐⭐
   deploy: {
-  production: {
-    user: 'root',
-    host: ['72.60.129.26'],  // ⬅️ غير إلى IP سيرفرك
-    ref: 'origin/main',       // أو 'origin/master'
-    repo: 'git@github.com:hulcompany/clinic_backend.git',   
-    path: '/var/www/clinicsys/backend',
-    'pre-deploy': 'git fetch --all',
-    'post-deploy': 'npm install --production && pm2 reload ecosystem.config.js --env production',
-    env: {
-      NODE_ENV: 'production'
-    },
-    ssh_options: ['StrictHostKeyChecking=no', 'PasswordAuthentication=no']
+    production: {
+      user: 'root',
+      host: ['72.60.129.26'],
+      ref: 'origin/main',
+      repo: 'git@github.com:hulcompany/clinic_backend.git',
+      path: '/root/clinic-source/backend', // ⬅️ غير المسار إلى الجديد
+      'pre-deploy': 'git fetch --all',
+      'post-deploy': 'npm install --production && pm2 reload ecosystem.config.js --env production',
+      env: {
+        NODE_ENV: 'production'
+      },
+      ssh_options: ['StrictHostKeyChecking=no', 'PasswordAuthentication=no']
+    }
   }
-}
 };
-
