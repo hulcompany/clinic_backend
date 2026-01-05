@@ -60,7 +60,14 @@ module.exports = {
         WS_CORS_ORIGIN: 'https://samialhasan.com',
         WS_PING_INTERVAL: 15000,
         WS_PING_TIMEOUT: 30000,
-        
+        /*
+
+التعديل	من	إلى	التأثير
+max-old-space-size	4096 (4GB)	256 (256MB)	✅ قللت الذاكرة المسموحة
+WebSocket ping	30000/5000	15000/30000	✅ قللت اتصالات ping
+instances	max	1	✅ منع تكرار العمليات
+
+        */
         // ========== إعدادات التطبيق ==========
         APP_NAME: 'Clinic Management System',
         APP_VERSION: '1.0.0',
@@ -185,6 +192,7 @@ module.exports = {
     }
   }
 };
+
 
 
 
