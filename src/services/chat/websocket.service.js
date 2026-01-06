@@ -123,7 +123,7 @@ class WebSocketService {
           exposedHeaders: ['Content-Length', 'X-Requested-With']
         },
         pingInterval: parseInt(process.env.WS_PING_INTERVAL) || 30000,
-        pingTimeout: parseInt(process.env.WS_PING_TIMEOUT) || 5000,
+        pingTimeout: parseInt(process.env.WS_PING_TIMEOUT) || 30000,
         // Additional production settings
         maxHttpBufferSize: 10e6,       // 10MB بدلاً من 100KB
         connectTimeout: 60000,         
@@ -135,7 +135,6 @@ class WebSocketService {
         // ⭐⭐ إضافة maxPayload للتوافق ⭐⭐
         maxPayload: 10e6  ,            // 10MB أيضاً
               // ⭐⭐ إعدادات إضافية للأمان ⭐⭐
-        pingTimeout: 30000,            // 30 ثانية للملفات الكبيرة
         upgradeTimeout: 40000,         // 40 ثانية للترقية
         perMessageDeflate: {
           threshold: 1024,             // ضغط الرسائل فوق 1KB
@@ -747,4 +746,5 @@ class WebSocketService {
 
 
 module.exports = WebSocketService;
+
 
