@@ -133,7 +133,7 @@ class WebSocketService {
         transports: ['websocket', 'polling'],
         allowEIO3: true,
         // ⭐⭐ إضافة maxPayload للتوافق ⭐⭐
-        maxPayload: 10e6              // 10MB أيضاً
+        maxPayload: 10e6  ,            // 10MB أيضاً
               // ⭐⭐ إعدادات إضافية للأمان ⭐⭐
         pingTimeout: 30000,            // 30 ثانية للملفات الكبيرة
         upgradeTimeout: 40000,         // 40 ثانية للترقية
@@ -747,3 +747,4 @@ class WebSocketService {
 
 
 module.exports = WebSocketService;
+
