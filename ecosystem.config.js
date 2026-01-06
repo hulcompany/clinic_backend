@@ -147,7 +147,9 @@ instances	max	1	✅ منع تكرار العمليات
       
       // ========== إعدادات Node.js ==========
       node_args: [
-        '--max-old-space-size=256',  // ⬅️ 256MB بدلاً من 4GB (كان كبيراً جداً)
+        '--max-old-space-size=300',  // ⬅️ 300MB بدلاً من 4GB (كان كبيراً جداً)
+        '--min-semi-space-size=32',   // ⬅️ جديد: تحديد الحد الأدنى
+        '--max-semi-space-size=64',   // ⬅️ جديد: تحديد الحد الأقصى
         '--expose-gc'  // ⬅️ إضافة لتفعيل Garbage Collection يدوياً
       ],
 
@@ -198,6 +200,7 @@ instances	max	1	✅ منع تكرار العمليات
     }
   }
 };
+
 
 
 
