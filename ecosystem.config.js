@@ -35,13 +35,15 @@ module.exports = {
         SMTP_HOST: 'smtp.gmail.com',
         SMTP_PORT: 587,
         SMTP_SECURE: false,
-        SMTP_USER: 'your-email@gmail.com',
-        SMTP_PASS: 'your-app-specific-password',
+        SMTP_USER: 'vistsyria@gmail.com',
+        SMTP_PASS: 'ruqvxelvigdqqwkq',
         EMAIL_FROM: 'noreply@samialhasan.com',
         EMAIL_REPLY_TO: 'support@samialhasan.com',
         TELEGRAM_BOT_TOKEN: '8550372816:AAGS3-1WB2YBo70g63_RBrH1rjYWYXpCJS8',
         TELEGRAM_CHAT_ID: '-1003519619799',
-        
+
+      
+          
         // ========== مسارات الملفات والوسائط ==========
         UPLOAD_BASE_PATH: '/root/clinic-source/backend/public/uploads/',
         UPLOAD_IMAGES_PATH: '/root/clinic-source/backend/public/uploads/images/',
@@ -116,9 +118,9 @@ instances	max	1	✅ منع تكرار العمليات
         JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET || 'clinic_refresh_secret_2024_!@#$%^&*()_change_too',
                 
         // ⭐⭐ إعدادات البريد للإنتاج ⭐⭐
-        SMTP_USER: 'production@samialhasan.com',
-        SMTP_PASS: 'ProdEmailPass123!@#',
-        
+        SMTP_USER: 'vistsyria@gmail.com',
+        SMTP_PASS: 'ruqvxelvigdqqwkq',
+         
         TELEGRAM_BOT_TOKEN: '8550372816:AAGS3-1WB2YBo70g63_RBrH1rjYWYXpCJS8',
         TELEGRAM_CHAT_ID: '-1003519619799',
         
@@ -200,6 +202,7 @@ instances	max	1	✅ منع تكرار العمليات
     }
   }
 };
+
 
 
 
