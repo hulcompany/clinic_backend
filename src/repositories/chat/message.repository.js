@@ -6,13 +6,28 @@
  * for the message service.
  */
 
-const { Message } = require('../../models/index');
+const { Message, User, Admin } = require('../../models/index');
 
 class MessageRepository {
   // Get message by ID
   async getMessageById(id) {
     try {
-      const message = await Message.findByPk(id);
+            const message = await Message.findByPk(id, {
+        include: [
+          {
+            model: User,
+            as: 'SenderUser',
+            attributes: ['user_id', 'full_name', 'email', 'phone', 'image'],
+            required: false
+          },
+          {
+            model: Admin,
+            as: 'SenderAdmin',
+            attributes: ['user_id', 'full_name', 'email', 'phone', 'image'],
+            required: false
+          }
+        ]
+      });
       return message;
     } catch (error) {
       throw new Error('Failed to get message: ' + error.message);
@@ -25,6 +40,20 @@ class MessageRepository {
       const offset = (page - 1) * limit;
       const { count, rows: messages } = await Message.findAndCountAll({
         where: { chat_id },
+        include: [
+          {
+            model: User,
+            as: 'SenderUser',
+            attributes: ['user_id', 'full_name', 'email', 'phone', 'image'],
+            required: false
+          },
+          {
+            model: Admin,
+            as: 'SenderAdmin',
+            attributes: ['user_id', 'full_name', 'email', 'phone', 'image'],
+            required: false
+          }
+        ],
         order: [['created_at', 'ASC']], // Oldest first for chat display
         limit: parseInt(limit),
         offset: parseInt(offset)
@@ -110,5 +139,6 @@ class MessageRepository {
     }
   }
 }
+
 
 module.exports = new MessageRepository();
