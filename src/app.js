@@ -113,13 +113,26 @@ const limiter = rateLimit({
     standardHeaders: true,
     legacyHeaders: false,
     skipSuccessfulRequests: false,
+      // Skip rate limiting for chat endpoints
+    skip: (req) => {
+        const chatEndpoints = [
+            '/chats',
+            '/messages',
+            '/realtime-chat'
+        ];
+        
+        // Check if request URL contains any chat endpoint
+        return chatEndpoints.some(endpoint => 
+            req.url.includes(endpoint)
+        );
+    },
     message: {
         success: false,
         message: 'You have exceeded the request limit. Please try again after 15 minutes'
     }
 });
 
-// Apply Rate Limiting
+// Apply Rate Limiting (excluding chat endpoints)
 app.use('/api/', limiter);
 
 // Welcome screen
@@ -266,6 +279,7 @@ module.exports = app;
 
 
 //npx sequelize-cli db:migrate --name xxx.js
+
 
 
 
