@@ -52,6 +52,10 @@ Chat.belongsTo(Consultation, { foreignKey: 'consultation_id' });
 Chat.hasMany(Message, { foreignKey: 'chat_id' }); // Chat has many Messages
 Message.belongsTo(Chat, { foreignKey: 'chat_id' });  
 
+// Message sender associations
+Message.belongsTo(User, { foreignKey: 'sender_id', as: 'SenderUser', constraints: false }); // Message can be sent by User
+Message.belongsTo(Admin, { foreignKey: 'sender_id', as: 'SenderAdmin', constraints: false }); // Message can be sent by Admin  
+
 // Session associations
 Admin.hasMany(Session, { foreignKey: 'admin_id' }); // Admin has many Sessions
 Session.belongsTo(Admin, { foreignKey: 'admin_id' }); // Session belongs to Admin  
@@ -119,5 +123,6 @@ Object.values(models).forEach(model => {
     model.associate(models);
   }
 });
+
 
 module.exports = models;
