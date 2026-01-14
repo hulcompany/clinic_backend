@@ -21,12 +21,12 @@ class ChatRepository {
               {
                 model: User,
                 as: 'User',
-                attributes: ['user_id', 'full_name', 'email', 'phone']
+                attributes: ['user_id', 'full_name', 'email', 'phone', 'image']
               },
               {
                 model: Admin,
                 as: 'Admin',
-                attributes: ['user_id', 'full_name', 'email', 'phone']
+                attributes: ['user_id', 'full_name', 'email', 'phone', 'image']
               }
             ]
           }
@@ -52,12 +52,12 @@ class ChatRepository {
               {
                 model: User,
                 as: 'User',
-                attributes: ['user_id', 'full_name', 'email', 'phone']
+                attributes: ['user_id', 'full_name', 'email', 'phone', 'image']
               },
               {
                 model: Admin,
                 as: 'Admin',
-                attributes: ['user_id', 'full_name', 'email', 'phone']
+                attributes: ['user_id', 'full_name', 'email', 'phone', 'image']
               }
             ]
           }
@@ -97,12 +97,12 @@ class ChatRepository {
               {
                 model: User,
                 as: 'User',
-                attributes: ['user_id', 'full_name', 'email', 'phone']
+                attributes: ['user_id', 'full_name', 'email', 'phone', 'image']
               },
               {
                 model: Admin,
                 as: 'Admin',
-                attributes: ['user_id', 'full_name', 'email', 'phone']
+                attributes: ['user_id', 'full_name', 'email', 'phone', 'image']
               }
             ]
           }
@@ -142,12 +142,12 @@ class ChatRepository {
               {
                 model: User,
                 as: 'User',
-                attributes: ['user_id', 'full_name', 'email', 'phone']
+                attributes: ['user_id', 'full_name', 'email', 'phone', 'image']
               },
               {
                 model: Admin,
                 as: 'Admin',
-                attributes: ['user_id', 'full_name', 'email', 'phone']
+                attributes: ['user_id', 'full_name', 'email', 'phone', 'image']
               }
             ]
           }
@@ -277,3 +277,4 @@ class ChatRepository {
 
 
 module.exports = new ChatRepository();
+
