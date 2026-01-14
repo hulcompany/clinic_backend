@@ -17,12 +17,12 @@ class ConsultationRepository {
           {
             model: User,
             as: 'User',
-            attributes: ['user_id', 'full_name', 'email', 'phone']
+            attributes: ['user_id', 'full_name', 'email', 'phone', 'image']
           },
           {
             model: Admin,
             as: 'Admin',
-            attributes: ['user_id', 'full_name', 'email', 'phone']
+            attributes: ['user_id', 'full_name', 'email', 'phone', 'image']
           }
         ]
       });
@@ -42,12 +42,12 @@ class ConsultationRepository {
           {
             model: User,
             as: 'User',
-            attributes: ['user_id', 'full_name', 'email', 'phone']
+            attributes: ['user_id', 'full_name', 'email', 'phone', 'image']
           },
           {
             model: Admin,
             as: 'Admin',
-            attributes: ['user_id', 'full_name', 'email', 'phone']
+            attributes: ['user_id', 'full_name', 'email', 'phone', 'image']
           }
         ],
         order: [['created_at', 'DESC']],
@@ -79,12 +79,12 @@ class ConsultationRepository {
           {
             model: User,
             as: 'User',
-            attributes: ['user_id', 'full_name', 'email', 'phone']
+            attributes: ['user_id', 'full_name', 'email', 'phone', 'image']
           },
           {
             model: Admin,
             as: 'Admin',
-            attributes: ['user_id', 'full_name', 'email', 'phone']
+            attributes: ['user_id', 'full_name', 'email', 'phone', 'image']
           }
         ],
         order: [['created_at', 'DESC']],
@@ -116,12 +116,12 @@ class ConsultationRepository {
           {
             model: User,
             as: 'User',
-            attributes: ['user_id', 'full_name', 'email', 'phone']
+            attributes: ['user_id', 'full_name', 'email', 'phone', 'image']
           },
           {
             model: Admin,
             as: 'Admin',
-            attributes: ['user_id', 'full_name', 'email', 'phone']
+            attributes: ['user_id', 'full_name', 'email', 'phone', 'image']
           }
         ],
         order: [['created_at', 'DESC']],
@@ -226,5 +226,6 @@ class ConsultationRepository {
     }
   }
 }
+
 
 module.exports = new ConsultationRepository();
