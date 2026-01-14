@@ -6,7 +6,7 @@
  * for the chat and message services.
  */
 
-const { Chat, Message, Consultation } = require('../../models/index');
+const { Chat, Message, Consultation, User, Admin } = require('../../models/index');
 
 class ChatRepository {
   // Get chat by ID with associated data
@@ -16,7 +16,19 @@ class ChatRepository {
         include: [
           {
             model: Consultation,
-            as: 'Consultation'
+              as: 'Consultation',
+            include: [
+              {
+                model: User,
+                as: 'User',
+                attributes: ['user_id', 'full_name', 'email', 'phone']
+              },
+              {
+                model: Admin,
+                as: 'Admin',
+                attributes: ['user_id', 'full_name', 'email', 'phone']
+              }
+            ]
           }
         ]
       });
@@ -32,6 +44,24 @@ class ChatRepository {
     try {
       const offset = (page - 1) * limit;
       const { count, rows: chats } = await Chat.findAndCountAll({
+         include: [
+          {
+            model: Consultation,
+            as: 'Consultation',
+            include: [
+              {
+                model: User,
+                as: 'User',
+                attributes: ['user_id', 'full_name', 'email', 'phone']
+              },
+              {
+                model: Admin,
+                as: 'Admin',
+                attributes: ['user_id', 'full_name', 'email', 'phone']
+              }
+            ]
+          }
+        ],
         order: [['created_at', 'DESC']],
         limit: parseInt(limit),
         offset: parseInt(offset)
@@ -59,6 +89,24 @@ class ChatRepository {
         where: {
           consultation_id: consultationIds
         },
+         include: [
+          {
+            model: Consultation,
+            as: 'Consultation',
+            include: [
+              {
+                model: User,
+                as: 'User',
+                attributes: ['user_id', 'full_name', 'email', 'phone']
+              },
+              {
+                model: Admin,
+                as: 'Admin',
+                attributes: ['user_id', 'full_name', 'email', 'phone']
+              }
+            ]
+          }
+        ],
         order: [['created_at', 'DESC']],
         limit: parseInt(limit),
         offset: parseInt(offset)
@@ -86,7 +134,24 @@ class ChatRepository {
         include: [
           {
             model: Consultation,
-            as: 'Consultation'
+              include: [
+          {
+            model: Consultation,
+            as: 'Consultation',
+            include: [
+              {
+                model: User,
+                as: 'User',
+                attributes: ['user_id', 'full_name', 'email', 'phone']
+              },
+              {
+                model: Admin,
+                as: 'Admin',
+                attributes: ['user_id', 'full_name', 'email', 'phone']
+              }
+            ]
+          }
+        ],
           }
         ]
       });
@@ -209,5 +274,6 @@ class ChatRepository {
     }
   }
 }
+
 
 module.exports = new ChatRepository();
