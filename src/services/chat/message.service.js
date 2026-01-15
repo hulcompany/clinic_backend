@@ -126,10 +126,11 @@ class MessageService {
     }
     
     // Determine media type from file extension
-    const mediaType = filename.match(/\.(mp4|avi|mov|wmv|flv|webm|mkv)$/i) ? 'videos' : 
-                     filename.match(/\.(mp3|wav|aac|ogg|flac)$/i) ? 'audios' : 'images';
+    const mediaType = filename.match(/\.(mp4|avi|mov|flv|webm|mkv)$/i) ? 'videos' : 
+                     filename.match(/\.(mp3|wav|aac|wmv|ogg|flac)$/i) ? 'audios' : 'images';
     return buildMediaUrl(filename, mediaType, contentType);
   }
 }
+
 
 module.exports = new MessageService();
