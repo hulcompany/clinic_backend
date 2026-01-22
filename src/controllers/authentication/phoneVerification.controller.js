@@ -109,9 +109,19 @@ const completePhoneVerification = async (req, res, next) => {
       return failureResponse(res, 'لم يتم ربط هذا الرقم مع حساب تليغرام. يرجى استخدام الأمر /link في تليغرام أولاً', 400);
     }
     
-    // Get verified phone number from Telegram API
+    // Security check: Phone number must match Telegram registered number
     const telegramVerificationHandler = require('../authentication/telegramVerification.handler');
     const telegramPhoneNumber = await telegramVerificationHandler.getUserPhoneNumberFromTelegram(telegramChatId);
+    
+    if (telegramPhoneNumber) {
+      // Normalize both phone numbers for comparison
+      const normalizedInputPhone = phone.replace(/[^0-9]/g, '');
+      const normalizedTelegramPhone = telegramPhoneNumber.replace(/[^0-9]/g, '');
+      
+      if (normalizedInputPhone !== normalizedTelegramPhone) {
+        return failureResponse(res, `رقم الهاتف المدخل (${phone}) لا يتطابق مع الرقم المرتبط بحساب تليغرام (${telegramPhoneNumber}). لا يمكن التسجيل.`, 400);
+      }
+    }
     
     // Security Enhancement: Verify phone number belongs to user account
     // Use existing userAccount from above
