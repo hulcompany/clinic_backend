@@ -247,10 +247,40 @@ const registerWithPhoneVerification = async (req, res, next) => {
 };
 
 /**
- * @desc    Get verification status for phone number
- * @route   GET /api/auth/phone-verification-status/:phone
- * @access  Public
+ * @desc    Get all phone numbers linked to a Telegram user
+ * @route   GET /api/auth/user-phones/:telegramChatId
+ * @access  Admin/Super Admin
  */
+const getUserPhoneNumbers = async (req, res, next) => {
+  try {
+    const { telegramChatId } = req.params;
+    
+    if (!telegramChatId) {
+      return failureResponse(res, 'Telegram chat ID is required', 400);
+    }
+    
+    // Get all phone numbers for this Telegram user
+    const { User } = require('../../models');
+    const userPhones = await User.findAll({
+      where: { telegram_chat_id: telegramChatId },
+      attributes: ['user_id', 'full_name', 'phone', 'created_at']
+    });
+    
+    successResponse(res, {
+      telegramChatId,
+      totalAccounts: userPhones.length,
+      phoneNumbers: userPhones.map(user => ({
+        userId: user.user_id,
+        fullName: user.full_name,
+        phone: user.phone,
+        createdAt: user.created_at
+      }))
+    }, `Found ${userPhones.length} phone numbers for this Telegram user`);
+    
+  } catch (error) {
+    next(new AppError(error.message, 500));
+  }
+};
 const getPhoneVerificationStatus = async (req, res, next) => {
   try {
     const { phone } = req.params;
@@ -277,5 +307,6 @@ module.exports = {
   initiatePhoneVerification,
   completePhoneVerification,
   registerWithPhoneVerification,
-  getPhoneVerificationStatus
+  getPhoneVerificationStatus,
+  getUserPhoneNumbers
 };
