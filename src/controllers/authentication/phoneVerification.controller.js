@@ -74,6 +74,28 @@ const completePhoneVerification = async (req, res, next) => {
       return failureResponse(res, 'Invalid or expired verification token', 400);
     }
     
+    // Get verified phone number from Telegram API
+    const telegramVerificationHandler = require('../authentication/telegramVerification.handler');
+    const telegramPhoneNumber = await telegramVerificationHandler.getUserPhoneNumberFromTelegram(telegramChatId);
+    
+    if (!telegramPhoneNumber) {
+      return failureResponse(res, 'لم يتم العثور على رقم هاتف مرتبط بحسابك في Telegram. يرجى مشاركة رقم هاتفك مع البوت أولاً.', 400);
+    }
+    
+    // Verify phone number matches Telegram registered number
+    const phoneMatchResult = phoneVerificationService.verifyPhoneMatchesTelegram(phone, telegramPhoneNumber);
+    
+    if (!phoneMatchResult.matches) {
+      console.log('Phone verification failed:', phoneMatchResult);
+      return failureResponse(res, `عدم تطابق أرقام الهواتف: ${phoneMatchResult.reason}`, 400);
+    }
+    
+    console.log('Phone verification successful:', {
+      userInput: phoneMatchResult.normalizedUserPhone,
+      telegramVerified: phoneMatchResult.normalizedTelegramPhone,
+      matchType: phoneMatchResult.exactMatch ? 'exact' : 'partial'
+    });
+    
     // Link phone number to Telegram chat ID
     const linkedUser = await phoneVerificationService.linkPhoneNumberToTelegram(
       phone, 
