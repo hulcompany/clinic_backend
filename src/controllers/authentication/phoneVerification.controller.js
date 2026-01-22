@@ -263,16 +263,43 @@ const getUserPhoneNumbers = async (req, res, next) => {
     const { User } = require('../../models');
     const userPhones = await User.findAll({
       where: { telegram_chat_id: telegramChatId },
-      attributes: ['user_id', 'full_name', 'phone', 'created_at']
+      attributes: ['user_id', 'full_name', 'phone', 'email', 'created_at', 'is_active']
     });
+    
+    // Get Telegram user info
+    let telegramUserInfo = null;
+    try {
+      const telegramVerificationHandler = require('../authentication/telegramVerification.handler');
+      const chatInfo = await telegramVerificationHandler.getUserPhoneNumberFromTelegram(telegramChatId);
+      
+      // Get additional Telegram info
+      const TelegramBot = require('node-telegram-bot-api');
+      const token = process.env.TELEGRAM_BOT_TOKEN;
+      if (token) {
+        const bot = new TelegramBot(token);
+        const userInfo = await bot.getChat(telegramChatId);
+        telegramUserInfo = {
+          id: userInfo.id,
+          firstName: userInfo.first_name,
+          lastName: userInfo.last_name,
+          username: userInfo.username,
+          phoneNumber: userInfo.phone_number
+        };
+      }
+    } catch (telegramError) {
+      console.log('Could not get Telegram user info:', telegramError.message);
+    }
     
     successResponse(res, {
       telegramChatId,
+      telegramUserInfo,
       totalAccounts: userPhones.length,
       phoneNumbers: userPhones.map(user => ({
         userId: user.user_id,
         fullName: user.full_name,
         phone: user.phone,
+        email: user.email,
+        isActive: user.is_active,
         createdAt: user.created_at
       }))
     }, `Found ${userPhones.length} phone numbers for this Telegram user`);
