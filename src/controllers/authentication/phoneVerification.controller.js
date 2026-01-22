@@ -61,11 +61,11 @@ const initiatePhoneVerification = async (req, res, next) => {
  */
 const completePhoneVerification = async (req, res, next) => {
   try {
-    const { phone, token, telegramChatId, userType = 'user' } = req.body;
+    const { phone, token, userType = 'user' } = req.body;
     
     // Validate required fields
-    if (!phone || !token || !telegramChatId) {
-      return failureResponse(res, 'Phone number, token, and Telegram chat ID are required', 400);
+    if (!phone || !token) {
+      return failureResponse(res, 'Phone number and token are required', 400);
     }
     
     // Validate user type
@@ -80,18 +80,31 @@ const completePhoneVerification = async (req, res, next) => {
       return failureResponse(res, 'Invalid or expired verification token', 400);
     }
     
+    // Implicitly get telegramChatId from user account
+    const { User } = require('../../models');
+    const userAccount = await User.findOne({ 
+      where: { 
+        phone: phone,
+        is_active: true
+      } 
+    });
+    
+    if (!userAccount) {
+      return failureResponse(res, 'لم يتم العثور على حساب مرتبط بهذا الرقم', 400);
+    }
+    
+    const telegramChatId = userAccount.telegram_chat_id;
+    
+    if (!telegramChatId) {
+      return failureResponse(res, 'لم يتم ربط هذا الرقم مع حساب تليغرام. يرجى استخدام الأمر /link في تليغرام أولاً', 400);
+    }
+    
     // Get verified phone number from Telegram API
     const telegramVerificationHandler = require('../authentication/telegramVerification.handler');
     const telegramPhoneNumber = await telegramVerificationHandler.getUserPhoneNumberFromTelegram(telegramChatId);
     
     // Security Enhancement: Verify phone number belongs to user account
-    const { User } = require('../../models');
-    const userAccount = await User.findOne({ 
-      where: { 
-        telegram_chat_id: telegramChatId,
-        phone: phone  // Phone must match user's registered phone
-      } 
-    });
+    // Use existing userAccount from above
     
     if (!userAccount) {
       return failureResponse(res, 'رقم الهاتف غير مرتبط بحسابك في النظام. يرجى استخدام نفس الرقم المسجل في حسابك.', 400);
