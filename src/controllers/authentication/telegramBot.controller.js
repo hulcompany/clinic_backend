@@ -35,6 +35,29 @@ if (token) {
         const phoneNumber = messageText.split(' ')[1];
         
         if (phoneNumber) {
+          // Security check: Verify phone number matches Telegram registered number
+          try {
+            const telegramVerificationHandler = require('./telegramVerification.handler');
+            const telegramPhoneNumber = await telegramVerificationHandler.getUserPhoneNumberFromTelegram(chatId.toString());
+            
+            if (telegramPhoneNumber) {
+              // Normalize both phone numbers for comparison
+              const normalizedInputPhone = phoneNumber.replace(/[^0-9]/g, '');
+              const normalizedTelegramPhone = telegramPhoneNumber.replace(/[^0-9]/g, '');
+              
+              if (normalizedInputPhone !== normalizedTelegramPhone) {
+                await bot.sendMessage(chatId, `🔒 Security Error!
+
+The phone number you entered (${phoneNumber}) does not match your Telegram account's registered phone number (${telegramPhoneNumber}).
+
+For security reasons, you can only link accounts with matching phone numbers.`);
+                return;
+              }
+            }
+          } catch (securityError) {
+            console.log('Security check failed, proceeding with account linking check only');
+          }
+          
           // Try to find user by phone number
           let user = await User.findOne({ where: { phone: phoneNumber } });
           let admin = null;
