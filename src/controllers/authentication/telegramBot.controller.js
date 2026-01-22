@@ -40,22 +40,33 @@ if (token) {
             const telegramVerificationHandler = require('./telegramVerification.handler');
             const telegramPhoneNumber = await telegramVerificationHandler.getUserPhoneNumberFromTelegram(chatId.toString());
             
-            if (telegramPhoneNumber) {
-              // Normalize both phone numbers for comparison
-              const normalizedInputPhone = phoneNumber.replace(/[^0-9]/g, '');
-              const normalizedTelegramPhone = telegramPhoneNumber.replace(/[^0-9]/g, '');
-              
-              if (normalizedInputPhone !== normalizedTelegramPhone) {
-                await bot.sendMessage(chatId, `🔒 Security Error!
+            if (!telegramPhoneNumber) {
+              await bot.sendMessage(chatId, `🔒 Security Error!
+
+Cannot verify your Telegram account's phone number. Please make sure you have shared your phone number with this bot first.
+
+Send me your contact information or try again later.`);
+              return;
+            }
+            
+            // Normalize both phone numbers for comparison
+            const normalizedInputPhone = phoneNumber.replace(/[^0-9]/g, '');
+            const normalizedTelegramPhone = telegramPhoneNumber.replace(/[^0-9]/g, '');
+            
+            if (normalizedInputPhone !== normalizedTelegramPhone) {
+              await bot.sendMessage(chatId, `🔒 Security Error!
 
 The phone number you entered (${phoneNumber}) does not match your Telegram account's registered phone number (${telegramPhoneNumber}).
 
 For security reasons, you can only link accounts with matching phone numbers.`);
-                return;
-              }
+              return;
             }
           } catch (securityError) {
-            console.log('Security check failed, proceeding with account linking check only');
+            console.log('Security check failed:', securityError.message);
+            await bot.sendMessage(chatId, `🔒 Security Error!
+
+Unable to verify phone number matching. Please try again later or contact support.`);
+            return;
           }
           
           // Try to find user by phone number
