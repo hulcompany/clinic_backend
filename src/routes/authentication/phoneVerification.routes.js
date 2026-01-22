@@ -4,7 +4,8 @@ const {
   initiatePhoneVerification,
   completePhoneVerification,
   registerWithPhoneVerification,
-  getPhoneVerificationStatus
+  getPhoneVerificationStatus,
+  getUserPhoneNumbers
 } = require('../../controllers/authentication/phoneVerification.controller');
 
 /**
@@ -158,5 +159,28 @@ router.post('/register-with-phone', registerWithPhoneVerification);
  *         description: Internal server error
  */
 router.get('/phone-verification-status/:phone', getPhoneVerificationStatus);
+
+/**
+ * @swagger
+ * /api/auth/user-phones/{telegramChatId}:
+ *   get:
+ *     summary: Get all phone numbers linked to a Telegram user
+ *     tags: [Phone Verification]
+ *     parameters:
+ *       - in: path
+ *         name: telegramChatId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Telegram chat ID of the user
+ *     responses:
+ *       200:
+ *         description: Phone numbers retrieved successfully
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/user-phones/:telegramChatId', getUserPhoneNumbers);
 
 module.exports = router;
