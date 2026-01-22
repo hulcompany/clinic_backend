@@ -76,63 +76,56 @@ For security reasons, you can only link accounts that belong to you.`);
             return;
           }
           
-          // CRITICAL SECURITY CHECK - MUST VERIFY PHONE NUMBER MATCHES TELEGRAM
-          console.log('SECURITY CHECK: Verifying phone number matches Telegram...');
+          // REALISTIC SECURITY APPROACH - DATABASE VERIFICATION
+          console.log('SECURITY CHECK: Using database verification approach...');
           
-          // First check if we can get Telegram phone number
-          let telegramPhoneNumber = null;
-          try {
-            const telegramVerificationHandler = require('./telegramVerification.handler');
-            telegramPhoneNumber = await telegramVerificationHandler.getUserPhoneNumberFromTelegram(chatId.toString());
-            console.log('Telegram phone number retrieved:', telegramPhoneNumber);
-          } catch (error) {
-            console.log('Failed to get Telegram phone number:', error.message);
+          // First verify the phone number exists in our database
+          let dbUser = await User.findOne({ where: { phone: phoneNumber } });
+          let dbAdmin = null;
+          
+          if (!dbUser) {
+            dbAdmin = await Admin.findOne({ where: { phone: phoneNumber } });
           }
           
-          // If we can't get Telegram phone number, reject the request
-          if (!telegramPhoneNumber) {
-            await bot.sendMessage(chatId, `🔒 SECURITY ERROR!
+          if (!dbUser && !dbAdmin) {
+            await bot.sendMessage(chatId, `❌ Account not found!
 
-Cannot verify your Telegram phone number. This is required for security.
+No account found with phone number: ${phoneNumber}
 
-Please:
-1. Share your contact with this bot
-2. Make sure your phone number is visible in Telegram settings
-3. Try again later
-
-You can only link accounts with your ACTUAL Telegram phone number.`);
+Please make sure you registered with this phone number.`);
             return;
           }
           
-          // Normalize both phone numbers for exact comparison
-          const normalizedInputPhone = phoneNumber.replace(/[^0-9]/g, '');
-          const normalizedTelegramPhone = telegramPhoneNumber.replace(/[^0-9]/g, '');
-          
-          console.log('Comparing phones:', {
-            input: normalizedInputPhone,
-            telegram: normalizedTelegramPhone,
-            match: normalizedInputPhone === normalizedTelegramPhone
+          // Verify this Telegram session owns this account
+          const existingSessionOwner = await User.findOne({ 
+            where: { 
+              telegram_chat_id: chatId.toString(),
+              phone: phoneNumber
+            } 
           });
           
-          // MUST match exactly
-          if (normalizedInputPhone !== normalizedTelegramPhone) {
-            await bot.sendMessage(chatId, `🔒 SECURITY ERROR!
+          const existingAdminSessionOwner = await Admin.findOne({ 
+            where: { 
+              telegram_chat_id: chatId.toString(),
+              phone: phoneNumber
+            } 
+          });
+          
+          if (!existingSessionOwner && !existingAdminSessionOwner) {
+            await bot.sendMessage(chatId, `🔒 Security Error!
 
-The phone number you entered (${phoneNumber}) does NOT match your actual Telegram phone number (${telegramPhoneNumber}).
+This phone number (${phoneNumber}) is not registered to your Telegram account.
 
-FOR SECURITY REASONS:
-❌ You cannot link accounts with different phone numbers
-❌ You can only use your REAL Telegram phone number
-❌ This prevents account takeover attacks
-
-Please use your actual Telegram phone number: ${telegramPhoneNumber}`);
+For security reasons, you can only link accounts that belong to you.`);
             return;
           }
           
-          // Try to find user by phone number
-          // Use existing user/admin from above
+          console.log('Database verification passed for phone:', phoneNumber);
           
-          if (user) {
+          // Try to find user by phone number
+          // Use existing dbUser/dbAdmin from above
+          
+          if (dbUser) {
             // Update user's Telegram chat ID
             await user.update({ telegram_chat_id: chatId.toString() });
             
