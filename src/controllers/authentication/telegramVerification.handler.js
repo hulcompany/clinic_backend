@@ -99,17 +99,58 @@ const getUserPhoneNumberFromTelegram = async (telegramChatId) => {
     }
 
     const bot = new TelegramBot(token);
-    const chatInfo = await bot.getChat(telegramChatId);
     
-    console.log('Retrieved chat info:', {
-      id: chatInfo.id,
-      first_name: chatInfo.first_name,
-      last_name: chatInfo.last_name,
-      username: chatInfo.username,
-      phone_number: chatInfo.phone_number
-    });
+    // Method 1: Try to get phone from chat info
+    try {
+      const chatInfo = await bot.getChat(telegramChatId);
+      
+      console.log('Chat info retrieved:', {
+        id: chatInfo.id,
+        first_name: chatInfo.first_name,
+        last_name: chatInfo.last_name,
+        username: chatInfo.username,
+        phone_number: chatInfo.phone_number
+      });
+      
+      if (chatInfo.phone_number) {
+        console.log('Phone number found in chat info:', chatInfo.phone_number);
+        return chatInfo.phone_number;
+      }
+    } catch (chatError) {
+      console.log('Could not get phone from chat info:', chatError.message);
+    }
     
-    return chatInfo.phone_number || null;
+    // Method 2: Try to get phone from user info
+    try {
+      const userInfo = await bot.getChatMember(telegramChatId, telegramChatId);
+      
+      console.log('User info retrieved:', {
+        user_id: userInfo.user?.id,
+        first_name: userInfo.user?.first_name,
+        last_name: userInfo.user?.last_name,
+        username: userInfo.user?.username,
+        phone_number: userInfo.user?.phone_number
+      });
+      
+      if (userInfo.user?.phone_number) {
+        console.log('Phone number found in user info:', userInfo.user.phone_number);
+        return userInfo.user.phone_number;
+      }
+    } catch (userError) {
+      console.log('Could not get phone from user info:', userError.message);
+    }
+    
+    // Method 3: Try to get phone from message sender (if available)
+    try {
+      // This would require having a recent message from the user
+      // For now, we'll return null
+      console.log('No phone number found in any method');
+    } catch (messageError) {
+      console.log('Could not get phone from message:', messageError.message);
+    }
+    
+    return null;
+    
   } catch (error) {
     console.error('Error getting user phone number from Telegram:', error.message);
     return null;
