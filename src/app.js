@@ -193,6 +193,8 @@ app.use(`/api/${process.env.API_VERSION || 'v1'}/medical-records`, api.current.m
 app.use(`/api/${process.env.API_VERSION || 'v1'}/blogs`, api.current.blogRoutes);
 app.use(`/api/${process.env.API_VERSION || 'v1'}/notifications`, api.current.notificationRoutes);
 app.use(`/api/${process.env.API_VERSION || 'v1'}/landing-images`, api.current.landingImageRoutes);
+app.use(`/api/${process.env.API_VERSION || 'v1'}/phone-verification`, api.current.phoneVerificationRoutes);
+
 // API Documentation
 const swaggerDocument = YAML.load(path.join(__dirname, './docs/swagger.yaml'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -279,6 +281,7 @@ module.exports = app;
 
 
 //npx sequelize-cli db:migrate --name xxx.js
+
 
 
 
