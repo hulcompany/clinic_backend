@@ -76,82 +76,56 @@ For security reasons, you can only link accounts that belong to you.`);
             return;
           }
           
-          // Critical security: Must verify phone number matches actual Telegram phone
+          // CRITICAL SECURITY CHECK - MUST VERIFY PHONE NUMBER MATCHES TELEGRAM
+          console.log('SECURITY CHECK: Verifying phone number matches Telegram...');
+          
+          // First check if we can get Telegram phone number
+          let telegramPhoneNumber = null;
           try {
             const telegramVerificationHandler = require('./telegramVerification.handler');
-            const telegramPhoneNumber = await telegramVerificationHandler.getUserPhoneNumberFromTelegram(chatId.toString());
-            
-            if (telegramPhoneNumber) {
-              // Normalize both phone numbers for exact comparison
-              const normalizedInputPhone = phoneNumber.replace(/[^0-9]/g, '');
-              const normalizedTelegramPhone = telegramPhoneNumber.replace(/[^0-9]/g, '');
-              
-              if (normalizedInputPhone !== normalizedTelegramPhone) {
-                await bot.sendMessage(chatId, `🔒 Security Error!
+            telegramPhoneNumber = await telegramVerificationHandler.getUserPhoneNumberFromTelegram(chatId.toString());
+            console.log('Telegram phone number retrieved:', telegramPhoneNumber);
+          } catch (error) {
+            console.log('Failed to get Telegram phone number:', error.message);
+          }
+          
+          // If we can't get Telegram phone number, reject the request
+          if (!telegramPhoneNumber) {
+            await bot.sendMessage(chatId, `🔒 SECURITY ERROR!
 
-The phone number you entered (${phoneNumber}) does not match your actual Telegram phone number (${telegramPhoneNumber}).
+Cannot verify your Telegram phone number. This is required for security.
 
-You can only link accounts with your REAL Telegram phone number.`);
-                return;
-              }
-              
-              // Additional check: Verify this phone is registered in our system
-              const dbUser = await User.findOne({ 
-                where: { 
-                  phone: phoneNumber,
-                  telegram_chat_id: chatId.toString()
-                } 
-              });
-              
-              const dbAdmin = await Admin.findOne({ 
-                where: { 
-                  phone: phoneNumber,
-                  telegram_chat_id: chatId.toString()
-                } 
-              });
-              
-              if (!dbUser && !dbAdmin) {
-                await bot.sendMessage(chatId, `🔒 Security Error!
+Please:
+1. Share your contact with this bot
+2. Make sure your phone number is visible in Telegram settings
+3. Try again later
 
-This phone number (${phoneNumber}) exists in Telegram but is not registered in our system.
+You can only link accounts with your ACTUAL Telegram phone number.`);
+            return;
+          }
+          
+          // Normalize both phone numbers for exact comparison
+          const normalizedInputPhone = phoneNumber.replace(/[^0-9]/g, '');
+          const normalizedTelegramPhone = telegramPhoneNumber.replace(/[^0-9]/g, '');
+          
+          console.log('Comparing phones:', {
+            input: normalizedInputPhone,
+            telegram: normalizedTelegramPhone,
+            match: normalizedInputPhone === normalizedTelegramPhone
+          });
+          
+          // MUST match exactly
+          if (normalizedInputPhone !== normalizedTelegramPhone) {
+            await bot.sendMessage(chatId, `🔒 SECURITY ERROR!
 
-Please register this number first before linking.`);
-                return;
-              }
-              
-            } else {
-              // If we can't get Telegram phone, fall back to database-only verification
-              // But still require exact match with existing linked account
-              const dbUser = await User.findOne({ 
-                where: { 
-                  phone: phoneNumber,
-                  telegram_chat_id: chatId.toString()
-                } 
-              });
-              
-              const dbAdmin = await Admin.findOne({ 
-                where: { 
-                  phone: phoneNumber,
-                  telegram_chat_id: chatId.toString()
-                } 
-              });
-              
-              if (!dbUser && !dbAdmin) {
-                await bot.sendMessage(chatId, `🔒 Security Error!
+The phone number you entered (${phoneNumber}) does NOT match your actual Telegram phone number (${telegramPhoneNumber}).
 
-Cannot verify your Telegram phone number. You can only link accounts that:
-1. Match your actual Telegram phone number
-2. Are already registered in our system
+FOR SECURITY REASONS:
+❌ You cannot link accounts with different phone numbers
+❌ You can only use your REAL Telegram phone number
+❌ This prevents account takeover attacks
 
-Please share your contact with this bot first.`);
-                return;
-              }
-            }
-          } catch (securityError) {
-            console.log('Security verification failed:', securityError.message);
-            await bot.sendMessage(chatId, `🔒 Security Error!
-
-Unable to verify phone number ownership. Please try again later or contact support.`);
+Please use your actual Telegram phone number: ${telegramPhoneNumber}`);
             return;
           }
           
