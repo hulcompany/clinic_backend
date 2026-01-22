@@ -76,30 +76,83 @@ For security reasons, you can only link accounts that belong to you.`);
             return;
           }
           
-          // Try to get Telegram phone number for additional security (optional)
+          // Critical security: Must verify phone number matches actual Telegram phone
           try {
             const telegramVerificationHandler = require('./telegramVerification.handler');
             const telegramPhoneNumber = await telegramVerificationHandler.getUserPhoneNumberFromTelegram(chatId.toString());
             
             if (telegramPhoneNumber) {
-              // If we can get Telegram phone, verify it matches
+              // Normalize both phone numbers for exact comparison
               const normalizedInputPhone = phoneNumber.replace(/[^0-9]/g, '');
               const normalizedTelegramPhone = telegramPhoneNumber.replace(/[^0-9]/g, '');
               
               if (normalizedInputPhone !== normalizedTelegramPhone) {
-                await bot.sendMessage(chatId, `🔒 Security Warning!
+                await bot.sendMessage(chatId, `🔒 Security Error!
 
-The phone number you entered (${phoneNumber}) doesn't match your Telegram account's phone (${telegramPhoneNumber}).
+The phone number you entered (${phoneNumber}) does not match your actual Telegram phone number (${telegramPhoneNumber}).
 
-However, since you're linking an existing account, we'll proceed with linking.`);
-                // Continue with linking despite mismatch
+You can only link accounts with your REAL Telegram phone number.`);
+                return;
               }
+              
+              // Additional check: Verify this phone is registered in our system
+              const dbUser = await User.findOne({ 
+                where: { 
+                  phone: phoneNumber,
+                  telegram_chat_id: chatId.toString()
+                } 
+              });
+              
+              const dbAdmin = await Admin.findOne({ 
+                where: { 
+                  phone: phoneNumber,
+                  telegram_chat_id: chatId.toString()
+                } 
+              });
+              
+              if (!dbUser && !dbAdmin) {
+                await bot.sendMessage(chatId, `🔒 Security Error!
+
+This phone number (${phoneNumber}) exists in Telegram but is not registered in our system.
+
+Please register this number first before linking.`);
+                return;
+              }
+              
             } else {
-              // If we can't get Telegram phone, proceed with database verification only
-              console.log('Proceeding with database-only verification for phone:', phoneNumber);
+              // If we can't get Telegram phone, fall back to database-only verification
+              // But still require exact match with existing linked account
+              const dbUser = await User.findOne({ 
+                where: { 
+                  phone: phoneNumber,
+                  telegram_chat_id: chatId.toString()
+                } 
+              });
+              
+              const dbAdmin = await Admin.findOne({ 
+                where: { 
+                  phone: phoneNumber,
+                  telegram_chat_id: chatId.toString()
+                } 
+              });
+              
+              if (!dbUser && !dbAdmin) {
+                await bot.sendMessage(chatId, `🔒 Security Error!
+
+Cannot verify your Telegram phone number. You can only link accounts that:
+1. Match your actual Telegram phone number
+2. Are already registered in our system
+
+Please share your contact with this bot first.`);
+                return;
+              }
             }
           } catch (securityError) {
-            console.log('Security check warning:', securityError.message);
+            console.log('Security verification failed:', securityError.message);
+            await bot.sendMessage(chatId, `🔒 Security Error!
+
+Unable to verify phone number ownership. Please try again later or contact support.`);
+            return;
           }
           
           // Try to find user by phone number
