@@ -18,6 +18,12 @@ const initiatePhoneVerification = async (req, res, next) => {
       return failureResponse(res, 'Phone number is required', 400);
     }
     
+    // Validate phone number format (International numbers)
+    const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+    if (!phoneRegex.test(phone)) {
+      return failureResponse(res, 'Invalid phone number format. Please use international format: +[country code][number]', 400);
+    }
+    
     // Validate user type
     if (!['user', 'admin'].includes(userType)) {
       return failureResponse(res, 'Invalid user type. Must be "user" or "admin"', 400);
@@ -78,23 +84,37 @@ const completePhoneVerification = async (req, res, next) => {
     const telegramVerificationHandler = require('../authentication/telegramVerification.handler');
     const telegramPhoneNumber = await telegramVerificationHandler.getUserPhoneNumberFromTelegram(telegramChatId);
     
-    if (!telegramPhoneNumber) {
-      return failureResponse(res, 'لم يتم العثور على رقم هاتف مرتبط بحسابك في Telegram. يرجى مشاركة رقم هاتفك مع البوت أولاً.', 400);
-    }
-    
-    // Verify phone number matches Telegram registered number
-    const phoneMatchResult = phoneVerificationService.verifyPhoneMatchesTelegram(phone, telegramPhoneNumber);
-    
-    if (!phoneMatchResult.matches) {
-      console.log('Phone verification failed:', phoneMatchResult);
-      return failureResponse(res, `عدم تطابق أرقام الهواتف: ${phoneMatchResult.reason}`, 400);
-    }
-    
-    console.log('Phone verification successful:', {
-      userInput: phoneMatchResult.normalizedUserPhone,
-      telegramVerified: phoneMatchResult.normalizedTelegramPhone,
-      matchType: phoneMatchResult.exactMatch ? 'exact' : 'partial'
+    // Security Enhancement: Verify phone number belongs to user account
+    const { User } = require('../../models');
+    const userAccount = await User.findOne({ 
+      where: { 
+        telegram_chat_id: telegramChatId,
+        phone: phone  // Phone must match user's registered phone
+      } 
     });
+    
+    if (!userAccount) {
+      return failureResponse(res, 'رقم الهاتف غير مرتبط بحسابك في النظام. يرجى استخدام نفس الرقم المسجل في حسابك.', 400);
+    }
+    
+    if (!telegramPhoneNumber) {
+      // Allow verification to proceed since we verified user account ownership
+      console.log('Warning: No phone number found in Telegram, but user account verified');
+    } else {
+      // Verify phone number matches Telegram registered number
+      const phoneMatchResult = phoneVerificationService.verifyPhoneMatchesTelegram(phone, telegramPhoneNumber);
+      
+      if (!phoneMatchResult.matches) {
+        console.log('Phone verification failed:', phoneMatchResult);
+        return failureResponse(res, `عدم تطابق أرقام الهواتف: ${phoneMatchResult.reason}`, 400);
+      }
+      
+      console.log('Phone verification successful:', {
+        userInput: phoneMatchResult.normalizedUserPhone,
+        telegramVerified: phoneMatchResult.normalizedTelegramPhone,
+        matchType: phoneMatchResult.exactMatch ? 'exact' : 'partial'
+      });
+    }
     
     // Link phone number to Telegram chat ID
     const linkedUser = await phoneVerificationService.linkPhoneNumberToTelegram(
