@@ -355,6 +355,38 @@ router.post('/:id/cancel',
 
 /**
  * @swagger
+ * /api/v1/availability/{id}/toggle-join:
+ *   put:
+ *     summary: Toggle availability slot join enabled status
+ *     tags: [Availability]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Availability slot ID
+ *     responses:
+ *       200:
+ *         description: Join enabled status updated successfully
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden
+ *       404:
+ *         description: Availability slot not found
+ *       500:
+ *         description: Internal server error
+ */
+router.put('/:id/toggle-join', 
+  authMiddleware.protect, 
+  toggleJoinEnabled
+);
+
+/**
+ * @swagger
  * /api/v1/availability/doctor/{adminId}/users:
  *   get:
  *     summary: Get users who have appointments with a specific doctor
@@ -393,38 +425,6 @@ router.post('/:id/cancel',
 router.get('/doctor/:adminId/users', 
   authMiddleware.protect, 
   getUsersWithAppointments
-);
-
-/**
- * @swagger
- * /api/v1/availability/{id}/toggle-join:
- *   put:
- *     summary: Toggle availability slot join enabled status
- *     tags: [Availability]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: Availability slot ID
- *     responses:
- *       200:
- *         description: Join enabled status updated successfully
- *       401:
- *         description: Unauthorized
- *       403:
- *         description: Forbidden
- *       404:
- *         description: Availability slot not found
- *       500:
- *         description: Internal server error
- */
-router.put('/:id/toggle-join', 
-  authMiddleware.protect, 
-  toggleJoinEnabled
 );
 
 module.exports = router;
