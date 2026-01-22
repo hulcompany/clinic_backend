@@ -602,6 +602,51 @@ const getUsersWithAppointments = async (req, res, next) => {
   }
 };
 
+/**
+ * @desc    Toggle availability slot join enabled status
+ * @route   PUT /api/v1/availability/:id/toggle-join
+ * @access  Private (Doctor/Secretary with permission)
+ */
+const toggleJoinEnabled = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    
+    // Check if user has permission to modify this availability slot
+    if (!validateProfessionalPermission(req.user) && !validateSecretaryPermission(req.user)) {
+      return failureResponse(res, 'Not authorized to modify availability slots', 403);
+    }
+    
+    // Get the availability slot to check ownership
+    const availability = await availabilityService.getAvailabilityById(id);
+    
+    // If user is a secretary, check if they are assigned to the doctor who owns this slot
+    if (req.user.role === 'secretary') {
+      const isAssigned = await checkSecretaryDoctorRelationship(req.user.user_id, availability.admin_id);
+      if (!isAssigned) {
+        return failureResponse(res, 'Not authorized to modify this availability slot', 403);
+      }
+    }
+    // If user is a doctor, check if they own this slot
+    else if (req.user.role === 'doctor' && availability.admin_id !== req.user.user_id) {
+      return failureResponse(res, 'Not authorized to modify this availability slot', 403);
+    }
+    
+    // Toggle the join_enabled status
+    const updatedData = {
+      join_enabled: !availability.join_enabled
+    };
+    
+    const updatedAvailability = await availabilityService.updateAvailability(id, updatedData);
+    
+    successResponse(res, updatedAvailability, `Join enabled status updated to ${updatedAvailability.join_enabled}`);
+  } catch (error) {
+    if (error.statusCode === 404) {
+      return failureResponse(res, 'Availability slot not found', 404);
+    }
+    next(new AppError(error.message, error.statusCode || 500));
+  }
+};
+
 module.exports = {
   getAllAvailability,
   getAvailabilityById,
@@ -611,5 +656,6 @@ module.exports = {
   deleteAvailability,
   bookAvailabilitySlot,
   cancelBooking,
-  getUsersWithAppointments
+  getUsersWithAppointments,
+  toggleJoinEnabled
 };
