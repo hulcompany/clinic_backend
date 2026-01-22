@@ -136,6 +136,29 @@ class PhoneVerificationService {
   }
 
   /**
+   * Store verification token for a phone number
+   * @param {string} phoneNumber - Phone number
+   * @param {string} token - Verification token
+   * @returns {boolean} Success status
+   */
+  storeVerificationToken(phoneNumber, token) {
+    try {
+      const expiryTime = Date.now() + (this.TOKEN_EXPIRY * 1000);
+      this.verificationTokens.set(token, {
+        phoneNumber,
+        expiryTime,
+        createdAt: Date.now()
+      });
+      
+      console.log(`Stored verification token: ${token} for phone: ${phoneNumber}`);
+      return true;
+    } catch (error) {
+      console.error('Error storing verification token:', error.message);
+      return false;
+    }
+  }
+
+  /**
    * Check if phone number is already linked to a Telegram account
    * @param {string} phoneNumber - Phone number to check
    * @returns {boolean} Whether phone number is linked
