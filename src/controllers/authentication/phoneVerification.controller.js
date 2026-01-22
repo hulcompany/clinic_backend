@@ -82,12 +82,22 @@ const completePhoneVerification = async (req, res, next) => {
     
     // Implicitly get telegramChatId from user account
     const { User } = require('../../models');
+    
+    // Log the search for debugging
+    console.log('Searching for user with phone:', phone);
+    
     const userAccount = await User.findOne({ 
       where: { 
         phone: phone,
         is_active: true
       } 
     });
+    
+    console.log('User account found:', userAccount ? 'Yes' : 'No');
+    if (userAccount) {
+      console.log('User phone in DB:', userAccount.phone);
+      console.log('Telegram chat ID:', userAccount.telegram_chat_id);
+    }
     
     if (!userAccount) {
       return failureResponse(res, 'لم يتم العثور على حساب مرتبط بهذا الرقم', 400);
