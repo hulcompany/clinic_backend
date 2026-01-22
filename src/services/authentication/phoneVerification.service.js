@@ -136,6 +136,88 @@ class PhoneVerificationService {
   }
 
   /**
+   * Verify phone number matches Telegram registered number
+   * @param {string} userInputPhone - Phone number entered by user
+   * @param {string} telegramVerifiedPhone - Phone number from Telegram API
+   * @returns {Object} Verification result
+   */
+  verifyPhoneMatchesTelegram(userInputPhone, telegramVerifiedPhone) {
+    try {
+      // Normalize both phone numbers for comparison
+      const normalizedUserPhone = this.normalizePhoneNumber(userInputPhone);
+      const normalizedTelegramPhone = this.normalizePhoneNumber(telegramVerifiedPhone);
+      
+      console.log('Phone verification comparison:', {
+        userInput: userInputPhone,
+        telegram: telegramVerifiedPhone,
+        normalizedUser: normalizedUserPhone,
+        normalizedTelegram: normalizedTelegramPhone
+      });
+      
+      // Check if both numbers are valid
+      if (!normalizedUserPhone || !normalizedTelegramPhone) {
+        return {
+          matches: false,
+          reason: 'Invalid phone number format',
+          normalizedUserPhone,
+          normalizedTelegramPhone
+        };
+      }
+      
+      // Exact match check
+      const exactMatch = normalizedUserPhone === normalizedTelegramPhone;
+      
+      // Partial match check (last 7 digits)
+      const userLast7 = normalizedUserPhone.slice(-7);
+      const telegramLast7 = normalizedTelegramPhone.slice(-7);
+      const partialMatch = userLast7 === telegramLast7;
+      
+      return {
+        matches: exactMatch || partialMatch,
+        exactMatch,
+        partialMatch,
+        reason: exactMatch ? 'Exact match' : 
+               partialMatch ? 'Partial match (last 7 digits)' : 
+               'No match',
+        normalizedUserPhone,
+        normalizedTelegramPhone
+      };
+      
+    } catch (error) {
+      console.error('Error verifying phone match:', error.message);
+      return {
+        matches: false,
+        reason: 'Verification error',
+        error: error.message
+      };
+    }
+  }
+
+  /**
+   * Normalize phone number format
+   * @param {string} phoneNumber - Phone number to normalize
+   * @returns {string} Normalized phone number
+   */
+  normalizePhoneNumber(phoneNumber) {
+    if (!phoneNumber) return '';
+    
+    // Remove all non-digit characters except +
+    let normalized = phoneNumber.replace(/[^\d+]/g, '');
+    
+    // Ensure international format (+country code)
+    if (!normalized.startsWith('+')) {
+      // Assume Syrian numbers start with 09 and convert to +963
+      if (normalized.startsWith('09')) {
+        normalized = '+963' + normalized.substring(2);
+      } else if (normalized.startsWith('9')) {
+        normalized = '+963' + normalized.substring(1);
+      }
+    }
+    
+    return normalized;
+  }
+
+  /**
    * Link phone number to Telegram chat ID
    * @param {string} phoneNumber - Phone number
    * @param {string} telegramChatId - Telegram chat ID
