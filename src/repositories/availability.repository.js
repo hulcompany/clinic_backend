@@ -289,7 +289,7 @@ class AvailabilityRepository {
     try {
       const availability = await this.getAvailabilityById(id);
       
-      // If updating date/time, check if it should be marked as unavailable
+      // Only perform date/time validation if date or start_time is being updated
       if (data.date || data.start_time) {
         const now = new Date();
         const slotDate = data.date || availability.date;
@@ -332,6 +332,20 @@ class AvailabilityRepository {
     } catch (error) {
       if (error instanceof AppError) throw error;
       throw new AppError('Failed to update availability: ' + error.message, 500);
+    }
+  }
+
+  // Simple toggle method for join_enabled field only
+  async toggleJoinEnabled(id) {
+    try {
+      const availability = await this.getAvailabilityById(id);
+      const newJoinEnabled = !availability.join_enabled;
+      
+      await availability.update({ join_enabled: newJoinEnabled });
+      return await this.getAvailabilityById(id);
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      throw new AppError('Failed to toggle join enabled: ' + error.message, 500);
     }
   }
 
