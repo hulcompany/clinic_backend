@@ -22,6 +22,7 @@ const medicalRecordRoutes = require('../../routes/medicalRecord.routes');
 const blogRoutes = require('../../routes/blog.routes');
 const notificationRoutes = require('../../routes/notification.routes');
 const landingImageRoutes = require('../../routes/landingImage.routes');
+const phoneVerificationRoutes = require('../../routes/authentication/phoneVerification.routes');
 
 module.exports = {
   authRoutes,
@@ -39,5 +40,6 @@ module.exports = {
   medicalRecordRoutes,
   blogRoutes,
   notificationRoutes,
-  landingImageRoutes
+  landingImageRoutes,
+  phoneVerificationRoutes
 };
