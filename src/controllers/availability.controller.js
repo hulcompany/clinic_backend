@@ -631,12 +631,8 @@ const toggleJoinEnabled = async (req, res, next) => {
       return failureResponse(res, 'Not authorized to modify this availability slot', 403);
     }
     
-    // Toggle the join_enabled status
-    const updatedData = {
-      join_enabled: !availability.join_enabled
-    };
-    
-    const updatedAvailability = await availabilityService.updateAvailability(id, updatedData);
+     // Toggle the join_enabled status using the dedicated service method
+    const updatedAvailability = await availabilityService.toggleJoinEnabled(id);
     
     successResponse(res, updatedAvailability, `Join enabled status updated to ${updatedAvailability.join_enabled}`);
   } catch (error) {
@@ -659,3 +655,4 @@ module.exports = {
   getUsersWithAppointments,
   toggleJoinEnabled
 };
+
