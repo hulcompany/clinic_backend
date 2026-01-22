@@ -1,6 +1,7 @@
 const { sessionService } = require('../services/index');
 const AppError = require('../utils/AppError');
 const { successResponse, createdResponse, failureResponse } = require('../utils/responseHandler');
+const { hasPermission } = require('../config/roles');
 
 // Helper function to validate admin/doctor permissions
 const validateAdminDoctorPermission = (user) => {
@@ -15,15 +16,34 @@ const validateSuperAdminPermission = (user) => {
 /**
  * @desc    Get all sessions
  * @route   GET /api/v1/sessions
- * @access  Private (Super Admin)
+ * @access  Private (Admin/Doctor/Super Admin/Secretary with permission)
  */
 const getAllSessions = async (req, res, next) => {
   try {
-    // Only super admins can view all sessions
-    if (!validateSuperAdminPermission(req.user)) {
+    // Check if user has permission to view all sessions
+    if (!validateAdminDoctorPermission(req.user)) {
+      // Check if user is a secretary with proper permission
+      if (req.user.role === 'secretary') {
+        if (!hasPermission(req.user.role, 'view_medical_records')) {
+          return failureResponse(res, 'Not authorized to view all sessions', 403);
+        }
+        // Secretaries can only view sessions for their assigned doctor
+        const adminRepository = require('../repositories/authentication/admin.repository');
+        const secretary = await adminRepository.getAdminById(req.user.user_id);
+        if (!secretary || !secretary.supervisor_id) {
+          return failureResponse(res, 'Secretary must be assigned to a doctor', 403);
+        }
+        // Get sessions for the secretary's assigned doctor
+        const result = await sessionService.getSessionsByDoctorId(secretary.supervisor_id, 
+          parseInt(req.query.page) || 1, 
+          parseInt(req.query.limit) || 20
+        );
+        return successResponse(res, result, 'Sessions retrieved successfully');
+      }
       return failureResponse(res, 'Not authorized to view all sessions', 403);
     }
     
+    // For admins, doctors, and super admins, get all sessions
     // Get pagination parameters from query, with defaults
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
