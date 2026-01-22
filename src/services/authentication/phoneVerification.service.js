@@ -136,6 +136,24 @@ class PhoneVerificationService {
   }
 
   /**
+   * Link phone number to Telegram chat ID
+   * @param {string} phoneNumber - Phone number
+   * @param {string} telegramChatId - Telegram chat ID
+   * @returns {boolean} Success status
+   */
+  linkPhoneNumberToTelegram(phoneNumber, telegramChatId) {
+    try {
+      // In a real implementation, this would update the database
+      // For now, we'll just log the linking
+      console.log(`Linking phone ${phoneNumber} to Telegram chat ${telegramChatId}`);
+      return true;
+    } catch (error) {
+      console.error('Error linking phone to Telegram:', error.message);
+      return false;
+    }
+  }
+
+  /**
    * Store verification token for a phone number
    * @param {string} phoneNumber - Phone number
    * @param {string} token - Verification token
