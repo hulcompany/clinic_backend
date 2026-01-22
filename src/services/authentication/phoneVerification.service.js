@@ -136,6 +136,18 @@ class PhoneVerificationService {
   }
 
   /**
+   * Check if phone number is already linked to a Telegram account
+   * @param {string} phoneNumber - Phone number to check
+   * @returns {boolean} Whether phone number is linked
+   */
+  isPhoneNumberLinked(phoneNumber) {
+    // In a real implementation, this would check the database
+    // For now, we'll return false to allow new verifications
+    console.log(`Checking if phone ${phoneNumber} is linked`);
+    return false;
+  }
+
+  /**
    * Get total active tokens count
    * @returns {number} Active tokens count
    */
