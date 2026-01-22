@@ -10,7 +10,8 @@ const {
   deleteAvailability,
   bookAvailabilitySlot,
   cancelBooking,
-  getUsersWithAppointments
+  getUsersWithAppointments,
+  toggleJoinEnabled
 } = require('../controllers/availability.controller');
 
 /**
