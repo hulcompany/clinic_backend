@@ -147,11 +147,14 @@ const registerWithPhoneVerification = async (req, res, next) => {
       return failureResponse(res, 'User already exists with this phone number or email', 400);
     }
     
-    // Check if phone is already linked to Telegram
-    const isLinked = await phoneVerificationService.isPhoneNumberLinked(phone, 'user');
-    if (!isLinked) {
-      return failureResponse(res, 'Phone number must be verified with Telegram first. Please complete phone verification before registration.', 400);
-    }
+    // Check if phone is already linked to Telegram (temporarily allow registration without prior linking)
+    // const isLinked = await phoneVerificationService.isPhoneNumberLinked(phone, 'user');
+    // if (!isLinked) {
+    //   return failureResponse(res, 'Phone number must be verified with Telegram first. Please complete phone verification before registration.', 400);
+    // }
+    
+    // For now, allow registration and link phone during the process
+    console.log('Allowing registration for phone:', phone);
     
     // Create user account
     const user = await User.create({
