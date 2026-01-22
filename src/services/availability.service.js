@@ -120,6 +120,19 @@ class AvailabilityService {
     }
   }
 
+  // Toggle join_enabled status for availability slot
+  async toggleJoinEnabled(id) {
+    try {
+      const availability = await availabilityRepository.toggleJoinEnabled(id);
+      return availability;
+    } catch (error) {
+      if (error.message.includes('Availability not found')) {
+        throw new AppError('Availability not found', 404);
+      }
+      throw new AppError('Failed to toggle join enabled: ' + error.message, 500);
+    }
+  }
+
   // Delete availability slot (doctor/secretary owner only)
   async deleteAvailability(id) {
     try {
