@@ -52,6 +52,30 @@ Please make sure you registered with this phone number.`);
             return;
           }
           
+          // Critical security check: Verify this Telegram session owns this phone number
+          const sessionOwner = await User.findOne({ 
+            where: { 
+              telegram_chat_id: chatId.toString(),
+              phone: phoneNumber  // Must match both chat ID and phone
+            } 
+          });
+          
+          const adminSessionOwner = await Admin.findOne({ 
+            where: { 
+              telegram_chat_id: chatId.toString(),
+              phone: phoneNumber
+            } 
+          });
+          
+          if (!sessionOwner && !adminSessionOwner) {
+            await bot.sendMessage(chatId, `🔒 Security Error!
+
+This phone number (${phoneNumber}) is not registered to your Telegram account.
+
+For security reasons, you can only link accounts that belong to you.`);
+            return;
+          }
+          
           // Try to get Telegram phone number for additional security (optional)
           try {
             const telegramVerificationHandler = require('./telegramVerification.handler');
