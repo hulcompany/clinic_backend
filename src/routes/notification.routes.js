@@ -8,6 +8,9 @@ const authMiddleware = require('../middleware/auth.middleware');
 // Private routes - only authenticated users can access
 router.use(authMiddleware.protect);
 
+// Get count of unread notifications for the authenticated user
+router.get('/unread-count', notificationController.getUnreadCount);
+
 // Get all notifications for the authenticated user
 router.get('/', notificationController.getUserNotifications);
 
@@ -43,9 +46,6 @@ router.put('/mark-all-read',
   authMiddleware.protect,
   notificationController.markAllAsRead
 );
-
-// Get count of unread notifications for the authenticated user
-router.get('/unread-count', notificationController.getUnreadCount);
 
 // Delete notification
 router.delete('/:id', 
