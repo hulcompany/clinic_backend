@@ -1,4 +1,5 @@
 const availabilityService = require('../services/availability.service');
+const { autoNotificationService } = require('../services');
 const AppError = require('../utils/AppError');
 const { successResponse, createdResponse, failureResponse } = require('../utils/responseHandler');
 const adminRepository = require('../repositories/authentication/admin.repository');
@@ -369,6 +370,21 @@ const bookAvailabilitySlot = async (req, res, next) => {
     
     const availability = await availabilityService.bookAvailabilitySlot(id, req.user.user_id, req.user.role);
     
+    // إنشاء إشعار تلقائي للحجز
+    try {
+      await autoNotificationService.createBookingNotification(
+        req.user.user_id,
+        {
+          id: availability.id,
+          date: availability.date,
+          time: availability.start_time
+        }
+      );
+    } catch (notificationError) {
+      console.error('Failed to send booking notification:', notificationError);
+      // Don't fail the booking if notification fails
+    }
+    
     successResponse(res, availability, 'Availability slot booked successfully');
   } catch (error) {
     if (error.statusCode === 404) {
@@ -425,6 +441,21 @@ const cancelBooking = async (req, res, next) => {
     }
     
     const result = await availabilityService.cancelBooking(id);
+    
+    // إنشاء إشعار تلقائي لإلغاء الحجز
+    try {
+      await autoNotificationService.createCancellationNotification(
+        availability.booked_by_user_id,
+        {
+          id: availability.id,
+          date: availability.date,
+          time: availability.start_time
+        }
+      );
+    } catch (notificationError) {
+      console.error('Failed to send cancellation notification:', notificationError);
+      // Don't fail the cancellation if notification fails
+    }
     
     successResponse(res, result, 'Booking cancelled successfully');
   } catch (error) {
@@ -631,8 +662,23 @@ const toggleJoinEnabled = async (req, res, next) => {
       return failureResponse(res, 'Not authorized to modify this availability slot', 403);
     }
     
-     // Toggle the join_enabled status using the dedicated service method
+    // Toggle the join_enabled status using the dedicated service method
     const updatedAvailability = await availabilityService.toggleJoinEnabled(id);
+    
+    // إنشاء إشعار تلقائي لتحديث حالة الانضمام
+    try {
+      await autoNotificationService.createToggleJoinNotification(
+        availability.booked_by_user_id,
+        {
+          id: availability.id,
+          date: availability.date
+        },
+        updatedAvailability.join_enabled
+      );
+    } catch (notificationError) {
+      console.error('Failed to send toggle join notification:', notificationError);
+      // Don't fail the toggle if notification fails
+    }
     
     successResponse(res, updatedAvailability, `Join enabled status updated to ${updatedAvailability.join_enabled}`);
   } catch (error) {
@@ -655,4 +701,3 @@ module.exports = {
   getUsersWithAppointments,
   toggleJoinEnabled
 };
-
