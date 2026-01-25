@@ -290,18 +290,23 @@ const getUnreadCount = async (req, res, next) => {
 /**
  * @desc    Delete notification
  * @route   DELETE /api/v1/notifications/:id
- * @access  Private (User must be authenticated and own the notification, or Admin/Super Admin)
+ * @access  Private (User can delete their own notifications, Admin/Super Admin can delete any)
  */
 const deleteNotification = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const userId = req.user.user_id;
     
-    // Only admins and super admins can delete notifications
-    if (!validateAdminPermission(req.user)) {
+    // Get the notification to check ownership
+    const notification = await notificationService.getNotificationById(id);
+    
+    // Check if user owns this notification or is admin/super admin
+    const isAdmin = validateAdminPermission(req.user);
+    const isOwner = notification.user_id === userId;
+    
+    if (!isAdmin && !isOwner) {
       return failureResponse(res, 'Not authorized to delete this notification', 403);
     }
-    
-    const notification = await notificationService.getNotificationById(id);
     
     await notificationService.deleteNotification(id);
     
