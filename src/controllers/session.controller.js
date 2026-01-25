@@ -129,26 +129,28 @@ const createSession = async (req, res, next) => {
       return failureResponse(res, 'Not authorized to create sessions', 403);
     }
     
-    const { link, link_type, doctor_id } = req.body;
+    const { link, link_type, admin_id } = req.body;
     
     // Validate required fields
     if (!link || !link_type) {
       return failureResponse(res, 'Link and link_type are required', 400);
     }
     
-    // Doctors can only create sessions for themselves
-    let targetDoctorId = doctor_id;
+    // For doctors, automatically use their own ID
+    let targetAdminId = admin_id;
     if (req.user.role === 'doctor') {
-      targetDoctorId = req.user.user_id;
-      // If doctor_id was provided and doesn't match their ID, reject
-      if (doctor_id && parseInt(doctor_id) !== req.user.user_id) {
-        return failureResponse(res, 'Doctors can only create sessions for themselves', 403);
-      }
+      targetAdminId = req.user.user_id;
+      console.log('Doctor creating session, using admin_id:', targetAdminId);
+    }
+    
+    // Validate admin_id is provided
+    if (!targetAdminId) {
+      return failureResponse(res, 'admin_id is required', 400);
     }
     
     // Create session
     const sessionData = {
-      doctor_id: targetDoctorId,
+      admin_id: targetAdminId,
       link,
       link_type
     };
@@ -180,7 +182,7 @@ const updateSession = async (req, res, next) => {
     const existingSession = await sessionService.getSessionById(id);
     
     // Doctors can only update their own sessions
-    if (req.user.role === 'doctor' && existingSession.doctor_id !== req.user.user_id) {
+    if (req.user.role === 'doctor' && existingSession.admin_id !== req.user.user_id) {
       return failureResponse(res, 'Not authorized to update this session', 403);
     }
     
@@ -251,7 +253,7 @@ const toggleSessionStatus = async (req, res, next) => {
     const existingSession = await sessionService.getSessionById(id);
     
     // Doctors can only update their own sessions
-    if (req.user.role === 'doctor' && existingSession.doctor_id !== req.user.user_id) {
+    if (req.user.role === 'doctor' && existingSession.admin_id !== req.user.user_id) {
       return failureResponse(res, 'Not authorized to update this session', 403);
     }
     
