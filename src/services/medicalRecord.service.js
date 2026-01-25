@@ -10,9 +10,21 @@ class MedicalRecordService {
    */
   async createMedicalRecord(medicalRecordData) {
     try {
+      const { user_id } = medicalRecordData;
+      
+      // Check if user already has a medical record
+      const existingRecord = await medicalRecordRepository.getMedicalRecordsByUserId(user_id, 1, 1);
+      
+      if (existingRecord && existingRecord.data && existingRecord.data.length > 0) {
+        throw new AppError('User already has a medical record. Only one medical record is allowed per user.', 400);
+      }
+      
       const medicalRecord = await medicalRecordRepository.createMedicalRecord(medicalRecordData);
       return medicalRecord;
     } catch (error) {
+      if (error.message.includes('User already has a medical record')) {
+        throw error; // Re-throw the specific error
+      }
       throw new AppError('Failed to create medical record: ' + error.message, 500);
     }
   }
@@ -65,6 +77,23 @@ class MedicalRecordService {
       return result;
     } catch (error) {
       throw new AppError('Failed to get medical records by user: ' + error.message, 500);
+    }
+  }
+
+  /**
+   * Get single medical record by user ID (for validation)
+   * @param {number} userId - User ID
+   * @returns {Promise<Object|null>} Medical record or null if not found
+   */
+  async getSingleMedicalRecordByUserId(userId) {
+    try {
+      const result = await medicalRecordRepository.getMedicalRecordsByUserId(userId, 1, 1);
+      if (result && result.data && result.data.length > 0) {
+        return result.data[0];
+      }
+      return null;
+    } catch (error) {
+      throw new AppError('Failed to get medical record by user: ' + error.message, 500);
     }
   }
 
