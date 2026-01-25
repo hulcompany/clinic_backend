@@ -23,6 +23,7 @@ const blogRoutes = require('../../routes/blog.routes');
 const notificationRoutes = require('../../routes/notification.routes');
 const landingImageRoutes = require('../../routes/landingImage.routes');
 const phoneVerificationRoutes = require('../../routes/authentication/phoneVerification.routes');
+const dashboardRoutes = require('../../routes/dashboard.routes');
 
 module.exports = {
   authRoutes,
@@ -41,5 +42,6 @@ module.exports = {
   blogRoutes,
   notificationRoutes,
   landingImageRoutes,
-  phoneVerificationRoutes
+  phoneVerificationRoutes,
+  dashboardRoutes
 };
