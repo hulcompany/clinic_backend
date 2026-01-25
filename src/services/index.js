@@ -25,6 +25,7 @@ const availabilityService = require('./availability.service');
 const medicalRecordService = require('./medicalRecord.service');
 const blogService = require('./blog.service');
 const notificationService = require('./notification.service');
+const autoNotificationService = require('./autoNotification.service');
 const landingImageService = require('./landingImage.service');
 
 // Export services
@@ -46,5 +47,6 @@ module.exports = {
   medicalRecordService,
   blogService,
   notificationService,
+  autoNotificationService,
   landingImageService
 };
