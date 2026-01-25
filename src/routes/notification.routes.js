@@ -11,6 +11,12 @@ router.use(authMiddleware.protect);
 // Get count of unread notifications for the authenticated user
 router.get('/unread-count', notificationController.getUnreadCount);
 
+// Mark all notifications as read for the authenticated user
+router.put('/mark-all-read', 
+  authMiddleware.protect,
+  notificationController.markAllAsRead
+);
+
 // Get all notifications for the authenticated user
 router.get('/', notificationController.getUserNotifications);
 
@@ -39,12 +45,6 @@ router.put('/:id',
 router.put('/:id/read', 
   authMiddleware.protect,
   notificationController.markAsRead
-);
-
-// Mark all notifications as read for the authenticated user
-router.put('/mark-all-read', 
-  authMiddleware.protect,
-  notificationController.markAllAsRead
 );
 
 // Delete notification
