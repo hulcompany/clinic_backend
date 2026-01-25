@@ -1,4 +1,5 @@
 const { chatService, consultationService } = require('../../services/index');
+const { autoNotificationService } = require('../../services');
 const AppError = require('../../utils/AppError');
 const { successResponse, failureResponse } = require('../../utils/responseHandler');
 
@@ -159,7 +160,48 @@ const toggleChatStatus = async (req, res, next) => {
     
     const chat = await chatService.toggleChatStatus(id);
     
-    // Note: There's an issue with the is_active variable here - it's not defined
+    // إنشاء إشعار تلقائي لتحديث حالة الدردشة
+    try {
+      // الحصول على بيانات الاستشارة المرتبطة بالدردشة
+      const consultation = await consultationService.getConsultationById(chat.consultation_id);
+      
+      // إرسال إشعار لكل من المستخدم والدكتور
+      const notifications = [];
+      
+      // إشعار للمستخدم
+      if (consultation.user_id) {
+        notifications.push(
+          autoNotificationService.createChatStatusNotification(
+            consultation.user_id,
+            {
+              id: chat.id
+            },
+            chat.is_active
+          )
+        );
+      }
+      
+      // إشعار للدكتور
+      if (consultation.admin_id) {
+        notifications.push(
+          autoNotificationService.createChatStatusNotification(
+            consultation.admin_id,
+            {
+              id: chat.id
+            },
+            chat.is_active
+          )
+        );
+      }
+      
+      // تنفيذ جميع الإشعارات بالتوازي
+      await Promise.all(notifications);
+      
+    } catch (notificationError) {
+      console.error('Failed to send chat status notifications:', notificationError);
+      // Don't fail the status update if notifications fail
+    }
+    
     successResponse(res, chat, 'Chat status updated successfully');
   } catch (error) {
     next(new AppError(error.message, error.statusCode || 500));
