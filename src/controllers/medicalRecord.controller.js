@@ -84,6 +84,17 @@ const createMedicalRecord = async (req, res, next) => {
       return failureResponse(res, 'User ID is required', 400);
     }
 
+    // Check if user already has a medical record
+    try {
+      const existingRecord = await medicalRecordService.getSingleMedicalRecordByUserId(user_id);
+      if (existingRecord) {
+        return failureResponse(res, 'User already has a medical record. Only one medical record is allowed per user.', 400);
+      }
+    } catch (validationError) {
+      console.error('Error checking existing medical record:', validationError);
+      // Continue if validation fails - let the service handle it
+    }
+
     // Ensure doctor_id comes from authenticated user
     const doctor_id = req.user.user_id;
 
