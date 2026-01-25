@@ -119,7 +119,7 @@ const createConsultation = async (req, res, next) => {
       await autoNotificationService.createConsultationNotification(
         user_id,
         {
-          id: result.id
+          id: result.consultation.id
         }
       );
     } catch (notificationError) {
