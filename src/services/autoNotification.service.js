@@ -1,4 +1,4 @@
-const { notificationService } = require('./index');
+const notificationService = require('./notification.service');
 const { User, Admin } = require('../models');
 
 class AutoNotificationService {
