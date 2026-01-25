@@ -219,8 +219,17 @@ const deleteSession = async (req, res, next) => {
     // Get the existing session to check ownership
     const existingSession = await sessionService.getSessionById(id);
     
+    // Debug logging for delete operation
+    console.log('DELETE SESSION - Ownership check:', {
+      sessionId: id,
+      sessionAdminId: existingSession.admin_id,
+      userRoleId: req.user.user_id,
+      userRole: req.user.role,
+      isSameAdmin: existingSession.admin_id === req.user.user_id
+    });
+    
     // Doctors can only delete their own sessions
-    if (req.user.role === 'doctor' && existingSession.doctor_id !== req.user.user_id) {
+    if (req.user.role === 'doctor' && existingSession.admin_id !== req.user.user_id) {
       return failureResponse(res, 'Not authorized to delete this session', 403);
     }
     
