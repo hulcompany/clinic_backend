@@ -1,4 +1,5 @@
 const { consultationService } = require('../services/index');
+const { autoNotificationService } = require('../services');
 const AppError = require('../utils/AppError');
 const { successResponse, createdResponse, failureResponse } = require('../utils/responseHandler');
 
@@ -113,6 +114,19 @@ const createConsultation = async (req, res, next) => {
       initial_issue
     });
     
+    // إنشاء إشعار تلقائي لإنشاء الاستشارة
+    try {
+      await autoNotificationService.createConsultationNotification(
+        user_id,
+        {
+          id: result.id
+        }
+      );
+    } catch (notificationError) {
+      console.error('Failed to send consultation creation notification:', notificationError);
+      // Don't fail the consultation creation if notification fails
+    }
+    
     createdResponse(res, result, 'Consultation created successfully');
   } catch (error) {
     next(new AppError(error.message, error.statusCode || 500));
@@ -163,6 +177,20 @@ const updateConsultationStatus = async (req, res, next) => {
     }
     
     const updatedConsultation = await consultationService.updateConsultationStatus(id, status);
+    
+    // إنشاء إشعار تلقائي لتحديث حالة الاستشارة
+    try {
+      await autoNotificationService.createConsultationStatusNotification(
+        consultation.user_id,
+        {
+          id: consultation.id
+        },
+        status
+      );
+    } catch (notificationError) {
+      console.error('Failed to send consultation status notification:', notificationError);
+      // Don't fail the status update if notification fails
+    }
     
     successResponse(res, updatedConsultation, 'Consultation status updated successfully');
   } catch (error) {
