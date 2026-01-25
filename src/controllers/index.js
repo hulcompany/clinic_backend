@@ -12,6 +12,7 @@ const reviewController = require('./review.controller');
 const serviceController = require('./service.controller');
 const sessionController = require('./session.controller');
 const landingImageController = require('./landingImage.controller');
+const dashboardController = require('./dashboard.controller');
 
 module.exports = {
   adminController,
@@ -26,5 +27,6 @@ module.exports = {
   reviewController,
   serviceController,
   sessionController,
-  landingImageController
+  landingImageController,
+  dashboardController
 };
