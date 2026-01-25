@@ -136,7 +136,7 @@ const getUserNotifications = async (req, res, next) => {
 /**
  * @desc    Get notification by ID
  * @route   GET /api/v1/notifications/:id
- * @access  Private (User must be authenticated and own the notification)
+ * @access  Private (User can update their own notifications, Admin/Super Admin can update any)
  */
 const getNotificationById = async (req, res, next) => {
   try {
@@ -198,19 +198,24 @@ const createNotification = async (req, res, next) => {
 /**
  * @desc    Update notification (typically to mark as read)
  * @route   PUT /api/v1/notifications/:id
- * @access  Private (User must be authenticated and own the notification)
+ * @access  Private (User can update their own notifications, Admin/Super Admin can update any)
  */
 const updateNotification = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { is_read } = req.body;
+    const userId = req.user.user_id;
     
-    // Only admins and super admins can update notifications
-    if (!validateAdminPermission(req.user)) {
+    // Get the notification to check ownership
+    const notification = await notificationService.getNotificationById(id);
+    
+    // Check if user owns this notification or is admin/super admin
+    const isAdmin = validateAdminPermission(req.user);
+    const isOwner = notification.user_id === userId;
+    
+    if (!isAdmin && !isOwner) {
       return failureResponse(res, 'Not authorized to update this notification', 403);
     }
-    
-    const notification = await notificationService.getNotificationById(id);
     
     const updateData = {};
     if (is_read !== undefined) updateData.is_read = is_read;
@@ -229,18 +234,23 @@ const updateNotification = async (req, res, next) => {
 /**
  * @desc    Mark notification as read
  * @route   PUT /api/v1/notifications/:id/read
- * @access  Private (User must be authenticated and own the notification)
+ * @access  Private (User can update their own notifications, Admin/Super Admin can update any)
  */
 const markAsRead = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const userId = req.user.user_id;
     
-    // Only admins and super admins can mark notifications as read
-    if (!validateAdminPermission(req.user)) {
+    // Get the notification to check ownership
+    const notification = await notificationService.getNotificationById(id);
+    
+    // Check if user owns this notification or is admin/super admin
+    const isAdmin = validateAdminPermission(req.user);
+    const isOwner = notification.user_id === userId;
+    
+    if (!isAdmin && !isOwner) {
       return failureResponse(res, 'Not authorized to update this notification', 403);
     }
-    
-    const notification = await notificationService.getNotificationById(id);
     
     const updatedNotification = await notificationService.markAsRead(id);
     
