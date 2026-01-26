@@ -1,7 +1,110 @@
 const notificationService = require('./notification.service');
-const { User, Admin } = require('../models');
+const { User, Admin, Availability, Consultation } = require('../models');
 
 class AutoNotificationService {
+  // إنشاء إشعار حجز موعد جديد (للدكتور)
+  async createNewBookingNotificationForDoctor(doctorId, availabilityData, userData) {
+    try {
+      const notificationData = {
+        user_id: doctorId,
+        title: {
+          "en": "New Appointment Booking",
+          "ar": "حجز موعد جديد"
+        },
+        message: {
+          "en": `Patient ${userData.full_name} has booked an appointment for ${availabilityData.date} at ${availabilityData.time}`,
+          "ar": `المريض ${userData.full_name} قام بحجز موعد في ${availabilityData.date} الساعة ${availabilityData.time}`
+        },
+        type: 'appointment',
+        related_id: availabilityData.id,
+        target_route: `/availability/${availabilityData.id}`
+      };
+
+      return await notificationService.createNotification(notificationData);
+    } catch (error) {
+      console.error('Failed to create new booking notification for doctor:', error);
+      throw error;
+    }
+  }
+
+  // إنشاء إشعار إلغاء حجز (للدكتور)
+  async createBookingCancellationNotificationForDoctor(doctorId, availabilityData, userData) {
+    try {
+      const notificationData = {
+        user_id: doctorId,
+        title: {
+          "en": "Appointment Cancelled",
+          "ar": "إلغاء موعد"
+        },
+        message: {
+          "en": `Patient ${userData.full_name} has cancelled their appointment for ${availabilityData.date} at ${availabilityData.time}`,
+          "ar": `المريض ${userData.full_name} قام بإلغاء موعده في ${availabilityData.date} الساعة ${availabilityData.time}`
+        },
+        type: 'appointment',
+        related_id: availabilityData.id,
+        target_route: null
+      };
+
+      return await notificationService.createNotification(notificationData);
+    } catch (error) {
+      console.error('Failed to create cancellation notification for doctor:', error);
+      throw error;
+    }
+  }
+
+  // إنشاء إشعار انضمام مريض للجلسة (للدكتور)
+  async createPatientJoinedSessionNotification(doctorId, sessionData, userData) {
+    try {
+      const notificationData = {
+        user_id: doctorId,
+        title: {
+          "en": "Patient Joined Session",
+          "ar": "انضمام مريض للجلسة"
+        },
+        message: {
+          "en": `Patient ${userData.full_name} has joined the session`,
+          "ar": `المريض ${userData.full_name} انضم للجلسة`
+        },
+        type: 'message',
+        related_id: sessionData.id,
+        target_route: `/sessions/${sessionData.id}`
+      };
+
+      return await notificationService.createNotification(notificationData);
+    } catch (error) {
+      console.error('Failed to create patient joined notification:', error);
+      throw error;
+    }
+  }
+
+  // إنشاء إشعار تسجيل مستخدم جديد (للأدمن)
+  async createNewUserRegistrationNotification(adminUsers, userData) {
+    try {
+      const promises = adminUsers.map(async (admin) => {
+        const notificationData = {
+          user_id: admin.user_id,
+          title: {
+            "en": "New User Registration",
+            "ar": "تسجيل مستخدم جديد"
+          },
+          message: {
+            "en": `New user ${userData.full_name} has registered with email ${userData.email}`,
+            "ar": `مستخدم جديد ${userData.full_name} قام بالتسجيل بالبريد ${userData.email}`
+          },
+          type: 'system',
+          related_id: null,
+          target_route: `/users/${userData.user_id}`
+        };
+
+        return await notificationService.createNotification(notificationData);
+      });
+
+      return await Promise.all(promises);
+    } catch (error) {
+      console.error('Failed to create new user registration notifications:', error);
+      throw error;
+    }
+  }
   // إنشاء إشعار حجز موعد
   async createBookingNotification(userId, availabilityData) {
     try {
