@@ -370,6 +370,27 @@ const bookAvailabilitySlot = async (req, res, next) => {
     
     const availability = await availabilityService.bookAvailabilitySlot(id, req.user.user_id, req.user.role);
     
+    // إنشاء إشعار تلقائي للدكتور بحجز الموعد الجديد
+    try {
+      const { User } = require('../models');
+      const userData = await User.findByPk(req.user.user_id, {
+        attributes: ['user_id', 'full_name']
+      });
+      
+      await autoNotificationService.createNewBookingNotificationForDoctor(
+        availability.admin_id,
+        {
+          id: availability.id,
+          date: availability.date,
+          time: availability.start_time
+        },
+        userData
+      );
+    } catch (notificationError) {
+      console.error('Failed to send booking notification to doctor:', notificationError);
+      // Don't fail the booking if notification fails
+    }
+    
     // إنشاء إشعار تلقائي للحجز
     try {
       await autoNotificationService.createBookingNotification(
@@ -441,6 +462,27 @@ const cancelBooking = async (req, res, next) => {
     }
     
     const result = await availabilityService.cancelBooking(id);
+    
+    // إنشاء إشعار تلقائي للدكتور بإلغاء الحجز
+    try {
+      const { User } = require('../models');
+      const userData = await User.findByPk(availability.booked_by_user_id, {
+        attributes: ['user_id', 'full_name']
+      });
+      
+      await autoNotificationService.createBookingCancellationNotificationForDoctor(
+        availability.admin_id,
+        {
+          id: availability.id,
+          date: availability.date,
+          time: availability.start_time
+        },
+        userData
+      );
+    } catch (notificationError) {
+      console.error('Failed to send cancellation notification to doctor:', notificationError);
+      // Don't fail the cancellation if notification fails
+    }
     
     // إنشاء إشعار تلقائي لإلغاء الحجز
     try {
