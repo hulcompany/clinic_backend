@@ -1,5 +1,5 @@
-const { notificationService } = require('../services');
-const { Admin, Consultation } = require('../models');
+const { notificationService, autoNotificationService } = require('../services');
+const { Admin, Consultation, User } = require('../models');
 const { hasPermission } = require('../config/roles');
 const AppError = require('../utils/AppError');
 const { successResponse, createdResponse, failureResponse } = require('../utils/responseHandler');
