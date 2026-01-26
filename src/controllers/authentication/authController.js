@@ -1,5 +1,5 @@
-const { User } = require('../../models/index');
-const { authService, tokenService, otpService } = require('../../services/index');
+const { User, Admin } = require('../../models/index');
+const { authService, tokenService, otpService, autoNotificationService } = require('../../services/index');
 const AppError = require('../../utils/AppError');
 const { 
   createdResponse, 
@@ -124,6 +124,22 @@ const register = async (req, res, next) => {
     // Generate OTP for email verification
     await handleOTP(result.user);
 
+    // Send notification to admins about new user registration
+    try {
+      const adminUsers = await Admin.findAll({ 
+        where: { role: 'admin' }
+      });
+      
+      if (adminUsers.length > 0) {
+        await autoNotificationService.createNewUserRegistrationNotification(
+          adminUsers, 
+          result.user
+        );
+      }
+    } catch (notificationError) {
+      console.error('Failed to send new user registration notification:', notificationError);
+      // Don't fail the registration if notification fails
+    }
     createdResponse(res, {
       user: formatUserResponse(result.user)
     }, 'User registered successfully. Please check your email for verification code.');
@@ -479,3 +495,4 @@ module.exports = {
   forgotPassword,
   resetPassword
 };
+
