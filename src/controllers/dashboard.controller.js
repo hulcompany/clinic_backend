@@ -67,6 +67,12 @@ const getAdminDashboardOverview = async (req, res, next) => {
       registered_patients: { total: 0, today: 0, this_week: 0, this_month: 0, this_year: 0 },
       patient_satisfaction_rate: { average: 0.0, today: 0.0, this_week: 0.0, this_month: 0.0, this_year: 0.0 }
     };
+        
+    // Apply date filters to statistics calculation
+    const applyDateFilter = (itemDate) => {
+      if (!dateFilters.dateFrom || !dateFilters.dateTo) return true;
+      return itemDate >= dateFilters.dateFrom && itemDate <= dateFilters.dateTo;
+    };
     
     // Get consultations based on user role
     if (userRole === 'doctor') {
@@ -85,6 +91,12 @@ const getAdminDashboardOverview = async (req, res, next) => {
         if (isThisWeek(createdAt)) statistics.active_consultations.this_week++;
         if (isThisMonth(createdAt)) statistics.active_consultations.this_month++;
         if (isThisYear(createdAt)) statistics.active_consultations.this_year++;
+        if (applyDateFilter(createdAt)) {
+          if (isToday(createdAt)) statistics.active_consultations.today++;
+          if (isThisWeek(createdAt)) statistics.active_consultations.this_week++;
+          if (isThisMonth(createdAt)) statistics.active_consultations.this_month++;
+          if (isThisYear(createdAt)) statistics.active_consultations.this_year++;
+        }
       });
     }
     
@@ -104,6 +116,12 @@ const getAdminDashboardOverview = async (req, res, next) => {
         if (isThisWeek(createdAt)) statistics.medical_records.this_week++;
         if (isThisMonth(createdAt)) statistics.medical_records.this_month++;
         if (isThisYear(createdAt)) statistics.medical_records.this_year++;
+         if (applyDateFilter(createdAt)) {
+          if (isToday(createdAt)) statistics.medical_records.today++;
+          if (isThisWeek(createdAt)) statistics.medical_records.this_week++;
+          if (isThisMonth(createdAt)) statistics.medical_records.this_month++;
+          if (isThisYear(createdAt)) statistics.medical_records.this_year++;
+        }
       });
     }
     
@@ -123,6 +141,12 @@ const getAdminDashboardOverview = async (req, res, next) => {
         if (isThisWeek(createdAt)) statistics.scheduled_appointments.this_week++;
         if (isThisMonth(createdAt)) statistics.scheduled_appointments.this_month++;
         if (isThisYear(createdAt)) statistics.scheduled_appointments.this_year++;
+            if (applyDateFilter(createdAt)) {
+          if (isToday(createdAt)) statistics.scheduled_appointments.today++;
+          if (isThisWeek(createdAt)) statistics.scheduled_appointments.this_week++;
+          if (isThisMonth(createdAt)) statistics.scheduled_appointments.this_month++;
+          if (isThisYear(createdAt)) statistics.scheduled_appointments.this_year++;
+        }
       });
     }
     
