@@ -118,6 +118,24 @@ const createMedicalRecord = async (req, res, next) => {
       consultation_id: consultation_id || null
     };
 
+
+    // Create medical record
+    const createdMedicalRecord = await medicalRecordService.createMedicalRecord(medicalRecordData, req);
+
+    // If consultation_id is provided, update the consultation with medical record ID
+    if (consultation_id) {
+      try {
+        const { Consultation } = require('../models');
+        await Consultation.update(
+          { medical_record_id: createdMedicalRecord.id },
+          { where: { id: consultation_id } }
+        );
+      } catch (updateError) {
+        console.error('Failed to update consultation with medical record ID:', updateError);
+        // Don't fail the medical record creation if consultation update fails
+      }
+    }
+
     // Handle file uploads if present in request
     console.log('req.files:', req.files);
     console.log('req.files type:', typeof req.files);
@@ -824,3 +842,4 @@ module.exports = {
   updateMedicalRecord,
   deleteMedicalRecord
 };
+
