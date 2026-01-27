@@ -37,11 +37,12 @@ const getAdminDashboardOverview = async (req, res, next) => {
         dateFilters.dateTo = weekEnd;
         break;
       case 'month':
-        // Fix: Make sure we include the full current month
-        const currentYear = now.getFullYear();
-        const currentMonth = now.getMonth();
-        dateFilters.dateFrom = new Date(currentYear, currentMonth, 1, 0, 0, 0, 0);
-        dateFilters.dateTo = new Date(currentYear, currentMonth + 1, 0, 23, 59, 59, 999);
+        // Ensure we get the correct current month range
+        const nowDate = new Date();
+        const year = nowDate.getFullYear();
+        const month = nowDate.getMonth();
+        dateFilters.dateFrom = new Date(year, month, 1, 0, 0, 0, 0);
+        dateFilters.dateTo = new Date(year, month + 1, 0, 23, 59, 59, 999);
         break;
       case 'year':
         dateFilters.dateFrom = new Date(now.getFullYear(), 0, 1, 0, 0, 0, 0);
