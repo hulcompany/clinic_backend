@@ -188,7 +188,7 @@ const getAdminDashboardOverview = async (req, res, next) => {
       const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
       statistics.patient_satisfaction_rate.average = parseFloat((totalRating / reviews.length).toFixed(1));
       
-      // Count reviews by periods
+      // Count reviews by periods WITH FILTER
       let todaySum = 0, todayCount = 0;
       let weekSum = 0, weekCount = 0;
       let monthSum = 0, monthCount = 0;
@@ -196,21 +196,23 @@ const getAdminDashboardOverview = async (req, res, next) => {
       
       reviews.forEach(review => {
         const createdAt = new Date(review.created_at);
-        if (isToday(createdAt)) {
-          todaySum += review.rating;
-          todayCount++;
-        }
-        if (isThisWeek(createdAt)) {
-          weekSum += review.rating;
-          weekCount++;
-        }
-        if (isThisMonth(createdAt)) {
-          monthSum += review.rating;
-          monthCount++;
-        }
-        if (isThisYear(createdAt)) {
-          yearSum += review.rating;
-          yearCount++;
+        if (applyDateFilter(createdAt)) {
+          if (isToday(createdAt)) {
+            todaySum += review.rating;
+            todayCount++;
+          }
+          if (isThisWeek(createdAt)) {
+            weekSum += review.rating;
+            weekCount++;
+          }
+          if (isThisMonth(createdAt)) {
+            monthSum += review.rating;
+            monthCount++;
+          }
+          if (isThisYear(createdAt)) {
+            yearSum += review.rating;
+            yearCount++;
+          }
         }
       });
       
