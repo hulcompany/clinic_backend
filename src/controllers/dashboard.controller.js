@@ -1,5 +1,5 @@
 const { consultationService, sessionService, availabilityService, medicalRecordService } = require('../services/index');
-const { User, Admin, Consultation, Session, Availability, MedicalRecord,Blog } = require('../models');
+const { User, Admin, Consultation, Session, Availability, MedicalRecord,Blog ,Review} = require('../models');
 const AppError = require('../utils/AppError');
 const { successResponse, failureResponse } = require('../utils/responseHandler');
 
