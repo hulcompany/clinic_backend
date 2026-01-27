@@ -111,7 +111,9 @@ const createConsultation = async (req, res, next) => {
     const result = await consultationService.createConsultation({
       user_id,
       admin_id,
-      initial_issue
+      initial_issue,
+      medical_record_id: null  // Initially null, will be updated when medical record is created
+
     });
     
     // إنشاء إشعار تلقائي لإنشاء الاستشارة
@@ -282,3 +284,4 @@ module.exports = {
   getConsultationsByAdminId,
   deleteConsultation
 };
+
