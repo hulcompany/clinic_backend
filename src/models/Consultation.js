@@ -28,6 +28,11 @@ const Consultation = sequelize.define('Consultation', {
     defaultValue: 'requested',
     field: 'status'
   },
+  medical_record_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    field: 'medical_record_id'
+  },
   createdAt: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
@@ -43,5 +48,13 @@ const Consultation = sequelize.define('Consultation', {
   timestamps: true,
   underscored: true
 });
+
+// Define associations
+Consultation.associate = (models) => {
+  Consultation.belongsTo(models.MedicalRecord, {
+    foreignKey: 'medical_record_id',
+    as: 'medicalRecord'
+  });
+};
 
 module.exports = Consultation;
