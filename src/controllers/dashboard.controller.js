@@ -27,25 +27,21 @@ const getAdminDashboardOverview = async (req, res, next) => {
     const now = new Date();
     switch (filter) {
       case 'day':
-        dateFilters.dateFrom = new Date(now.setHours(0, 0, 0, 0));
-        dateFilters.dateTo = new Date(now.setHours(23, 59, 59, 999));
+        dateFilters.dateFrom = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+        dateFilters.dateTo = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
         break;
       case 'week':
-        const weekStart = new Date(now);
-        weekStart.setDate(now.getDate() - now.getDay());
-        weekStart.setHours(0, 0, 0, 0);
-        const weekEnd = new Date(weekStart);
-        weekEnd.setDate(weekStart.getDate() + 6);
-        weekEnd.setHours(23, 59, 59, 999);
+        const weekStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - now.getDay(), 0, 0, 0, 0);
+        const weekEnd = new Date(now.getFullYear(), now.getMonth(), weekStart.getDate() + 6, 23, 59, 59, 999);
         dateFilters.dateFrom = weekStart;
         dateFilters.dateTo = weekEnd;
         break;
       case 'month':
-        dateFilters.dateFrom = new Date(now.getFullYear(), now.getMonth(), 1);
+        dateFilters.dateFrom = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
         dateFilters.dateTo = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
         break;
       case 'year':
-        dateFilters.dateFrom = new Date(now.getFullYear(), 0, 1);
+        dateFilters.dateFrom = new Date(now.getFullYear(), 0, 1, 0, 0, 0, 0);
         dateFilters.dateTo = new Date(now.getFullYear(), 11, 31, 23, 59, 59, 999);
         break;
     }
