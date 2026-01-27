@@ -27,7 +27,7 @@ module.exports = {
         
         // ========== JWT وإعدادات المصادقة ⭐⭐(تم التعديل)⭐⭐ ==========
         JWT_SECRET: 'clinic_jwt_prod_secret_2024_!@#$%^&*()_change_this',
-        JWT_EXPIRE: '3h',
+        JWT_EXPIRE: '24h',
         JWT_REFRESH_SECRET: 'clinic_refresh_secret_2024_!@#$%^&*()_change_too',
         JWT_REFRESH_EXPIRE: '30d',
         
@@ -202,6 +202,7 @@ instances	max	1	✅ منع تكرار العمليات
     }
   }
 };
+
 
 
 
