@@ -14,7 +14,7 @@ const getAdminDashboardOverview = async (req, res, next) => {
     const userRole = req.user.role;
     
     // Get filter parameters
-    const filter = req.query.filter || 'all'; // day, week, month, year, all
+    const filter = req.query.filter || 'month'; // day, week, month, year, all
     const dateFrom = req.query.date_from;
     const dateTo = req.query.date_to;
     
