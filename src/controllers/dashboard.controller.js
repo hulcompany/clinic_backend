@@ -144,6 +144,67 @@ const getAdminDashboardOverview = async (req, res, next) => {
       statistics.registered_patients.this_year = statistics.registered_patients.total;
     }
     
+    // Get articles (blogs) count
+    const articles = await Blog.findAll({
+      where: { status: 'published' },
+      attributes: ['id', 'created_at']
+    });
+    
+    statistics.articles.total = articles.length;
+    
+    // Count articles by periods
+    articles.forEach(article => {
+      const createdAt = new Date(article.created_at);
+      if (isToday(createdAt)) statistics.articles.today++;
+      if (isThisWeek(createdAt)) statistics.articles.this_week++;
+      if (isThisMonth(createdAt)) statistics.articles.this_month++;
+      if (isThisYear(createdAt)) statistics.articles.this_year++;
+    });
+    
+    // Get patient satisfaction rate (reviews)
+    const reviews = await Review.findAll({
+      where: { is_active: true },
+      attributes: ['rating', 'created_at']
+    });
+    
+    if (reviews.length > 0) {
+      // Calculate average rating
+      const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+      statistics.patient_satisfaction_rate.average = parseFloat((totalRating / reviews.length).toFixed(1));
+      
+      // Count reviews by periods
+      let todaySum = 0, todayCount = 0;
+      let weekSum = 0, weekCount = 0;
+      let monthSum = 0, monthCount = 0;
+      let yearSum = 0, yearCount = 0;
+      
+      reviews.forEach(review => {
+        const createdAt = new Date(review.created_at);
+        if (isToday(createdAt)) {
+          todaySum += review.rating;
+          todayCount++;
+        }
+        if (isThisWeek(createdAt)) {
+          weekSum += review.rating;
+          weekCount++;
+        }
+        if (isThisMonth(createdAt)) {
+          monthSum += review.rating;
+          monthCount++;
+        }
+        if (isThisYear(createdAt)) {
+          yearSum += review.rating;
+          yearCount++;
+        }
+      });
+      
+      // Calculate period averages
+      statistics.patient_satisfaction_rate.today = todayCount > 0 ? parseFloat((todaySum / todayCount).toFixed(1)) : 0;
+      statistics.patient_satisfaction_rate.this_week = weekCount > 0 ? parseFloat((weekSum / weekCount).toFixed(1)) : 0;
+      statistics.patient_satisfaction_rate.this_month = monthCount > 0 ? parseFloat((monthSum / monthCount).toFixed(1)) : 0;
+      statistics.patient_satisfaction_rate.this_year = yearCount > 0 ? parseFloat((yearSum / yearCount).toFixed(1)) : 0;
+    }
+    
     // Build response
     const dashboardData = {
       profile: {
