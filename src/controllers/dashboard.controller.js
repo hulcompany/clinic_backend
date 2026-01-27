@@ -84,13 +84,9 @@ const getAdminDashboardOverview = async (req, res, next) => {
       
       statistics.active_consultations.total = consultations.length;
       
-      // Count by periods
+      // Count by periods WITH FILTER
       consultations.forEach(consultation => {
         const createdAt = new Date(consultation.created_at);
-        if (isToday(createdAt)) statistics.active_consultations.today++;
-        if (isThisWeek(createdAt)) statistics.active_consultations.this_week++;
-        if (isThisMonth(createdAt)) statistics.active_consultations.this_month++;
-        if (isThisYear(createdAt)) statistics.active_consultations.this_year++;
         if (applyDateFilter(createdAt)) {
           if (isToday(createdAt)) statistics.active_consultations.today++;
           if (isThisWeek(createdAt)) statistics.active_consultations.this_week++;
@@ -109,14 +105,10 @@ const getAdminDashboardOverview = async (req, res, next) => {
       
       statistics.medical_records.total = medicalRecords.length;
       
-      // Count by periods
+      // Count by periods WITH FILTER
       medicalRecords.forEach(record => {
         const createdAt = new Date(record.created_at);
-        if (isToday(createdAt)) statistics.medical_records.today++;
-        if (isThisWeek(createdAt)) statistics.medical_records.this_week++;
-        if (isThisMonth(createdAt)) statistics.medical_records.this_month++;
-        if (isThisYear(createdAt)) statistics.medical_records.this_year++;
-         if (applyDateFilter(createdAt)) {
+        if (applyDateFilter(createdAt)) {
           if (isToday(createdAt)) statistics.medical_records.today++;
           if (isThisWeek(createdAt)) statistics.medical_records.this_week++;
           if (isThisMonth(createdAt)) statistics.medical_records.this_month++;
@@ -134,14 +126,10 @@ const getAdminDashboardOverview = async (req, res, next) => {
       
       statistics.scheduled_appointments.total = appointments.length;
       
-      // Count by periods
+      // Count by periods WITH FILTER
       appointments.forEach(appointment => {
         const createdAt = new Date(appointment.created_at);
-        if (isToday(createdAt)) statistics.scheduled_appointments.today++;
-        if (isThisWeek(createdAt)) statistics.scheduled_appointments.this_week++;
-        if (isThisMonth(createdAt)) statistics.scheduled_appointments.this_month++;
-        if (isThisYear(createdAt)) statistics.scheduled_appointments.this_year++;
-            if (applyDateFilter(createdAt)) {
+        if (applyDateFilter(createdAt)) {
           if (isToday(createdAt)) statistics.scheduled_appointments.today++;
           if (isThisWeek(createdAt)) statistics.scheduled_appointments.this_week++;
           if (isThisMonth(createdAt)) statistics.scheduled_appointments.this_month++;
