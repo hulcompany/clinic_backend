@@ -92,12 +92,6 @@ const createMedicalRecord = async (req, res, next) => {
       return failureResponse(res, 'Only doctors, admins, or super admins can create medical records', 403);
     }
 
-    // Check if medical attachments are provided AFTER middleware processing
-    const hasAttachments = req.files?.medical_attachments || req.processedFiles?.medical_attachments;
-    if (!hasAttachments) {
-      return failureResponse(res, 'Medical attachments (images) are required to create a medical record', 400);
-    }
-
     // Prepare medical record data
     const medicalRecordData = {
       user_id,
@@ -111,7 +105,8 @@ const createMedicalRecord = async (req, res, next) => {
       previous_surgeries: previous_surgeries || null,
       notes: notes || null,
       consultation_id: consultation_id || null,
-      medical_attachments: req.processedFiles?.medical_attachments || 
+      medical_attachments: req.processedFiles?.medical_attachments ? 
+        JSON.stringify(req.processedFiles.medical_attachments) : 
         (req.files?.medical_attachments ? 
           JSON.stringify(Array.isArray(req.files.medical_attachments) ? 
             req.files.medical_attachments.map(file => ({
