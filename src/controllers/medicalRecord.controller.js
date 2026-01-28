@@ -2,6 +2,7 @@ const { medicalRecordService } = require('../services/index');
 const AppError = require('../utils/AppError');
 const { successResponse, createdResponse, failureResponse } = require('../utils/responseHandler');
 const { User, Admin, MedicalRecord } = require('../models');
+const { Op } = require('sequelize');
 const { hasPermission } = require('../config/roles');
 
 // Helper function to validate admin/doctor permissions
@@ -139,10 +140,37 @@ const createMedicalRecord = async (req, res, next) => {
           ) : null)
     };
 
+    // Check if this is a record with attachments
+    const hasAttachments = medicalRecordData.medical_attachments !== null;
+    
     // Create medical record
     console.log('Creating medical record with data:', medicalRecordData);
     const createdMedicalRecord = await medicalRecordService.createMedicalRecord(medicalRecordData);
     console.log('Medical record created successfully:', createdMedicalRecord.id);
+
+    // If this record has attachments, delete any previous record without attachments
+    if (hasAttachments) {
+      try {
+        console.log('Checking for previous record without attachments...');
+        const { MedicalRecord } = require('../models');
+        const previousRecord = await MedicalRecord.findOne({
+          where: {
+            user_id: user_id,
+            medical_attachments: null,
+            id: { [Op.lt]: createdMedicalRecord.id } // Older record
+          }
+        });
+        
+        if (previousRecord) {
+          console.log('Deleting previous record without attachments:', previousRecord.id);
+          await previousRecord.destroy();
+          console.log('Previous record deleted successfully');
+        }
+      } catch (cleanupError) {
+        console.error('Error cleaning up previous record:', cleanupError);
+        // Don't fail the main operation if cleanup fails
+      }
+    }
 
     // If consultation_id is provided, update the consultation with medical record ID
     if (consultation_id) {
@@ -152,10 +180,29 @@ const createMedicalRecord = async (req, res, next) => {
           { medical_record_id: createdMedicalRecord.id },
           { where: { id: consultation_id } }
         );
+        console.log('Consultation updated with medical record ID:', consultation_id, '->', createdMedicalRecord.id);
       } catch (updateError) {
         console.error('Failed to update consultation with medical record ID:', updateError);
         // Don't fail the medical record creation if consultation update fails
       }
+    }
+
+    // Also update any existing consultations for this user that don't have a medical record
+    try {
+      const { Consultation } = require('../models');
+      const updatedConsultations = await Consultation.update(
+        { medical_record_id: createdMedicalRecord.id },
+        { 
+          where: { 
+            user_id: user_id,
+            medical_record_id: null
+          }
+        }
+      );
+      console.log('Updated', updatedConsultations[0], 'consultations with medical record ID:', createdMedicalRecord.id);
+    } catch (bulkUpdateError) {
+      console.error('Failed to update existing consultations:', bulkUpdateError);
+      // Don't fail the medical record creation if bulk update fails
     }
 
     // Handle file uploads if present in request
