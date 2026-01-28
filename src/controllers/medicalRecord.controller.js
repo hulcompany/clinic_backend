@@ -65,6 +65,13 @@ const validateSecretaryPermissions = async (user, recordDoctorId, recordUserId) 
  * @access  Private (Doctor only)
  */
 const createMedicalRecord = async (req, res, next) => {
+  // Prevent duplicate execution
+  if (req.medicalRecordProcessed) {
+    console.log('⚠️ Duplicate request detected, skipping...');
+    return;
+  }
+  req.medicalRecordProcessed = true;
+  
   try {
     console.log('=== MEDICAL RECORD CREATION STARTED ===');
     console.log('Request method:', req.method);
