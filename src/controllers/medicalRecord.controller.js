@@ -84,12 +84,6 @@ const createMedicalRecord = async (req, res, next) => {
       return failureResponse(res, 'User ID is required', 400);
     }
 
-    // Check if medical attachments are provided
-    const hasAttachments = req.files?.medical_attachments || req.processedFiles?.medical_attachments;
-    if (!hasAttachments) {
-      return failureResponse(res, 'Medical attachments (images) are required to create a medical record', 400);
-    }
-
     // Check if user already has a medical record
     try {
       const existingRecord = await medicalRecordService.getSingleMedicalRecordByUserId(user_id);
@@ -107,6 +101,12 @@ const createMedicalRecord = async (req, res, next) => {
     // Validate that the authenticated user is a doctor
     if (!validateAdminDoctorPermission(req.user)) {
       return failureResponse(res, 'Only doctors, admins, or super admins can create medical records', 403);
+    }
+
+    // Check if medical attachments are provided AFTER middleware processing
+    const hasAttachments = req.files?.medical_attachments || req.processedFiles?.medical_attachments;
+    if (!hasAttachments) {
+      return failureResponse(res, 'Medical attachments (images) are required to create a medical record', 400);
     }
 
     // Prepare medical record data
