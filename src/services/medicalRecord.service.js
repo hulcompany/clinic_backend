@@ -1,8 +1,6 @@
 
 const medicalRecordRepository = require('../repositories/medicalRecord.repository');
-const { MedicalRecord } = require('../models');
-const { sequelize } = require('../models');
-
+const { MedicalRecord, sequelize } = require('../models');
 const AppError = require('../utils/AppError');
 
 class MedicalRecordService {
