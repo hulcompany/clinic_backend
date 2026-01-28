@@ -8,11 +8,11 @@ class MedicalRecordRepository {
    * @param {Object} medicalRecordData - Medical record data
    * @returns {Promise<Object>} Created medical record
    */
-  async createMedicalRecord(medicalRecordData) {
+  async createMedicalRecord(medicalRecordData, transaction = null) {
     try {
       // Include consultation details in the response
       // First create the record
-      const createdRecord = await MedicalRecord.create(medicalRecordData);
+      const createdRecord = await MedicalRecord.create(medicalRecordData, { transaction });
       
       // Then fetch the complete record with associations
       const record = await MedicalRecord.findByPk(createdRecord.id, {
@@ -35,7 +35,8 @@ class MedicalRecordRepository {
             as: 'consultation',
             attributes: ['id', 'initial_issue', 'status', 'createdAt', 'updatedAt']
           }
-        ]
+        ],
+        transaction
       });
       
       return record;
