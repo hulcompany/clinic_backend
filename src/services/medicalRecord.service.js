@@ -12,23 +12,14 @@ class MedicalRecordService {
    */
   async createMedicalRecord(medicalRecordData) {
     try {
-      const { user_id } = medicalRecordData;
-      
-      // Check if user already has a medical record
-      const existingRecord = await MedicalRecord.findOne({
-        where: { user_id: user_id }
-      });
-      
-      if (existingRecord) {
-        throw new AppError('User already has a medical record. Only one medical record is allowed per user.', 400);
-      }
-      
+      // Let database handle uniqueness constraint
       const medicalRecord = await medicalRecordRepository.createMedicalRecord(medicalRecordData);
       return medicalRecord;
     } catch (error) {
-      if (error.message.includes('User already has a medical record') || 
-          error.message.includes('Validation error') ||
-          error.message.includes('unique constraint')) {
+      // Handle database uniqueness constraint error
+      if (error.name === 'SequelizeUniqueConstraintError' || 
+          error.message.includes('unique constraint') ||
+          error.message.includes('User already has a medical record')) {
         throw new AppError('User already has a medical record. Only one medical record is allowed per user.', 400);
       }
       throw new AppError('Failed to create medical record: ' + error.message, 500);
