@@ -1,6 +1,6 @@
 
 const medicalRecordRepository = require('../repositories/medicalRecord.repository');
-const { MedicalRecord, sequelize } = require('../models');
+const { MedicalRecord } = require('../models');
 const AppError = require('../utils/AppError');
 
 class MedicalRecordService {
@@ -11,27 +11,21 @@ class MedicalRecordService {
    * @returns {Promise<Object>} Created medical record
    */
   async createMedicalRecord(medicalRecordData) {
-    const transaction = await sequelize.transaction();
     try {
       const { user_id } = medicalRecordData;
       
-      // Check if user already has a medical record WITH TRANSACTION
+      // Check if user already has a medical record
       const existingRecord = await MedicalRecord.findOne({
-        where: { user_id: user_id },
-        transaction: transaction
+        where: { user_id: user_id }
       });
       
       if (existingRecord) {
-        await transaction.rollback();
         throw new AppError('User already has a medical record. Only one medical record is allowed per user.', 400);
       }
       
-      // Create medical record WITH TRANSACTION
-      const medicalRecord = await medicalRecordRepository.createMedicalRecord(medicalRecordData, transaction);
-      await transaction.commit();
+      const medicalRecord = await medicalRecordRepository.createMedicalRecord(medicalRecordData);
       return medicalRecord;
     } catch (error) {
-      await transaction.rollback();
       if (error.message.includes('User already has a medical record') || 
           error.message.includes('Validation error') ||
           error.message.includes('unique constraint')) {
