@@ -115,12 +115,12 @@ const createMedicalRecord = async (req, res, next) => {
       allergies: allergies || null,
       previous_surgeries: previous_surgeries || null,
       notes: notes || null,
-      consultation_id: consultation_id || null
+      consultation_id: consultation_id || null,
+      medical_attachments: req.processedFiles?.medical_attachments || null
     };
 
-
     // Create medical record
-    const createdMedicalRecord = await medicalRecordService.createMedicalRecord(medicalRecordData, req);
+    const createdMedicalRecord = await medicalRecordService.createMedicalRecord(medicalRecordData);
 
     // If consultation_id is provided, update the consultation with medical record ID
     if (consultation_id) {
@@ -842,5 +842,3 @@ module.exports = {
   updateMedicalRecord,
   deleteMedicalRecord
 };
-
-
