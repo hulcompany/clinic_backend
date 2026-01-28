@@ -116,7 +116,7 @@ const createMedicalRecord = async (req, res, next) => {
       previous_surgeries: previous_surgeries || null,
       notes: notes || null,
       consultation_id: consultation_id || null,
-      medical_attachments: req.processedFiles?.medical_attachments || null
+      medical_attachments: req.processedFiles?.medical_attachments || req.files?.medical_attachments || null
     };
 
     // Create medical record
