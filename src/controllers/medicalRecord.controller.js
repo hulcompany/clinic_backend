@@ -1,7 +1,7 @@
 const { medicalRecordService } = require('../services/index');
 const AppError = require('../utils/AppError');
 const { successResponse, createdResponse, failureResponse } = require('../utils/responseHandler');
-const { User, Admin } = require('../models');
+const { User, Admin, MedicalRecord } = require('../models');
 const { hasPermission } = require('../config/roles');
 
 // Helper function to validate admin/doctor permissions
@@ -842,4 +842,5 @@ module.exports = {
   updateMedicalRecord,
   deleteMedicalRecord
 };
+
 
