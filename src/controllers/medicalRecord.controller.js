@@ -66,6 +66,14 @@ const validateSecretaryPermissions = async (user, recordDoctorId, recordUserId) 
  */
 const createMedicalRecord = async (req, res, next) => {
   try {
+    console.log('=== MEDICAL RECORD CREATION STARTED ===');
+    console.log('Request method:', req.method);
+    console.log('Request URL:', req.url);
+    console.log('User ID from token:', req.user?.user_id);
+    console.log('req.files:', req.files);
+    console.log('req.processedFiles:', req.processedFiles);
+    console.log('Body:', req.body);
+    
     const { 
       user_id, 
       age, 
@@ -125,7 +133,9 @@ const createMedicalRecord = async (req, res, next) => {
     };
 
     // Create medical record
+    console.log('Creating medical record with data:', medicalRecordData);
     const createdMedicalRecord = await medicalRecordService.createMedicalRecord(medicalRecordData);
+    console.log('Medical record created successfully:', createdMedicalRecord.id);
 
     // If consultation_id is provided, update the consultation with medical record ID
     if (consultation_id) {
