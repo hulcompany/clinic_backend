@@ -12,18 +12,22 @@ class MedicalRecordService {
     try {
       const { user_id } = medicalRecordData;
       
-      // Check if user already has a medical record
-      const existingRecord = await medicalRecordRepository.getMedicalRecordsByUserId(user_id, 1, 1);
+      // Check if user already has a medical record with transaction
+      const existingRecord = await MedicalRecord.findOne({
+        where: { user_id: user_id }
+      });
       
-      if (existingRecord && existingRecord.data && existingRecord.data.length > 0) {
+      if (existingRecord) {
         throw new AppError('User already has a medical record. Only one medical record is allowed per user.', 400);
       }
       
       const medicalRecord = await medicalRecordRepository.createMedicalRecord(medicalRecordData);
       return medicalRecord;
     } catch (error) {
-      if (error.message.includes('User already has a medical record')) {
-        throw error; // Re-throw the specific error
+      if (error.message.includes('User already has a medical record') || 
+          error.message.includes('Validation error') ||
+          error.message.includes('unique constraint')) {
+        throw new AppError('User already has a medical record. Only one medical record is allowed per user.', 400);
       }
       throw new AppError('Failed to create medical record: ' + error.message, 500);
     }
