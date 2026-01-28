@@ -1,4 +1,7 @@
+
 const medicalRecordRepository = require('../repositories/medicalRecord.repository');
+const { MedicalRecord } = require('../models');
+
 const AppError = require('../utils/AppError');
 
 class MedicalRecordService {
@@ -189,3 +192,4 @@ class MedicalRecordService {
 }
 
 module.exports = new MedicalRecordService();
+
