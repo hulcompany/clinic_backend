@@ -116,7 +116,22 @@ const createMedicalRecord = async (req, res, next) => {
       previous_surgeries: previous_surgeries || null,
       notes: notes || null,
       consultation_id: consultation_id || null,
-      medical_attachments: req.processedFiles?.medical_attachments || req.files?.medical_attachments || null
+      medical_attachments: req.processedFiles?.medical_attachments || 
+        (req.files?.medical_attachments ? 
+          JSON.stringify(Array.isArray(req.files.medical_attachments) ? 
+            req.files.medical_attachments.map(file => ({
+              filename: file.filename,
+              originalname: file.originalname,
+              mimetype: file.mimetype,
+              size: file.size
+            })) : 
+            [{
+              filename: req.files.medical_attachments.filename,
+              originalname: req.files.medical_attachments.originalname,
+              mimetype: req.files.medical_attachments.mimetype,
+              size: req.files.medical_attachments.size
+            }]
+          ) : null)
     };
 
     // Create medical record
