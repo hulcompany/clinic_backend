@@ -84,6 +84,12 @@ const createMedicalRecord = async (req, res, next) => {
       return failureResponse(res, 'User ID is required', 400);
     }
 
+    // Check if medical attachments are provided
+    const hasAttachments = req.files?.medical_attachments || req.processedFiles?.medical_attachments;
+    if (!hasAttachments) {
+      return failureResponse(res, 'Medical attachments (images) are required to create a medical record', 400);
+    }
+
     // Check if user already has a medical record
     try {
       const existingRecord = await medicalRecordService.getSingleMedicalRecordByUserId(user_id);
