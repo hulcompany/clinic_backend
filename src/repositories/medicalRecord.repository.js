@@ -148,9 +148,6 @@ class MedicalRecordRepository {
         where: { user_id: userId },
         limit,
         offset,
-          attributes: {
-          include: ['medical_attachments']  // Include the medical_attachments field
-        },
         order: [['created_at', 'DESC']],
         attributes: {
           include: ['medical_attachments']  // Include the medical_attachments field
@@ -419,6 +416,5 @@ class MedicalRecordRepository {
     }
   }
 }
-
 
 module.exports = new MedicalRecordRepository();
