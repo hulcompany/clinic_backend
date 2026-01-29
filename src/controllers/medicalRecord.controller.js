@@ -5,6 +5,26 @@ const { User, Admin, MedicalRecord } = require('../models');
 const { Op } = require('sequelize');
 const { hasPermission } = require('../config/roles');
 
+// دالة آمنة لحذف ملفات سجلات الطبية
+const safeDeleteMedicalRecordFiles = async (fileIdentifiers = []) => {
+  try {
+    if (!Array.isArray(fileIdentifiers) || fileIdentifiers.length === 0) {
+      return null;
+    }
+    
+    for (let i = 0; i < fileIdentifiers.length; i++) {
+      if (typeof fileIdentifiers[i] !== 'string') {
+        return null;
+      }
+    }
+    
+    const { deleteMultipleFiles } = require('../utils/mediaUtils');
+    return await deleteMultipleFiles(fileIdentifiers, "medical_records");
+  } catch (e) {
+    return null;
+  }
+};
+
 // Helper function to validate admin/doctor permissions
 const validateAdminDoctorPermission = (user) => {
   return user.role === 'admin' || user.role === 'super_admin' || user.role === 'doctor';
@@ -73,6 +93,9 @@ const createMedicalRecord = async (req, res, next) => {
   }
   req.medicalRecordProcessed = true;
   
+  // تعريف المتغيرات خارج كتلة try لضمان الوصول إليها في كتلة catch
+  let uploadedImages = [];
+  
   try {
     console.log('=== MEDICAL RECORD CREATION STARTED ===');
     console.log('Request method:', req.method);
@@ -94,6 +117,26 @@ const createMedicalRecord = async (req, res, next) => {
       notes,
       consultation_id
     } = req.body;
+
+    // التحقق من وجود صور مرفوعة وحفظها مؤقتًا
+    if (req.processedFiles?.medical_attachments) {
+      console.log('معالجة ملفات الصور المرفوعة:', req.processedFiles.medical_attachments);
+      uploadedImages = [...req.processedFiles.medical_attachments];
+      console.log('الصور المرفوعة:', uploadedImages);
+    } else if (req.files?.medical_attachments) {
+      // Handle traditional multer format
+      const attachments = Array.isArray(req.files.medical_attachments) ? 
+        req.files.medical_attachments : 
+        [req.files.medical_attachments];
+      
+      uploadedImages = attachments.map(file => ({
+        filename: file.filename,
+        originalname: file.originalname,
+        mimetype: file.mimetype,
+        size: file.size
+      }));
+      console.log('الصور (نسق تقليدي):', uploadedImages);
+    }
 
     // Validate required fields
     if (!user_id) {
@@ -121,61 +164,17 @@ const createMedicalRecord = async (req, res, next) => {
       previous_surgeries: previous_surgeries || null,
       notes: notes || null,
       consultation_id: consultation_id || null,
-      medical_attachments: req.processedFiles?.medical_attachments ? 
-        JSON.stringify(req.processedFiles.medical_attachments) : 
-        (req.files?.medical_attachments ? 
-          JSON.stringify(Array.isArray(req.files.medical_attachments) ? 
-            req.files.medical_attachments.map(file => ({
-              filename: file.filename,
-              originalname: file.originalname,
-              mimetype: file.mimetype,
-              size: file.size
-            })) : 
-            [{
-              filename: req.files.medical_attachments.filename,
-              originalname: req.files.medical_attachments.originalname,
-              mimetype: req.files.medical_attachments.mimetype,
-              size: req.files.medical_attachments.size
-            }]
-          ) : null)
+      medical_attachments: uploadedImages.length > 0 ? JSON.stringify(uploadedImages) : null
     };
 
-    // Check if this is a record with attachments
-    const hasAttachments = medicalRecordData.medical_attachments !== null;
-    
     // Create medical record
     console.log('Creating medical record with data:', medicalRecordData);
     const createdMedicalRecord = await medicalRecordService.createMedicalRecord(medicalRecordData);
     console.log('Medical record created successfully:', createdMedicalRecord.id);
 
-    // If this record has attachments, delete any previous record without attachments
-    if (hasAttachments) {
-      try {
-        console.log('Checking for previous record without attachments...');
-        const { MedicalRecord } = require('../models');
-        const previousRecord = await MedicalRecord.findOne({
-          where: {
-            user_id: user_id,
-            medical_attachments: null,
-            id: { [Op.lt]: createdMedicalRecord.id } // Older record
-          }
-        });
-        
-        if (previousRecord) {
-          console.log('Deleting previous record without attachments:', previousRecord.id);
-          await previousRecord.destroy();
-          console.log('Previous record deleted successfully');
-        }
-      } catch (cleanupError) {
-        console.error('Error cleaning up previous record:', cleanupError);
-        // Don't fail the main operation if cleanup fails
-      }
-    }
-
     // If consultation_id is provided, update the consultation with medical record ID
     if (consultation_id) {
       try {
-        const { Consultation } = require('../models');
         await Consultation.update(
           { medical_record_id: createdMedicalRecord.id },
           { where: { id: consultation_id } }
@@ -183,13 +182,11 @@ const createMedicalRecord = async (req, res, next) => {
         console.log('Consultation updated with medical record ID:', consultation_id, '->', createdMedicalRecord.id);
       } catch (updateError) {
         console.error('Failed to update consultation with medical record ID:', updateError);
-        // Don't fail the medical record creation if consultation update fails
       }
     }
 
     // Also update any existing consultations for this user that don't have a medical record
     try {
-      const { Consultation } = require('../models');
       const updatedConsultations = await Consultation.update(
         { medical_record_id: createdMedicalRecord.id },
         { 
@@ -202,122 +199,26 @@ const createMedicalRecord = async (req, res, next) => {
       console.log('Updated', updatedConsultations[0], 'consultations with medical record ID:', createdMedicalRecord.id);
     } catch (bulkUpdateError) {
       console.error('Failed to update existing consultations:', bulkUpdateError);
-      // Don't fail the medical record creation if bulk update fails
     }
 
-    // Handle file uploads if present in request
-    console.log('req.files:', req.files);
-    console.log('req.files type:', typeof req.files);
-    
-    let medical_attachments = null;
-    
-    // Check if req.files is an array (as shown in debug logs)
-    if (req.files && Array.isArray(req.files)) {
-      // Filter files by fieldname 'medical_attachments' (plural)
-      const medicalAttachmentFiles = req.files.filter(file => file.fieldname === 'medical_attachments');
-      console.log('Filtered medical attachment files:', medicalAttachmentFiles);
-      
-      if (medicalAttachmentFiles.length > 0) {
-        medical_attachments = medicalAttachmentFiles.map(file => ({
-          filename: file.filename,
-          originalname: file.originalname,
-          mimetype: file.mimetype,
-          size: file.size
-        }));
-        console.log('Processed medical_attachments:', medical_attachments);
-      } else {
-        console.log('No files with fieldname medical_attachments found');
-      }
-    } else if (req.files && req.files['medical_attachments']) {
-      // Traditional Multer format
-      const uploadedFiles = req.files['medical_attachments'];
-      console.log('Traditional format - Found uploaded files:', uploadedFiles);
-      medical_attachments = Array.isArray(uploadedFiles) ? 
-        uploadedFiles.map(file => ({
-          filename: file.filename,
-          originalname: file.originalname,
-          mimetype: file.mimetype,
-          size: file.size
-        })) :
-        [{
-          filename: uploadedFiles.filename,
-          originalname: uploadedFiles.originalname,
-          mimetype: uploadedFiles.mimetype,
-          size: uploadedFiles.size
-        }];
-      console.log('Processed medical_attachments:', medical_attachments);
-    } else {
-      console.log('No medical_attachment files found in req.files');
-    }
-    
-    // Add medical attachments to the record data
-    const recordData = {
-      ...medicalRecordData,
-      medical_attachments: medical_attachments
-    };
-    
-    const medicalRecord = await medicalRecordService.createMedicalRecord(recordData);
-
-    // Format response to include allFiles like messages
-    const response = {
-      id: medicalRecord.id,
-      user: medicalRecord.user ? {
-        user_id: medicalRecord.user.user_id,
-        full_name: medicalRecord.user.full_name,
-        email: medicalRecord.user.email,
-        phone: medicalRecord.user.phone,
-        is_restricted: medicalRecord.user.is_restricted
-      } : null,
-      doctor: medicalRecord.admin ? {
-        user_id: medicalRecord.admin.user_id,
-        full_name: medicalRecord.admin.full_name,
-        email: medicalRecord.admin.email,
-        phone: medicalRecord.admin.phone,
-        role: medicalRecord.admin.role
-      } : null,
-      consultation: medicalRecord.consultation ? {
-                id: medicalRecord.consultation.id,
-                initial_issue: medicalRecord.consultation.initial_issue,
-                status: medicalRecord.consultation.status,
-                createdAt: medicalRecord.consultation.createdAt,
-                updatedAt: medicalRecord.consultation.updatedAt
-              } : null,
-      age: medicalRecord.age,
-      gender: medicalRecord.gender,
-      height: medicalRecord.height,
-      weight: medicalRecord.weight,
-      chronic_diseases: medicalRecord.chronic_diseases,
-      allergies: medicalRecord.allergies,
-      previous_surgeries: medicalRecord.previous_surgeries,
-      notes: medicalRecord.notes,
-      createdAt: medicalRecord.created_at,
-      updatedAt: medicalRecord.updated_at,
-      allFiles: (medicalRecord.medical_attachments && Array.isArray(medicalRecord.medical_attachments)) ? 
-        medicalRecord.medical_attachments.map(attachment => {
-          // Handle both string filenames and complete file objects
-          if (typeof attachment === 'string') {
-            // If it's just a filename string, return basic info
-            return {
-              filename: attachment,
-              originalname: attachment, // Using filename as originalname for now
-              mimetype: 'application/octet-stream' // Default mimetype
-            };
-          } else {
-            // If it's a full attachment object
-            return {
-              filename: attachment.filename,
-              originalname: attachment.originalname,
-              mimetype: attachment.mimetype || 'application/octet-stream'
-            };
-          }
-        }) : []
-    };
-    
-    successResponse(res, response, 'Medical record created successfully');
+    successResponse(res, createdMedicalRecord, 'Medical record created successfully');
   } catch (error) {
-    if (error.message === 'File upload failed') {
-      return failureResponse(res, error.message, 400);
+    // إذا حدث خطأ في أي مرحلة، حذف الملفات المرفوعة
+    if (uploadedImages && uploadedImages.length > 0) {
+      try {
+        const filesToDelete = uploadedImages.map(img => 
+          typeof img === 'string' ? img : img.filename
+        ).filter(Boolean);
+        
+        if (filesToDelete.length > 0) {
+          await safeDeleteMedicalRecordFiles(filesToDelete);
+          console.log('تم حذف الملفات المرفوعة بعد حدوث خطأ');
+        }
+      } catch (deleteError) {
+        console.error('خطأ في حذف الملفات المرفوعة:', deleteError);
+      }
     }
+    
     next(new AppError(error.message, error.statusCode || 500));
   }
 };
