@@ -119,23 +119,28 @@ const createMedicalRecord = async (req, res, next) => {
     } = req.body;
 
     // التحقق من وجود صور مرفوعة وحفظها مؤقتًا
-    if (req.processedFiles?.medical_attachments) {
-      console.log('معالجة ملفات الصور المرفوعة:', req.processedFiles.medical_attachments);
-      uploadedImages = [...req.processedFiles.medical_attachments];
-      console.log('الصور المرفوعة:', uploadedImages);
-    } else if (req.files?.medical_attachments) {
-      // Handle traditional multer format
-      const attachments = Array.isArray(req.files.medical_attachments) ? 
-        req.files.medical_attachments : 
-        [req.files.medical_attachments];
+    if (req.files?.medical_attachments) {
+      console.log('معالجة ملفات الصور المرفوعة:', req.files.medical_attachments);
       
-      uploadedImages = attachments.map(file => ({
-        filename: file.filename,
-        originalname: file.originalname,
-        mimetype: file.mimetype,
-        size: file.size
-      }));
-      console.log('الصور (نسق تقليدي):', uploadedImages);
+      // Handle array of files
+      if (Array.isArray(req.files.medical_attachments)) {
+        uploadedImages = req.files.medical_attachments.map(file => ({
+          filename: file.filename,
+          originalname: file.originalname,
+          mimetype: file.mimetype,
+          size: file.size
+        }));
+      } else {
+        // Handle single file
+        uploadedImages = [{
+          filename: req.files.medical_attachments.filename,
+          originalname: req.files.medical_attachments.originalname,
+          mimetype: req.files.medical_attachments.mimetype,
+          size: req.files.medical_attachments.size
+        }];
+      }
+      
+      console.log('الصور المرفوعة:', uploadedImages);
     }
 
     // Validate required fields
