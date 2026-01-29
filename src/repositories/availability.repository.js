@@ -397,7 +397,7 @@ class AvailabilityRepository {
         is_booked: true,
         booked_by_user_id: userId,
         status: 'unavailable',
-        join_enabled: true,  // Default to true for new bookings
+        join_enabled: false,  // Default to false for new bookings
         reminder_sent: false  // Default to false for new bookings
       };
       
@@ -478,3 +478,4 @@ class AvailabilityRepository {
 }
 
 module.exports = new AvailabilityRepository();
+
