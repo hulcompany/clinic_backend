@@ -1,7 +1,7 @@
 const { medicalRecordService } = require('../services/index');
 const AppError = require('../utils/AppError');
 const { successResponse, createdResponse, failureResponse } = require('../utils/responseHandler');
-const { User, Admin, MedicalRecord } = require('../models');
+const { User, Admin, MedicalRecord, Consultation } = require('../models');
 const { Op } = require('sequelize');
 const { hasPermission } = require('../config/roles');
 
@@ -119,7 +119,21 @@ const createMedicalRecord = async (req, res, next) => {
     } = req.body;
 
     // التحقق من وجود صور مرفوعة وحفظها مؤقتًا
-    if (req.files?.medical_attachments) {
+    if (req.files && Array.isArray(req.files)) {
+      // Filter files by fieldname 'medical_attachments'
+      const medicalAttachmentFiles = req.files.filter(file => file.fieldname === 'medical_attachments');
+      console.log('Filtered medical attachment files:', medicalAttachmentFiles);
+      
+      if (medicalAttachmentFiles.length > 0) {
+        uploadedImages = medicalAttachmentFiles.map(file => ({
+          filename: file.filename,
+          originalname: file.originalname,
+          mimetype: file.mimetype,
+          size: file.size
+        }));
+        console.log('Processed medical_attachments:', uploadedImages);
+      }
+    } else if (req.files?.medical_attachments) {
       console.log('معالجة ملفات الصور المرفوعة:', req.files.medical_attachments);
       
       // Handle array of files
