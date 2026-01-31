@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middleware/auth.middleware');
+const { conditionalMediaManagement } = require('../middleware/mediaUpdate.middleware');
 const {
   createPayment,
   getPaymentById,
@@ -54,7 +55,18 @@ const {
  *       500:
  *         description: Internal server error
  */
-router.post('/', authMiddleware.protect, createPayment);
+router.post('/', 
+  authMiddleware.protect, 
+  conditionalMediaManagement({
+    contentType: 'payments',
+    fieldName: 'payment_proof',
+    mediaField: 'payment_proof',
+    cleanup: false, // No cleanup needed for new payments
+    uploadType: 'single',
+    mediaType: 'image'
+  }),
+  createPayment
+);
 
 /**
  * @swagger
