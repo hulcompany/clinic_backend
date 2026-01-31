@@ -70,9 +70,9 @@ const getPaymentMethodById = async (req, res, next) => {
  */
 const createPaymentMethod = async (req, res, next) => {
   try {
-    // Only admins and super admins can create payment methods
-    if (req.user.role !== 'admin' && req.user.role !== 'super_admin') {
-      return failureResponse(res, 'Only admins can create payment methods', 403);
+    // Allow doctors, admins, and super admins to create payment methods
+    if (req.user.role !== 'doctor' && req.user.role !== 'admin' && req.user.role !== 'super_admin') {
+      return failureResponse(res, 'Only doctors, admins, and super admins can create payment methods', 403);
     }
 
     const { name, description, account_number, account_name, bank_name } = req.body;
@@ -109,9 +109,9 @@ const createPaymentMethod = async (req, res, next) => {
  */
 const updatePaymentMethod = async (req, res, next) => {
   try {
-    // Only admins and super admins can update payment methods
-    if (req.user.role !== 'admin' && req.user.role !== 'super_admin') {
-      return failureResponse(res, 'Only admins can update payment methods', 403);
+    // Allow doctors, admins, and super admins to update payment methods
+    if (req.user.role !== 'doctor' && req.user.role !== 'admin' && req.user.role !== 'super_admin') {
+      return failureResponse(res, 'Only doctors, admins, and super admins can update payment methods', 403);
     }
 
     const { id } = req.params;
@@ -148,9 +148,9 @@ const updatePaymentMethod = async (req, res, next) => {
  */
 const deletePaymentMethod = async (req, res, next) => {
   try {
-    // Only super admins can delete payment methods
-    if (req.user.role !== 'super_admin') {
-      return failureResponse(res, 'Only super admins can delete payment methods', 403);
+    // Allow doctors, admins, and super admins to delete payment methods
+    if (req.user.role !== 'doctor' && req.user.role !== 'admin' && req.user.role !== 'super_admin') {
+      return failureResponse(res, 'Only doctors, admins, and super admins can delete payment methods', 403);
     }
 
     const { id } = req.params;
