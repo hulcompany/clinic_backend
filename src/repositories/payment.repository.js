@@ -11,7 +11,7 @@ class PaymentRepository {
     try {
       const payment = await Payment.create(paymentData);
       
-      // Fetch with associations
+      // Fetch with associations and payment proof URL
       const result = await Payment.findByPk(payment.id, {
         include: [
           {
@@ -23,6 +23,18 @@ class PaymentRepository {
             model: Admin,
             as: 'verifier',
             attributes: ['user_id', 'full_name'],
+            required: false
+          },
+          {
+            model: PaymentMethod,
+            as: 'paymentMethod',
+            attributes: ['id', 'name'],
+            required: false
+          },
+          {
+            model: PaymentMethod,
+            as: 'paymentMethod',
+            attributes: ['id', 'name'],
             required: false
           }
         ]
@@ -58,6 +70,12 @@ class PaymentRepository {
             model: Consultation,
             as: 'consultation',
             attributes: ['id', 'initial_issue', 'status'],
+            required: false
+          },
+          {
+            model: PaymentMethod,
+            as: 'paymentMethod',
+            attributes: ['id', 'name'],
             required: false
           }
         ]
@@ -100,6 +118,12 @@ class PaymentRepository {
             as: 'verifier',
             attributes: ['user_id', 'full_name'],
             required: false
+          },
+          {
+            model: PaymentMethod,
+            as: 'paymentMethod',
+            attributes: ['id', 'name'],
+            required: false
           }
         ],
         order: [['created_at', 'DESC']]
@@ -135,6 +159,12 @@ class PaymentRepository {
             model: Admin,
             as: 'verifier',
             attributes: ['user_id', 'full_name'],
+            required: false
+          },
+          {
+            model: PaymentMethod,
+            as: 'paymentMethod',
+            attributes: ['id', 'name'],
             required: false
           }
         ],
@@ -176,6 +206,12 @@ class PaymentRepository {
             model: Admin,
             as: 'verifier',
             attributes: ['user_id', 'full_name'],
+            required: false
+          },
+          {
+            model: PaymentMethod,
+            as: 'paymentMethod',
+            attributes: ['id', 'name'],
             required: false
           }
         ]
