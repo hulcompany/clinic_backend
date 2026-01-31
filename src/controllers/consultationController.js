@@ -1,4 +1,4 @@
-const { consultationService } = require('../services/index');
+const { consultationService, paymentService } = require('../services/index');
 const { autoNotificationService } = require('../services');
 const AppError = require('../utils/AppError');
 const { successResponse, createdResponse, failureResponse } = require('../utils/responseHandler');
@@ -108,13 +108,30 @@ const createConsultation = async (req, res, next) => {
     // User ID comes from authenticated user
     const user_id = req.user.user_id;
     
+    // Check if user has paid for consultation
+    const hasPaid = await paymentService.hasPaidConsultation(user_id);
+    if (!hasPaid) {
+      return failureResponse(res, 'You must pay consultation fee before creating consultation', 400);
+    }
+    
     const result = await consultationService.createConsultation({
       user_id,
       admin_id,
       initial_issue,
       medical_record_id: null  // Initially null, will be updated when medical record is created
-
     });
+    
+    // Find the latest paid payment for this user and link it to consultation
+    try {
+      const latestPayment = await paymentService.getPaymentsByUserId(user_id, 'paid');
+      if (latestPayment.length > 0) {
+        const mostRecentPayment = latestPayment[0]; // Assuming ordered by date DESC
+        await paymentService.linkToConsultation(mostRecentPayment.id, result.consultation.id);
+      }
+    } catch (linkError) {
+      console.error('Failed to link payment to consultation:', linkError);
+      // Don't fail the consultation creation if payment linking fails
+    }
     
     // إنشاء إشعار تلقائي لإنشاء الاستشارة
     try {
