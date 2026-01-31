@@ -774,10 +774,28 @@ const updateMedicalRecord = async (req, res, next) => {
           
           if (Array.isArray(preserveList)) {
             // Filter existing attachments to keep only those in preserve list
-            medical_attachments = (Array.isArray(currentRecord.medical_attachments) ? 
-              currentRecord.medical_attachments : []).filter(attachment => 
-              preserveList.includes(typeof attachment === 'string' ? attachment : attachment.filename)
-            );
+            // Handle both array and JSON string cases
+            let currentAttachments = [];
+            
+            if (Array.isArray(currentRecord.medical_attachments)) {
+              currentAttachments = currentRecord.medical_attachments;
+            } else if (typeof currentRecord.medical_attachments === 'string') {
+              try {
+                currentAttachments = JSON.parse(currentRecord.medical_attachments);
+                if (!Array.isArray(currentAttachments)) {
+                  currentAttachments = [];
+                }
+              } catch (parseError) {
+                console.warn('Could not parse current medical_attachments JSON:', parseError.message);
+                currentAttachments = [];
+              }
+            }
+            
+            // Preserve attachments by filename
+            medical_attachments = currentAttachments.filter(attachment => {
+              const filename = typeof attachment === 'string' ? attachment : attachment.filename;
+              return preserveList.includes(filename);
+            });
           }
         } catch (parseError) {
           console.warn('Could not parse preserveAttachments:', parseError.message);
@@ -839,23 +857,59 @@ const updateMedicalRecord = async (req, res, next) => {
       updatedAt: updatedRecord.updated_at,
       allFiles: (updatedRecord.medical_attachments && Array.isArray(updatedRecord.medical_attachments)) ? 
         updatedRecord.medical_attachments.map(attachment => {
-          // Handle both string filenames and complete file objects
           if (typeof attachment === 'string') {
-            // If it's just a filename string, return basic info
+            const mediaType = attachment.match(/\.(mp4|avi|mov|flv|mkv)$/i) ? 'videos' : 
+                             attachment.match(/\.(mp3|wav|aac|wmv|ogg|webm|flac)$/i) ? 'audios' : 'images';
             return {
               filename: attachment,
-              originalname: attachment, // Using filename as originalname for now
-              mimetype: 'application/octet-stream' // Default mimetype
+              originalname: attachment,
+              mimetype: mediaType === 'images' ? 'image/jpeg' : 
+                       mediaType === 'audios' ? 'audio/mpeg' : 'video/mp4',
+              url: `/public/uploads/${mediaType}/medical_records/${attachment}`
             };
           } else {
-            // If it's a full attachment object
+            const mediaType = attachment.filename?.match(/\.(mp4|avi|mov|flv|mkv)$/i) ? 'videos' : 
+                             attachment.filename?.match(/\.(mp3|wav|aac|wmv|ogg|webm|flac)$/i) ? 'audios' : 'images';
             return {
               filename: attachment.filename,
               originalname: attachment.originalname,
-              mimetype: attachment.mimetype || 'application/octet-stream'
+              mimetype: attachment.mimetype || 'application/octet-stream',
+              url: `/public/uploads/${mediaType}/medical_records/${attachment.filename}`
             };
           }
-        }) : []
+        }) : 
+        // Handle JSON string case
+        (typeof updatedRecord.medical_attachments === 'string' ? 
+          (() => {
+            try {
+              const parsed = JSON.parse(updatedRecord.medical_attachments);
+              return Array.isArray(parsed) ? parsed.map(attachment => {
+                if (typeof attachment === 'string') {
+                  const mediaType = attachment.match(/\.(mp4|avi|mov|flv|mkv)$/i) ? 'videos' : 
+                                   attachment.match(/\.(mp3|wav|aac|wmv|ogg|webm|flac)$/i) ? 'audios' : 'images';
+                  return {
+                    filename: attachment,
+                    originalname: attachment,
+                    mimetype: mediaType === 'images' ? 'image/jpeg' : 
+                             mediaType === 'audios' ? 'audio/mpeg' : 'video/mp4',
+                    url: `/public/uploads/${mediaType}/medical_records/${attachment}`
+                  };
+                } else {
+                  const mediaType = attachment.filename?.match(/\.(mp4|avi|mov|flv|mkv)$/i) ? 'videos' : 
+                                   attachment.filename?.match(/\.(mp3|wav|aac|wmv|ogg|webm|flac)$/i) ? 'audios' : 'images';
+                  return {
+                    filename: attachment.filename,
+                    originalname: attachment.originalname,
+                    mimetype: attachment.mimetype || 'application/octet-stream',
+                    url: `/public/uploads/${mediaType}/medical_records/${attachment.filename}`
+                  };
+                }
+              }) : [];
+            } catch (e) {
+              console.error('Failed to parse medical_attachments JSON:', e);
+              return [];
+            }
+          })() : [])
     };
     
     successResponse(res, response, 'Medical record updated successfully');
