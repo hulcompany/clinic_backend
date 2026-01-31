@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middleware/auth.middleware');
+const { conditionalMediaManagement, deleteMediaCleanup } = require('../middleware/mediaUpdate.middleware');
 const {
   getActivePaymentMethods,
   getAllPaymentMethods,
@@ -126,7 +127,18 @@ router.get('/:id', authMiddleware.protect, getPaymentMethodById);
  *       500:
  *         description: Internal server error
  */
-router.post('/', authMiddleware.protect, createPaymentMethod);
+router.post('/', 
+  authMiddleware.protect, 
+  conditionalMediaManagement({
+    contentType: 'payment_methods',
+    fieldName: 'qr_code',
+    mediaField: 'qr_code',
+    cleanup: false, // No cleanup needed for new payment methods
+    uploadType: 'single',
+    mediaType: 'image'
+  }),
+  createPaymentMethod
+);
 
 /**
  * @swagger
@@ -186,7 +198,18 @@ router.post('/', authMiddleware.protect, createPaymentMethod);
  *       500:
  *         description: Internal server error
  */
-router.put('/:id', authMiddleware.protect, updatePaymentMethod);
+router.put('/:id', 
+  authMiddleware.protect, 
+  conditionalMediaManagement({
+    contentType: 'payment_methods',
+    fieldName: 'qr_code',
+    mediaField: 'qr_code',
+    cleanup: true, // Cleanup old QR codes when updating
+    uploadType: 'single',
+    mediaType: 'image'
+  }),
+  updatePaymentMethod
+);
 
 /**
  * @swagger
@@ -215,6 +238,16 @@ router.put('/:id', authMiddleware.protect, updatePaymentMethod);
  *       500:
  *         description: Internal server error
  */
-router.delete('/:id', authMiddleware.protect, deletePaymentMethod);
+router.delete('/:id', 
+  authMiddleware.protect,
+  // Add media cleanup middleware for deletion
+  deleteMediaCleanup({
+    entityType: 'payment_method',
+    contentType: 'payment_methods',
+    mediaField: 'qr_code',
+    mediaType: 'image'
+  }),
+  deletePaymentMethod
+);
 
 module.exports = router;
