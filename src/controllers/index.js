@@ -13,6 +13,8 @@ const serviceController = require('./service.controller');
 const sessionController = require('./session.controller');
 const landingImageController = require('./landingImage.controller');
 const dashboardController = require('./dashboard.controller');
+const paymentController = require('./payment.controller');
+const paymentMethodController = require('./paymentMethod.controller');
 
 module.exports = {
   adminController,
@@ -28,5 +30,7 @@ module.exports = {
   serviceController,
   sessionController,
   landingImageController,
-  dashboardController
+  dashboardController,
+  paymentController,
+  paymentMethodController
 };
