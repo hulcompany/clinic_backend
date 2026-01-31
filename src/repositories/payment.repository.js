@@ -1,4 +1,4 @@
-const { Payment, User, Admin, Consultation } = require('../models');
+const { Payment, User, Admin, Consultation, PaymentMethod } = require('../models');
 const AppError = require('../utils/AppError');
 
 class PaymentRepository {
@@ -23,12 +23,6 @@ class PaymentRepository {
             model: Admin,
             as: 'verifier',
             attributes: ['user_id', 'full_name'],
-            required: false
-          },
-          {
-            model: PaymentMethod,
-            as: 'paymentMethod',
-            attributes: ['id', 'name'],
             required: false
           },
           {
