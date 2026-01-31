@@ -27,6 +27,7 @@ const blogService = require('./blog.service');
 const notificationService = require('./notification.service');
 const autoNotificationService = require('./autoNotification.service');
 const landingImageService = require('./landingImage.service');
+const paymentService = require('./payment.service');
 
 // Export services
 module.exports = {
@@ -48,5 +49,6 @@ module.exports = {
   blogService,
   notificationService,
   autoNotificationService,
-  landingImageService
+  landingImageService,
+  paymentService
 };
