@@ -17,6 +17,8 @@ const reviewRepository = require('./review.repository');
 const serviceRepository = require('./service.repository');
 const sessionRepository = require('./session.repository');
 const landingImageRepository = require('./landingImage.repository');
+const paymentRepository = require('./payment.repository');
+const paymentMethodRepository = require('./paymentMethod.repository');
 
 module.exports = {
   adminRepository,
@@ -35,5 +37,7 @@ module.exports = {
   reviewRepository,
   serviceRepository,
   sessionRepository,
-  landingImageRepository
+  landingImageRepository,
+  paymentRepository,
+  paymentMethodRepository
 };
