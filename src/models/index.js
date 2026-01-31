@@ -25,6 +25,8 @@ const MedicalRecord = require('./MedicalRecord');
 const Blog = require('./Blog');
 const Notification = require('./Notification');
 const LandingImage = require('./LandingImage');
+const Payment = require('./Payment');
+const PaymentMethod = require('./PaymentMethod');
 
 // Define relationships between models (avoid defining if they already exist)
 User.hasMany(Otp, { foreignKey: 'user_id' }); // User has many Otps
@@ -96,6 +98,20 @@ Blog.belongsTo(Admin, { foreignKey: 'author_id', as: 'author' }); // Blog belong
 User.hasMany(Notification, { foreignKey: 'user_id', as: 'notifications' }); // User has many Notifications
 Notification.belongsTo(User, { foreignKey: 'user_id', as: 'user' }); // Notification belongs to User
 
+// Payment relationships
+User.hasMany(Payment, { foreignKey: 'user_id', as: 'payments' }); // User has many Payments
+Payment.belongsTo(User, { foreignKey: 'user_id', as: 'user' }); // Payment belongs to User
+
+Admin.hasMany(Payment, { foreignKey: 'verified_by', as: 'verifiedPayments' }); // Admin has many verified Payments
+Payment.belongsTo(Admin, { foreignKey: 'verified_by', as: 'verifier' }); // Payment belongs to Admin (verifier)
+
+Consultation.hasMany(Payment, { foreignKey: 'consultation_id', as: 'payments' }); // Consultation has many Payments
+Payment.belongsTo(Consultation, { foreignKey: 'consultation_id', as: 'consultation' }); // Payment belongs to Consultation
+
+// Payment method relationships
+PaymentMethod.hasMany(Payment, { foreignKey: 'payment_method_id', as: 'payments' }); // Payment method has many Payments
+Payment.belongsTo(PaymentMethod, { foreignKey: 'payment_method_id', as: 'paymentMethod' }); // Payment belongs to Payment method
+
 // Export models with relationships
 const models = {
   User,
@@ -114,7 +130,9 @@ const models = {
   MedicalRecord,
   Blog,
   Notification,
-  LandingImage
+  LandingImage,
+  Payment,
+  PaymentMethod
 };
 
 // Call associate methods if they exist
