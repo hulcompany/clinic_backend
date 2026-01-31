@@ -21,6 +21,8 @@ const availabilityRoutes = require('./availability.routes');
 const medicalRecordRoutes = require('./medicalRecord.routes');
 const blogRoutes = require('./blog.routes');
 const landingImageRoutes = require('./landingImage.routes');
+const paymentRoutes = require('./payment.routes');
+const paymentMethodRoutes = require('./paymentMethod.routes');
 const dashboardRoutes = require('./dashboard.routes');
 
 // Use routes
@@ -37,6 +39,8 @@ router.use('/availability', availabilityRoutes);
 router.use('/medical-records', medicalRecordRoutes);
 router.use('/blogs', blogRoutes);
 router.use('/landing-images', landingImageRoutes);
+router.use('/payments', paymentRoutes);
+router.use('/payment-methods', paymentMethodRoutes);
 router.use('/dashboard', dashboardRoutes);
 
 module.exports = router;
