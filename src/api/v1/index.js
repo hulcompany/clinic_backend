@@ -24,6 +24,8 @@ const notificationRoutes = require('../../routes/notification.routes');
 const landingImageRoutes = require('../../routes/landingImage.routes');
 const phoneVerificationRoutes = require('../../routes/authentication/phoneVerification.routes');
 const dashboardRoutes = require('../../routes/dashboard.routes');
+const paymentRoutes = require('../../routes/payment.routes');
+const paymentMethodRoutes = require('../../routes/paymentMethod.routes');
 
 module.exports = {
   authRoutes,
@@ -43,5 +45,7 @@ module.exports = {
   notificationRoutes,
   landingImageRoutes,
   phoneVerificationRoutes,
-  dashboardRoutes
+  dashboardRoutes,
+  paymentRoutes,
+  paymentMethodRoutes
 };
