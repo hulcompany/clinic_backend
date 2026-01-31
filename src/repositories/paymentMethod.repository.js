@@ -59,7 +59,10 @@ class PaymentMethodRepository {
   async createPaymentMethod(methodData) {
     try {
       const method = await PaymentMethod.create(methodData);
-      return method;
+      
+      // Fetch the created method with all attributes
+      const result = await PaymentMethod.findByPk(method.id);
+      return result;
     } catch (error) {
       throw new AppError('Failed to create payment method: ' + error.message, 500);
     }
@@ -82,7 +85,9 @@ class PaymentMethodRepository {
         throw new AppError('Payment method not found', 404);
       }
       
-      return updatedMethods[0];
+      // Return the updated method with all attributes
+      const updatedMethod = await PaymentMethod.findByPk(id);
+      return updatedMethod;
     } catch (error) {
       if (error instanceof AppError) throw error;
       throw new AppError('Failed to update payment method: ' + error.message, 500);
