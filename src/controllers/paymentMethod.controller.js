@@ -82,18 +82,23 @@ const createPaymentMethod = async (req, res, next) => {
       return failureResponse(res, 'Payment method name is required', 400);
     }
 
+    // Handle QR code upload (using same pattern as services)
+    let qrCodeData = null;
+    if (req.file) {
+      qrCodeData = req.file.filename;
+      console.log('QR Code filename set:', qrCodeData);
+    } else {
+      console.log('No QR code file uploaded');
+    }
+    
     const methodData = {
       name,
       description,
       account_number,
       account_name,
-      bank_name
+      bank_name,
+      qr_code: qrCodeData
     };
-
-    // Handle QR code from media management middleware
-    if (req.processedFiles && req.processedFiles.qr_code) {
-      methodData.qr_code = req.processedFiles.qr_code[0].filename;
-    }
 
     const method = await paymentMethodService.createPaymentMethod(methodData);
     createdResponse(res, method, 'Payment method created successfully');
@@ -126,9 +131,10 @@ const updatePaymentMethod = async (req, res, next) => {
     if (bank_name !== undefined) updateData.bank_name = bank_name;
     if (is_active !== undefined) updateData.is_active = is_active;
 
-    // Handle QR code from media management middleware
-    if (req.processedFiles && req.processedFiles.qr_code) {
-      updateData.qr_code = req.processedFiles.qr_code[0].filename;
+    // Handle QR code upload (using same pattern as services)
+    if (req.file) {
+      updateData.qr_code = req.file.filename;
+      console.log('QR Code updated:', updateData.qr_code);
     }
 
     const method = await paymentMethodService.updatePaymentMethod(id, updateData);
