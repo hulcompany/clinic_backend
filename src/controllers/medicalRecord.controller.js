@@ -306,18 +306,25 @@ const getMedicalRecordById = async (req, res, next) => {
         medicalRecord.medical_attachments.map(attachment => {
           // Handle both string filenames and complete file objects
           if (typeof attachment === 'string') {
-            // If it's just a filename string, return basic info
+            // If it's just a filename string, return basic info with URL
+            const mediaType = attachment.match(/\.(mp4|avi|mov|flv|mkv)$/i) ? 'videos' : 
+                             attachment.match(/\.(mp3|wav|aac|wmv|ogg|webm|flac)$/i) ? 'audios' : 'images';
             return {
               filename: attachment,
-              originalname: attachment, // Using filename as originalname for now
-              mimetype: 'application/octet-stream' // Default mimetype
+              originalname: attachment,
+              mimetype: mediaType === 'images' ? 'image/jpeg' : 
+                       mediaType === 'audios' ? 'audio/mpeg' : 'video/mp4',
+              url: `/public/uploads/${mediaType}/medical_records/${attachment}`
             };
           } else {
             // If it's a full attachment object
+            const mediaType = attachment.filename?.match(/\.(mp4|avi|mov|flv|mkv)$/i) ? 'videos' : 
+                             attachment.filename?.match(/\.(mp3|wav|aac|wmv|ogg|webm|flac)$/i) ? 'audios' : 'images';
             return {
               filename: attachment.filename,
               originalname: attachment.originalname,
-              mimetype: attachment.mimetype || 'application/octet-stream'
+              mimetype: attachment.mimetype || 'application/octet-stream',
+              url: `/public/uploads/${mediaType}/medical_records/${attachment.filename}`
             };
           }
         }) : []
@@ -492,11 +499,28 @@ const getMedicalRecordsByUserId = async (req, res, next) => {
         createdAt: record.created_at,
         updatedAt: record.updated_at,
         allFiles: (record.medical_attachments && Array.isArray(record.medical_attachments)) ? 
-          record.medical_attachments.map(attachment => ({
-            filename: attachment.filename,
-            originalname: attachment.originalname,
-            mimetype: attachment.mimetype || 'application/octet-stream'
-          })) : []
+          record.medical_attachments.map(attachment => {
+            if (typeof attachment === 'string') {
+              const mediaType = attachment.match(/\.(mp4|avi|mov|flv|mkv)$/i) ? 'videos' : 
+                               attachment.match(/\.(mp3|wav|aac|wmv|ogg|webm|flac)$/i) ? 'audios' : 'images';
+              return {
+                filename: attachment,
+                originalname: attachment,
+                mimetype: mediaType === 'images' ? 'image/jpeg' : 
+                         mediaType === 'audios' ? 'audio/mpeg' : 'video/mp4',
+                url: `/public/uploads/${mediaType}/medical_records/${attachment}`
+              };
+            } else {
+              const mediaType = attachment.filename?.match(/\.(mp4|avi|mov|flv|mkv)$/i) ? 'videos' : 
+                               attachment.filename?.match(/\.(mp3|wav|aac|wmv|ogg|webm|flac)$/i) ? 'audios' : 'images';
+              return {
+                filename: attachment.filename,
+                originalname: attachment.originalname,
+                mimetype: attachment.mimetype || 'application/octet-stream',
+                url: `/public/uploads/${mediaType}/medical_records/${attachment.filename}`
+              };
+            }
+          }) : []
       };
     });
 
