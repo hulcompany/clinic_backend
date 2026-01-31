@@ -47,9 +47,9 @@ const createPayment = async (req, res, next) => {
       payment_method_id: payment_method_id || null
     };
 
-    // Handle payment proof upload if provided
-    if (req.files && req.files.payment_proof) {
-      paymentData.payment_proof = req.files.payment_proof[0].filename;
+    // Handle payment proof from media management middleware
+    if (req.processedFiles && req.processedFiles.payment_proof) {
+      paymentData.payment_proof = req.processedFiles.payment_proof[0].filename;
     }
 
     const payment = await paymentService.createPayment(paymentData);
