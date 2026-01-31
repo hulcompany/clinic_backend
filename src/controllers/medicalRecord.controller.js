@@ -327,7 +327,39 @@ const getMedicalRecordById = async (req, res, next) => {
               url: `/public/uploads/${mediaType}/medical_records/${attachment.filename}`
             };
           }
-        }) : []
+        }) : 
+        // Handle JSON string case
+        (typeof medicalRecord.medical_attachments === 'string' ? 
+          (() => {
+            try {
+              const parsed = JSON.parse(medicalRecord.medical_attachments);
+              return Array.isArray(parsed) ? parsed.map(attachment => {
+                if (typeof attachment === 'string') {
+                  const mediaType = attachment.match(/\.(mp4|avi|mov|flv|mkv)$/i) ? 'videos' : 
+                                   attachment.match(/\.(mp3|wav|aac|wmv|ogg|webm|flac)$/i) ? 'audios' : 'images';
+                  return {
+                    filename: attachment,
+                    originalname: attachment,
+                    mimetype: mediaType === 'images' ? 'image/jpeg' : 
+                             mediaType === 'audios' ? 'audio/mpeg' : 'video/mp4',
+                    url: `/public/uploads/${mediaType}/medical_records/${attachment}`
+                  };
+                } else {
+                  const mediaType = attachment.filename?.match(/\.(mp4|avi|mov|flv|mkv)$/i) ? 'videos' : 
+                                   attachment.filename?.match(/\.(mp3|wav|aac|wmv|ogg|webm|flac)$/i) ? 'audios' : 'images';
+                  return {
+                    filename: attachment.filename,
+                    originalname: attachment.originalname,
+                    mimetype: attachment.mimetype || 'application/octet-stream',
+                    url: `/public/uploads/${mediaType}/medical_records/${attachment.filename}`
+                  };
+                }
+              }) : [];
+            } catch (e) {
+              console.error('Failed to parse medical_attachments JSON:', e);
+              return [];
+            }
+          })() : [])
     };
     
     successResponse(res, response, 'Medical record retrieved successfully');
@@ -520,7 +552,39 @@ const getMedicalRecordsByUserId = async (req, res, next) => {
                 url: `/public/uploads/${mediaType}/medical_records/${attachment.filename}`
               };
             }
-          }) : []
+          }) : 
+          // Handle JSON string case
+          (typeof record.medical_attachments === 'string' ? 
+            (() => {
+              try {
+                const parsed = JSON.parse(record.medical_attachments);
+                return Array.isArray(parsed) ? parsed.map(attachment => {
+                  if (typeof attachment === 'string') {
+                    const mediaType = attachment.match(/\.(mp4|avi|mov|flv|mkv)$/i) ? 'videos' : 
+                                     attachment.match(/\.(mp3|wav|aac|wmv|ogg|webm|flac)$/i) ? 'audios' : 'images';
+                    return {
+                      filename: attachment,
+                      originalname: attachment,
+                      mimetype: mediaType === 'images' ? 'image/jpeg' : 
+                               mediaType === 'audios' ? 'audio/mpeg' : 'video/mp4',
+                      url: `/public/uploads/${mediaType}/medical_records/${attachment}`
+                    };
+                  } else {
+                    const mediaType = attachment.filename?.match(/\.(mp4|avi|mov|flv|mkv)$/i) ? 'videos' : 
+                                     attachment.filename?.match(/\.(mp3|wav|aac|wmv|ogg|webm|flac)$/i) ? 'audios' : 'images';
+                    return {
+                      filename: attachment.filename,
+                      originalname: attachment.originalname,
+                      mimetype: attachment.mimetype || 'application/octet-stream',
+                      url: `/public/uploads/${mediaType}/medical_records/${attachment.filename}`
+                    };
+                  }
+                }) : [];
+              } catch (e) {
+                console.error('Failed to parse medical_attachments JSON:', e);
+                return [];
+              }
+            })() : [])
       };
     });
 
