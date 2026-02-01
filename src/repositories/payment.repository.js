@@ -267,6 +267,26 @@ class PaymentRepository {
       throw new AppError('Failed to link payment to consultation: ' + error.message, 500);
     }
   }
+
+  /**
+   * Delete payment
+   * @param {number} id - Payment ID
+   * @returns {Promise<void>}
+   */
+  async deletePayment(id) {
+    try {
+      const deletedRows = await Payment.destroy({
+        where: { id }
+      });
+      
+      if (deletedRows === 0) {
+        throw new AppError('Payment not found', 404);
+      }
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      throw new AppError('Failed to delete payment: ' + error.message, 500);
+    }
+  }
 }
 
 module.exports = new PaymentRepository();
