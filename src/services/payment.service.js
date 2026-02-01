@@ -117,6 +117,19 @@ class PaymentService {
       throw new AppError('Failed to link payment: ' + error.message, 500);
     }
   }
+
+  /**
+   * Delete payment
+   * @param {number} id - Payment ID
+   * @returns {Promise<void>}
+   */
+  async deletePayment(id) {
+    try {
+      await paymentRepository.deletePayment(id);
+    } catch (error) {
+      throw error; // Re-throw to preserve error codes
+    }
+  }
 }
 
 module.exports = new PaymentService();
