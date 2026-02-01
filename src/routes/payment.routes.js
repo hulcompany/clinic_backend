@@ -8,7 +8,8 @@ const {
   getUserPayments,
   getAllPayments,
   updatePaymentStatus,
-  canCreateConsultation
+  canCreateConsultation,
+  deletePayment
 } = require('../controllers/payment.controller');
 
 /**
