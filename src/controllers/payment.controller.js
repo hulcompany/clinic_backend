@@ -122,11 +122,11 @@ const getUserPayments = async (req, res, next) => {
  */
 const getAllPayments = async (req, res, next) => {
   try {
-    // Check admin permissions
-    if (!validateAdminPermission(req.user)) {
-      return failureResponse(res, 'Not authorized to access payments', 403);
+    // Only doctors, admins, and super admins can access all payments
+    if (req.user.role !== 'doctor' && req.user.role !== 'admin' && req.user.role !== 'super_admin') {
+      return failureResponse(res, 'Only doctors, admins, and super admins can access all payments', 403);
     }
-
+    
     const { status } = req.query;
     
     const payments = await paymentService.getAllPayments(status);
@@ -193,11 +193,40 @@ const canCreateConsultation = async (req, res, next) => {
   }
 };
 
+/**
+ * @desc    Delete payment
+ * @route   DELETE /api/v1/payments/:id
+ * @access  Private (User/Admin)
+ */
+const deletePayment = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    
+    // Only doctors, admins, and super admins can delete payments
+    if (req.user.role !== 'doctor' && req.user.role !== 'admin' && req.user.role !== 'super_admin') {
+      return failureResponse(res, 'Only doctors, admins, and super admins can delete payments', 403);
+    }
+    
+    // Get payment to verify it exists
+    const payment = await paymentService.getPaymentById(id);
+    
+    // Allow deletion of any payment status
+    await paymentService.deletePayment(id);
+    successResponse(res, null, 'Payment deleted successfully');
+  } catch (error) {
+    if (error.message === 'Payment not found') {
+      return failureResponse(res, error.message, 404);
+    }
+    next(new AppError(error.message, error.statusCode || 500));
+  }
+};
+
 module.exports = {
   createPayment,
   getPaymentById,
   getUserPayments,
   getAllPayments,
   updatePaymentStatus,
-  canCreateConsultation
+  canCreateConsultation,
+  deletePayment
 };
