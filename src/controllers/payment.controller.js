@@ -34,11 +34,9 @@ const createPayment = async (req, res, next) => {
       return failureResponse(res, 'You already have a pending payment request', 400);
     }
 
-    // Check if user already has a paid payment
-    const hasPaid = await paymentService.hasPaidConsultation(req.user.user_id);
-    if (hasPaid) {
-      return failureResponse(res, 'You have already paid for consultation', 400);
-    }
+    // Allow creating new payments even if user has paid before
+    // Only prevent if there's already a pending payment
+    console.log('Allowing new payment creation for user:', req.user.user_id);
 
     // Handle payment proof upload (using same pattern as services)
     let paymentProofData = null;
@@ -97,12 +95,22 @@ const getPaymentById = async (req, res, next) => {
  */
 const getUserPayments = async (req, res, next) => {
   try {
+    console.log('=== GET USER PAYMENTS ===');
+    console.log('User ID:', req.user.user_id);
+    console.log('Query status:', req.query.status);
+    
     const { status } = req.query;
     
+    console.log('Calling paymentService.getPaymentsByUserId...');
     const payments = await paymentService.getPaymentsByUserId(req.user.user_id, status);
+    
+    console.log('Payments found:', payments.length);
+    console.log('Payments data:', JSON.stringify(payments, null, 2));
     
     successResponse(res, payments, 'Payments retrieved successfully');
   } catch (error) {
+    console.error('Error in getUserPayments:', error.message);
+    console.error('Error stack:', error.stack);
     next(new AppError(error.message, error.statusCode || 500));
   }
 };
