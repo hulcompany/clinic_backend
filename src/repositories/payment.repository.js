@@ -94,10 +94,17 @@ class PaymentRepository {
    */
   async getPaymentsByUserId(userId, status = null) {
     try {
+      console.log('=== PAYMENT REPOSITORY: getPaymentsByUserId ===');
+      console.log('User ID:', userId);
+      console.log('Status filter:', status);
+      
       const whereClause = { user_id: userId };
       if (status) {
         whereClause.status = status;
+        console.log('Added status filter:', status);
       }
+      
+      console.log('Executing query with whereClause:', whereClause);
       
       const payments = await Payment.findAll({
         where: whereClause,
@@ -123,8 +130,13 @@ class PaymentRepository {
         order: [['created_at', 'DESC']]
       });
       
+      console.log('Repository found payments:', payments.length);
+      console.log('Payment IDs:', payments.map(p => p.id));
+      
       return payments;
     } catch (error) {
+      console.error('Error in payment repository:', error.message);
+      console.error('Error stack:', error.stack);
       throw new AppError('Failed to fetch payments: ' + error.message, 500);
     }
   }
