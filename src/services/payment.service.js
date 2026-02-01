@@ -38,9 +38,16 @@ class PaymentService {
    */
   async getPaymentsByUserId(userId, status = null) {
     try {
+      console.log('=== PAYMENT SERVICE: getPaymentsByUserId ===');
+      console.log('User ID:', userId);
+      console.log('Status filter:', status);
+      
       const payments = await paymentRepository.getPaymentsByUserId(userId, status);
+      
+      console.log('Service returning payments:', payments.length);
       return payments;
     } catch (error) {
+      console.error('Error in payment service:', error.message);
       throw new AppError('Failed to get payments: ' + error.message, 500);
     }
   }
