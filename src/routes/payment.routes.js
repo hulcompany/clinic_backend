@@ -99,6 +99,35 @@ router.get('/:id', authMiddleware.protect, getPaymentById);
 
 /**
  * @swagger
+ * /api/v1/payments/{id}:
+ *   delete:
+ *     summary: Delete payment
+ *     tags: [Payments]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Payment ID
+ *     responses:
+ *       200:
+ *         description: Payment deleted successfully
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden - Only doctors, admins, and super admins can delete payments
+ *       404:
+ *         description: Payment not found
+ *       500:
+ *         description: Internal server error
+ */
+router.delete('/:id', authMiddleware.protect, deletePayment);
+
+/**
+ * @swagger
  * /api/v1/payments/my-payments:
  *   get:
  *     summary: Get current user's payments
@@ -211,5 +240,32 @@ router.put('/:id/status', authMiddleware.protect, updatePaymentStatus);
  *         description: Internal server error
  */
 router.get('/can-create-consultation', authMiddleware.protect, canCreateConsultation);
+
+/**
+ * @swagger
+ * /api/v1/payments/all:
+ *   get:
+ *     summary: Get all payments (Doctor/Admin only)
+ *     tags: [Payments]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *           enum: [pending, paid, rejected]
+ *         description: Filter by payment status
+ *     responses:
+ *       200:
+ *         description: Payments retrieved successfully
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden - Only doctors, admins, and super admins can access all payments
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/all', authMiddleware.protect, getAllPayments);
 
 module.exports = router;
