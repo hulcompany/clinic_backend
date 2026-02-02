@@ -33,6 +33,11 @@ const PaymentMethod = sequelize.define('PaymentMethod', {
     allowNull: true,
     field: 'bank_name'
   },
+  default_fee: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: true,
+    field: 'default_fee'
+  },
   qr_code: {
     type: DataTypes.STRING,
     allowNull: true,
