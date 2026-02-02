@@ -260,6 +260,56 @@ class AutoNotificationService {
       throw error;
     }
   }
+
+  async createPaymentVerificationNotification(userId, paymentData) {
+    try {
+      const amount = paymentData.payment_amount || paymentData.consultation_fee;
+      const notificationData = {
+        user_id: userId,
+        title: {
+          "en": "Payment Verified",
+          "ar": "تم توثيق الدفع"
+        },
+        message: {
+          "en": `Your payment (#${paymentData.id}) has been verified. Amount: ${amount}`,
+          "ar": `تم توثيق دفعتك رقم ${paymentData.id}. المبلغ: ${amount}`
+        },
+        type: 'system',
+        related_id: paymentData.id,
+        target_route: `/payments/${paymentData.id}`
+      };
+      return await notificationService.createNotification(notificationData);
+    } catch (error) {
+      console.error('Failed to create payment verification notification:', error);
+      throw error;
+    }
+  }
+
+  async createPaymentRejectionNotification(userId, paymentData) {
+    try {
+      const amount = paymentData.payment_amount || paymentData.consultation_fee;
+      const reasonEn = paymentData.rejection_reason || 'No reason provided';
+      const reasonAr = paymentData.rejection_reason || 'بدون سبب مذكور';
+      const notificationData = {
+        user_id: userId,
+        title: {
+          "en": "Payment Rejected",
+          "ar": "تم رفض الدفع"
+        },
+        message: {
+          "en": `Your payment (#${paymentData.id}) was rejected. Amount: ${amount}. Reason: ${reasonEn}`,
+          "ar": `تم رفض دفعتك رقم ${paymentData.id}. المبلغ: ${amount}. السبب: ${reasonAr}`
+        },
+        type: 'system',
+        related_id: paymentData.id,
+        target_route: `/payments/${paymentData.id}`
+      };
+      return await notificationService.createNotification(notificationData);
+    } catch (error) {
+      console.error('Failed to create payment rejection notification:', error);
+      throw error;
+    }
+  }
 }
 
 module.exports = new AutoNotificationService();
