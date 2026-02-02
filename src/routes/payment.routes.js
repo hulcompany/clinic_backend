@@ -96,7 +96,7 @@ router.post('/',
  *       500:
  *         description: Internal server error
  */
-router.get('/:id', authMiddleware.protect, getPaymentById);
+ 
 
 /**
  * @swagger
@@ -125,7 +125,7 @@ router.get('/:id', authMiddleware.protect, getPaymentById);
  *       500:
  *         description: Internal server error
  */
-router.delete('/:id', authMiddleware.protect, deletePayment);
+ 
 
 /**
  * @swagger
@@ -268,5 +268,8 @@ router.get('/can-create-consultation', authMiddleware.protect, canCreateConsulta
  *         description: Internal server error
  */
 router.get('/all', authMiddleware.protect, getAllPayments);
+
+router.get('/:id', authMiddleware.protect, getPaymentById);
+router.delete('/:id', authMiddleware.protect, deletePayment);
 
 module.exports = router;
