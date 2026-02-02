@@ -1,4 +1,4 @@
-const { paymentService } = require('../services');
+const { paymentService, autoNotificationService } = require('../services');
 const AppError = require('../utils/AppError');
 const { successResponse, createdResponse, failureResponse } = require('../utils/responseHandler');
 const { User, Admin } = require('../models');
@@ -164,6 +164,12 @@ const updatePaymentStatus = async (req, res, next) => {
     }
 
     const payment = await paymentService.updatePaymentStatus(id, updateData, req.user.user_id);
+    
+    if (status === 'paid') {
+      await autoNotificationService.createPaymentVerificationNotification(payment.user_id, payment);
+    } else {
+      await autoNotificationService.createPaymentRejectionNotification(payment.user_id, payment);
+    }
     
     const message = status === 'paid' 
       ? 'Payment verified successfully' 
