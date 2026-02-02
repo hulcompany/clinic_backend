@@ -1,4 +1,4 @@
-const { paymentService, autoNotificationService } = require('../services');
+const { paymentService, autoNotificationService, paymentMethodService } = require('../services');
 const AppError = require('../utils/AppError');
 const { successResponse, createdResponse, failureResponse } = require('../utils/responseHandler');
 const { User, Admin } = require('../models');
@@ -23,9 +23,19 @@ const createPayment = async (req, res, next) => {
 
     const { consultation_fee, payment_amount, payment_method_id } = req.body;
     
-    // Validate required fields
-    if (!consultation_fee) {
-      return failureResponse(res, 'Consultation fee is required', 400);
+    let finalFee = consultation_fee ? parseFloat(consultation_fee) : null;
+    if (payment_method_id) {
+      try {
+        const method = await paymentMethodService.getPaymentMethodById(payment_method_id);
+        if (method && method.default_fee !== null && method.default_fee !== undefined) {
+          finalFee = parseFloat(method.default_fee);
+        }
+      } catch (e) {
+        return failureResponse(res, e.message || 'Invalid payment method', e.statusCode || 400);
+      }
+    }
+    if (finalFee === null || Number.isNaN(finalFee)) {
+      return failureResponse(res, 'Consultation fee is required (or set default_fee on payment method)', 400);
     }
 
     // Check if user already has a pending payment
@@ -49,7 +59,7 @@ const createPayment = async (req, res, next) => {
     
     const paymentData = {
       user_id: req.user.user_id,
-      consultation_fee: parseFloat(consultation_fee),
+      consultation_fee: finalFee,
       payment_amount: payment_amount ? parseFloat(payment_amount) : null,
       payment_method_id: payment_method_id || null,
       payment_proof: paymentProofData
