@@ -75,7 +75,7 @@ const createPaymentMethod = async (req, res, next) => {
       return failureResponse(res, 'Only doctors, admins, and super admins can create payment methods', 403);
     }
 
-    const { name, description, account_number, account_name, bank_name } = req.body;
+    const { name, description, account_number, account_name, bank_name, default_fee } = req.body;
     
     // Validate required fields
     if (!name) {
@@ -97,6 +97,7 @@ const createPaymentMethod = async (req, res, next) => {
       account_number,
       account_name,
       bank_name,
+      default_fee: default_fee !== undefined ? parseFloat(default_fee) : null,
       qr_code: qrCodeData
     };
 
@@ -120,7 +121,7 @@ const updatePaymentMethod = async (req, res, next) => {
     }
 
     const { id } = req.params;
-    const { name, description, account_number, account_name, bank_name, is_active } = req.body;
+    const { name, description, account_number, account_name, bank_name, is_active, default_fee } = req.body;
 
     const updateData = {};
     
@@ -130,6 +131,7 @@ const updatePaymentMethod = async (req, res, next) => {
     if (account_name !== undefined) updateData.account_name = account_name;
     if (bank_name !== undefined) updateData.bank_name = bank_name;
     if (is_active !== undefined) updateData.is_active = is_active;
+    if (default_fee !== undefined) updateData.default_fee = default_fee !== null ? parseFloat(default_fee) : null;
 
     // Handle QR code upload (using same pattern as services)
     if (req.file) {
