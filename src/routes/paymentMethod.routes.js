@@ -111,6 +111,9 @@ router.get('/:id', authMiddleware.protect, getPaymentMethodById);
  *               bank_name:
  *                 type: string
  *                 description: Bank name
+ *               default_fee:
+ *                 type: number
+ *                 description: Default consultation fee for this payment method
  *               qr_code:
  *                 type: string
  *                 format: binary
@@ -180,6 +183,9 @@ router.post('/',
  *               is_active:
  *                 type: boolean
  *                 description: Is payment method active
+ *               default_fee:
+ *                 type: number
+ *                 description: Default consultation fee for this payment method
  *               qr_code:
  *                 type: string
  *                 format: binary
