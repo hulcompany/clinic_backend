@@ -35,8 +35,8 @@ module.exports = {
         SMTP_HOST: 'smtp.gmail.com',
         SMTP_PORT: 587,
         SMTP_SECURE: false,
-        SMTP_USER: 'vistsyria@gmail.com',
-        SMTP_PASS: 'ruqvxelvigdqqwkq',
+        SMTP_USER: 'dr.sami@samialhasan.com',
+        SMTP_PASS: 'ubxtsjmczniyboii',
         EMAIL_FROM: 'noreply@samialhasan.com',
         EMAIL_REPLY_TO: 'support@samialhasan.com',
         TELEGRAM_BOT_TOKEN: '8550372816:AAGS3-1WB2YBo70g63_RBrH1rjYWYXpCJS8',
@@ -118,8 +118,8 @@ instances	max	1	✅ منع تكرار العمليات
         JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET || 'clinic_refresh_secret_2024_!@#$%^&*()_change_too',
                 
         // ⭐⭐ إعدادات البريد للإنتاج ⭐⭐
-        SMTP_USER: 'vistsyria@gmail.com',
-        SMTP_PASS: 'ruqvxelvigdqqwkq',
+        SMTP_USER: 'dr.sami@samialhasan.com',
+        SMTP_PASS: 'ubxtsjmczniyboii',
          
         TELEGRAM_BOT_TOKEN: '8550372816:AAGS3-1WB2YBo70g63_RBrH1rjYWYXpCJS8',
         TELEGRAM_CHAT_ID: '-1003519619799',
@@ -202,6 +202,7 @@ instances	max	1	✅ منع تكرار العمليات
     }
   }
 };
+
 
 
 
