@@ -1,163 +1,142 @@
 /**
  * Telegram Bot Controller
- * Handles incoming Telegram bot messages and updates user Telegram chat IDs
+ * Handles all Telegram bot interactions and commands
  */
 
-const { User, Admin } = require('../../models/index');
 const TelegramBot = require('node-telegram-bot-api');
+const { User, Admin } = require('../../models');
+const { Op } = require('sequelize');
+require('dotenv').config();
 
-// Initialize bot with token from environment
-const token = process.env.TELEGRAM_BOT_TOKEN;
+// Initialize bot
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 let bot = null;
 
-if (token) {
-  bot = new TelegramBot(token, { polling: true });
-  
-  // Handle incoming messages
-  bot.on('message', async (msg) => {
-    const chatId = msg.chat.id;
-    const userId = msg.from.id;
-    const userName = msg.from.first_name || msg.from.username || 'User';
-    const messageText = msg.text || '';
+if (TELEGRAM_BOT_TOKEN) {
+  try {
+    bot = new TelegramBot(TELEGRAM_BOT_TOKEN, { polling: true });
     
-    console.log('Received Telegram message:', {
-      chatId: chatId,
-      userId: userId,
-      userName: userName,
-      messageText: messageText,
-      timestamp: new Date()
-    });
-    
-    try {
-      // Check if this is a command to link account
-      if (messageText.startsWith('/link')) {
-        // Extract phone number from command: /link +1234567890
-        const phoneNumber = messageText.split(' ')[1];
-        
-        if (phoneNumber) {
-          // Security approach: Check if phone exists in our database first
-          let user = await User.findOne({ where: { phone: phoneNumber } });
-          let admin = null;
-          
-          if (!user) {
-            admin = await Admin.findOne({ where: { phone: phoneNumber } });
-          }
-          
-          if (!user && !admin) {
-            await bot.sendMessage(chatId, `❌ Account not found!
+    // Handle incoming messages
+    bot.on('message', async (msg) => {
+      const chatId = msg.chat.id;
+      const messageText = msg.text;
+      const userName = msg.from.first_name || 'User';
+      
+      try {
+        if (messageText && messageText.startsWith('/link')) {
+          // Extract phone number from command
+          const parts = messageText.split(' ');
+          if (parts.length >= 2) {
+            const phoneNumber = parts[1];
+            
+            // Validate phone number format
+            if (!phoneNumber.match(/^\+\d{10,15}$/)) {
+              await bot.sendMessage(chatId, `❌ Invalid phone number format!
+              
+Please use the format: /link +963996183101
+              
+The phone number should:
+• Start with +
+• Contain only digits after +
+• Be between 10-15 digits total`);
+              return;
+            }
+            
+            // Security check: Verify phone number exists in database
+            let user = await User.findOne({ where: { phone: phoneNumber } });
+            let admin = null;
+            
+            if (!user) {
+              admin = await Admin.findOne({ where: { phone: phoneNumber } });
+            }
+            
+            if (!user && !admin) {
+              await bot.sendMessage(chatId, `❌ Account not found!
 
 No account found with phone number: ${phoneNumber}
 
 Please make sure you registered with this phone number.`);
-            return;
-          }
-          
-          // Critical security check: Verify this Telegram session owns this phone number
-          const sessionOwner = await User.findOne({ 
-            where: { 
-              telegram_chat_id: chatId.toString(),
-              phone: phoneNumber  // Must match both chat ID and phone
-            } 
-          });
-          
-          const adminSessionOwner = await Admin.findOne({ 
-            where: { 
-              telegram_chat_id: chatId.toString(),
-              phone: phoneNumber
-            } 
-          });
-          
-          if (!sessionOwner && !adminSessionOwner) {
-            await bot.sendMessage(chatId, `🔒 Security Error!
-
-This phone number (${phoneNumber}) is not registered to your Telegram account.
-
-For security reasons, you can only link accounts that belong to you.`);
-            return;
-          }
-          
-          // REALISTIC SECURITY APPROACH - DATABASE VERIFICATION
-          console.log('SECURITY CHECK: Using database verification approach...');
-          
-          // First verify the phone number exists in our database
-          let dbUser = await User.findOne({ where: { phone: phoneNumber } });
-          let dbAdmin = null;
-          
-          if (!dbUser) {
-            dbAdmin = await Admin.findOne({ where: { phone: phoneNumber } });
-          }
-          
-          if (!dbUser && !dbAdmin) {
-            await bot.sendMessage(chatId, `❌ Account not found!
-
-No account found with phone number: ${phoneNumber}
-
-Please make sure you registered with this phone number.`);
-            return;
-          }
-          
-          // Verify this Telegram session owns this account
-          const existingSessionOwner = await User.findOne({ 
-            where: { 
-              telegram_chat_id: chatId.toString(),
-              phone: phoneNumber
-            } 
-          });
-          
-          const existingAdminSessionOwner = await Admin.findOne({ 
-            where: { 
-              telegram_chat_id: chatId.toString(),
-              phone: phoneNumber
-            } 
-          });
-          
-          if (!existingSessionOwner && !existingAdminSessionOwner) {
-            await bot.sendMessage(chatId, `🔒 Security Error!
-
-This phone number (${phoneNumber}) is not registered to your Telegram account.
-
-For security reasons, you can only link accounts that belong to you.`);
-            return;
-          }
-          
-          console.log('Database verification passed for phone:', phoneNumber);
-          
-          // Try to find user by phone number
-          // Use existing dbUser/dbAdmin from above
-          
-          if (dbUser) {
-            // Update user's Telegram chat ID
-            await user.update({ telegram_chat_id: chatId.toString() });
+              return;
+            }
             
-            // Send confirmation message
-            await bot.sendMessage(chatId, `✅ Account linked successfully!\n\nHello ${user.full_name || userName}, your Telegram account has been linked to your clinic account. You will now receive OTP codes and notifications directly here.`);
+            // Check if this Telegram account is already linked to another user
+            const existingLink = await User.findOne({ 
+              where: { 
+                telegram_chat_id: chatId.toString(),
+                phone: { [Op.ne]: phoneNumber }  // Different phone number
+              } 
+            });
             
-            console.log(`User with phone ${phoneNumber} linked to Telegram chat ID: ${chatId}`);
-          } else if (admin) {
-            // Update admin's Telegram chat ID
-            await admin.update({ telegram_chat_id: chatId.toString() });
+            const existingAdminLink = await Admin.findOne({ 
+              where: { 
+                telegram_chat_id: chatId.toString(),
+                phone: { [Op.ne]: phoneNumber }  // Different phone number
+              } 
+            });
             
-            // Send confirmation message
-            await bot.sendMessage(chatId, `✅ Admin account linked successfully!\n\nHello ${admin.full_name || userName}, your Telegram account has been linked to your clinic admin account. You will now receive OTP codes and notifications directly here.`);
+            if (existingLink || existingAdminLink) {
+              await bot.sendMessage(chatId, `🔒 Security Warning!
+
+This Telegram account is already linked to a different phone number.
+
+For security reasons, each Telegram account can only be linked to one phone number.
+
+If you want to link a different number, please unlink your current account first.`);
+              return;
+            }
             
-            console.log(`Admin with phone ${phoneNumber} linked to Telegram chat ID: ${chatId}`);
+            // Check if phone number is already linked to another Telegram account
+            const phoneLinkedToOther = await User.findOne({ 
+              where: { 
+                phone: phoneNumber,
+                telegram_chat_id: { [Op.ne]: chatId.toString() },
+                telegram_chat_id: { [Op.not]: null }
+              } 
+            });
+            
+            const adminPhoneLinkedToOther = await Admin.findOne({ 
+              where: { 
+                phone: phoneNumber,
+                telegram_chat_id: { [Op.ne]: chatId.toString() },
+                telegram_chat_id: { [Op.not]: null }
+              } 
+            });
+            
+            if (phoneLinkedToOther || adminPhoneLinkedToOther) {
+              await bot.sendMessage(chatId, `🔒 Security Warning!
+
+This phone number is already linked to another Telegram account.
+
+For security reasons, each phone number can only be linked to one Telegram account.
+
+If you believe this is an error, please contact our support team.`);
+              return;
+            }
+            
+            // Link account
+            const success = await linkUserToTelegram(phoneNumber, chatId.toString());
+            
+            if (success) {
+              await bot.sendMessage(chatId, `✅ Account linked successfully!
+
+You can now receive notifications and OTP codes directly in this chat.
+
+To unlink your account later, use the /unlink command.`);
+            } else {
+              await bot.sendMessage(chatId, `❌ Failed to link account!
+
+Please try again later or contact support if the problem persists.`);
+            }
           } else {
-            await bot.sendMessage(chatId, `❌ Account not found!
-
-No account found with phone number: ${phoneNumber}
-
-Please make sure you registered with this phone number.`);
-          }
-        } else {
-          await bot.sendMessage(chatId, `📋 To link your account, use the command:
+            await bot.sendMessage(chatId, `📋 To link your account, use the command:
 
 /link your_phone_number
 
 Example: /link +1234567890`);
-        }
-      } else if (messageText === '/start' || messageText === '/help') {
-        // Send welcome/help message
-        const welcomeMessage = `🏥 Welcome to Sami Alhasan Clinic Bot!
+          }
+        } else if (messageText === '/start' || messageText === '/help') {
+          // Send welcome/help message
+          const welcomeMessage = `🏥 Welcome to Sami Alhasan Clinic Bot!
 
 To link your clinic account with this Telegram bot:
 
@@ -167,25 +146,29 @@ To link your clinic account with this Telegram bot:
 Example: /link +1234567890
 
 After linking, you will receive OTP codes and notifications directly here.`;
-        
-        await bot.sendMessage(chatId, welcomeMessage);
-      } else {
-        // Send default response
-        await bot.sendMessage(chatId, `👋 Hello ${userName}!
+          
+          await bot.sendMessage(chatId, welcomeMessage);
+        } else {
+          // Send default response
+          await bot.sendMessage(chatId, `👋 Hello ${userName}!
 
 To link your clinic account, please use the command:
 
 /link your_phone_number
 
 Example: /link +1234567890`);
+        }
+      } catch (error) {
+        console.error('Error handling Telegram message:', error.message);
+        await bot.sendMessage(chatId, '❌ An error occurred while processing your request. Please try again later.');
       }
-    } catch (error) {
-      console.error('Error handling Telegram message:', error.message);
-      await bot.sendMessage(chatId, '❌ An error occurred while processing your request. Please try again later.');
-    }
-  });
-  
-  console.log('Telegram bot initialized and polling for messages...');
+    });
+    
+    console.log('Telegram bot initialized and polling for messages...');
+  } catch (error) {
+    console.error('Failed to initialize Telegram bot:', error);
+    bot = null;
+  }
 } else {
   console.warn('Telegram bot token not configured. Bot will not start.');
 }
@@ -220,7 +203,7 @@ const sendTelegramMessage = async (chatId, message) => {
  */
 const linkUserToTelegram = async (phoneNumber, telegramChatId) => {
   try {
-    // Try to find user by phone number
+    // Security check: Verify phone number exists in database
     let user = await User.findOne({ where: { phone: phoneNumber } });
     let admin = null;
     
@@ -228,6 +211,54 @@ const linkUserToTelegram = async (phoneNumber, telegramChatId) => {
       admin = await Admin.findOne({ where: { phone: phoneNumber } });
     }
     
+    if (!user && !admin) {
+      console.error(`No user or admin found with phone number: ${phoneNumber}`);
+      return false;
+    }
+    
+    // Check if this Telegram account is already linked to another user
+    const existingLink = await User.findOne({ 
+      where: { 
+        telegram_chat_id: telegramChatId,
+        phone: { [Op.ne]: phoneNumber }  // Different phone number
+      } 
+    });
+    
+    const existingAdminLink = await Admin.findOne({ 
+      where: { 
+        telegram_chat_id: telegramChatId,
+        phone: { [Op.ne]: phoneNumber }  // Different phone number
+      } 
+    });
+    
+    if (existingLink || existingAdminLink) {
+      console.error(`Telegram account ${telegramChatId} is already linked to a different phone number`);
+      return false;
+    }
+    
+    // Check if phone number is already linked to another Telegram account
+    const phoneLinkedToOther = await User.findOne({ 
+      where: { 
+        phone: phoneNumber,
+        telegram_chat_id: { [Op.ne]: telegramChatId },
+        telegram_chat_id: { [Op.not]: null }
+      } 
+    });
+    
+    const adminPhoneLinkedToOther = await Admin.findOne({ 
+      where: { 
+        phone: phoneNumber,
+        telegram_chat_id: { [Op.ne]: telegramChatId },
+        telegram_chat_id: { [Op.not]: null }
+      } 
+    });
+    
+    if (phoneLinkedToOther || adminPhoneLinkedToOther) {
+      console.error(`Phone number ${phoneNumber} is already linked to another Telegram account`);
+      return false;
+    }
+    
+    // Update user/admin with Telegram chat ID
     if (user) {
       await user.update({ telegram_chat_id: telegramChatId });
       console.log(`User with phone ${phoneNumber} linked to Telegram chat ID: ${telegramChatId}`);
@@ -236,9 +267,6 @@ const linkUserToTelegram = async (phoneNumber, telegramChatId) => {
       await admin.update({ telegram_chat_id: telegramChatId });
       console.log(`Admin with phone ${phoneNumber} linked to Telegram chat ID: ${telegramChatId}`);
       return true;
-    } else {
-      console.error(`No user or admin found with phone number: ${phoneNumber}`);
-      return false;
     }
   } catch (error) {
     console.error('Error linking user to Telegram:', error.message);
