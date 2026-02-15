@@ -34,7 +34,7 @@ module.exports = {
         // ========== إعدادات البريد الإلكتروني ⭐⭐(عدل حسب حاجتك)⭐⭐ ==========
         SMTP_HOST: 'smtp.gmail.com',
         SMTP_PORT: 587,
-        SMTP_SECURE: true,
+        SMTP_SECURE: false,
         SMTP_USER: 'dr.sami@samialhasan.com',
         SMTP_PASS: 'gwxwkjpyhbasijfy',
         EMAIL_FROM: 'dr.sami@samialhasan.com',
@@ -202,6 +202,7 @@ instances	max	1	✅ منع تكرار العمليات
     }
   }
 };
+
 
 
 
