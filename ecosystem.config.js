@@ -36,7 +36,7 @@ module.exports = {
         SMTP_PORT: 587,
         SMTP_SECURE: false,
         SMTP_USER: 'dr.sami@samialhasan.com',
-        SMTP_PASS: 'ubxtsjmczniyboii',
+        SMTP_PASS: 'gwxwkjpyhbasijfy',
         EMAIL_FROM: 'dr.sami@samialhasan.com',
         EMAIL_REPLY_TO: 'dr.sami@samialhasan.com',
         TELEGRAM_BOT_TOKEN: '8550372816:AAGS3-1WB2YBo70g63_RBrH1rjYWYXpCJS8',
@@ -119,7 +119,7 @@ instances	max	1	✅ منع تكرار العمليات
                 
         // ⭐⭐ إعدادات البريد للإنتاج ⭐⭐
         SMTP_USER: 'dr.sami@samialhasan.com',
-        SMTP_PASS: 'ubxtsjmczniyboii',
+        SMTP_PASS: 'gwxwkjpyhbasijfy',
          
         TELEGRAM_BOT_TOKEN: '8550372816:AAGS3-1WB2YBo70g63_RBrH1rjYWYXpCJS8',
         TELEGRAM_CHAT_ID: '-1003519619799',
@@ -202,6 +202,7 @@ instances	max	1	✅ منع تكرار العمليات
     }
   }
 };
+
 
 
 
