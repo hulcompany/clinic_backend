@@ -92,25 +92,26 @@ const handleMultipleMediaUpdates = async ({ oldPaths = [], newPaths = [], conten
  */
 const cleanupEntityMedia = async (entity, mediaField = 'image', contentType = 'images', mediaType = 'images') => {
   try {
-    console.log('cleanupEntityMedia called with:', { entity: entity ? entity.toJSON() : null, mediaField, contentType, mediaType });
+  console.log('cleanupEntityMedia called with:', { entity: entity ? entity.toJSON() : null, mediaField, contentType, mediaType });
     
-    // Check if entity has the specified media field
-    if (!entity || !entity[mediaField]) {
-      console.log('No media to cleanup for entity');
-      return {
-        success: true,
-        message: "No media to cleanup"
-      };
-    }
+    // Handle both single media field and multiple media fields
+ const mediaFields = Array.isArray(mediaField) ? mediaField : [mediaField];
+ const results = [];
+    
+    // Process each media field separately
+   for (const field of mediaFields) {
+   if (!entity || !entity[field]) {
+     console.log(`No media to cleanup for field: ${field}`);
+     continue;
+     }
 
-    console.log('Entity media field value:', entity[mediaField]);
-    
-    const mediaValue = entity[mediaField];
+   console.log(`Cleaning up media field ${field}:`, entity[field]);
+     
+   const mediaValue = entity[field];
     
     // Handle both single file and array of files
     if (Array.isArray(mediaValue)) {
       // Handle array of files (like medical_attachments)
-      const results = [];
       for (const file of mediaValue) {
         let filename;
         
@@ -135,14 +136,6 @@ const cleanupEntityMedia = async (entity, mediaField = 'image', contentType = 'i
         results.push(result);
         console.log('Delete file result:', result);
       }
-      
-      // Return overall success based on results
-      const allSuccess = results.every(result => result.success);
-      return {
-        success: allSuccess,
-        message: allSuccess ? "All media files cleaned up successfully" : "Some media files failed to clean up",
-        results: results
-      };
     } else {
       // Handle single file (traditional behavior)
       // Construct full path to entity media
@@ -152,10 +145,18 @@ const cleanupEntityMedia = async (entity, mediaField = 'image', contentType = 'i
       
       // Delete the file
       const result = await deleteFile(fullPath);
+      results.push(result);
       console.log('Delete file result:', result);
-      
-      return result;
     }
+  }
+
+  // Return overall success based on results
+  const allSuccess = results.every(result => result.success);
+  return {
+    success: allSuccess,
+    message: allSuccess ? "All media files cleaned up successfully" : "Some media files failed to clean up",
+    results: results
+  };
   } catch (error) {
     console.error(`Entity media cleanup error for ${contentType}:`, error);
     return {
