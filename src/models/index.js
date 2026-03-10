@@ -8,7 +8,7 @@ Purpose:
 */
 
 // Load models
-const User = require('./User');
+const User= require('./User');
 const Admin = require('./Admin');
 const Otp = require('./Otp');
 const RefreshToken = require('./RefreshToken');
@@ -27,6 +27,7 @@ const Notification = require('./Notification');
 const LandingImage = require('./LandingImage');
 const Payment = require('./Payment');
 const PaymentMethod = require('./PaymentMethod');
+const BeforeAfter= require('./BeforeAfter');
 
 // Define relationships between models (avoid defining if they already exist)
 User.hasMany(Otp, { foreignKey: 'user_id' }); // User has many Otps
@@ -103,7 +104,7 @@ User.hasMany(Payment, { foreignKey: 'user_id', as: 'payments' }); // User has ma
 Payment.belongsTo(User, { foreignKey: 'user_id', as: 'user' }); // Payment belongs to User
 
 Admin.hasMany(Payment, { foreignKey: 'verified_by', as: 'verifiedPayments' }); // Admin has many verified Payments
-Payment.belongsTo(Admin, { foreignKey: 'verified_by', as: 'verifier' }); // Payment belongs to Admin (verifier)
+Payment.belongsTo(Admin, { foreignKey: 'verified_by', as: 'verifier' }); // Payment belongs to Admin(verifier)
 
 Consultation.hasMany(Payment, { foreignKey: 'consultation_id', as: 'payments' }); // Consultation has many Payments
 Payment.belongsTo(Consultation, { foreignKey: 'consultation_id', as: 'consultation' }); // Payment belongs to Consultation
@@ -111,6 +112,12 @@ Payment.belongsTo(Consultation, { foreignKey: 'consultation_id', as: 'consultati
 // Payment method relationships
 PaymentMethod.hasMany(Payment, { foreignKey: 'payment_method_id', as: 'payments' }); // Payment method has many Payments
 Payment.belongsTo(PaymentMethod, { foreignKey: 'payment_method_id', as: 'paymentMethod' }); // Payment belongs to Payment method
+
+// BeforeAfter relationships
+Service.hasMany(BeforeAfter, { foreignKey: 'service_id', as: 'beforeAfters' }); // Service has many before/after records
+BeforeAfter.belongsTo(Service, { foreignKey: 'service_id', as: 'service' }); // BeforeAfter belongs to Service
+User.hasMany(BeforeAfter, { foreignKey: 'user_id', as: 'beforeAfters' }); // User has many before/after records
+BeforeAfter.belongsTo(User, { foreignKey: 'user_id', as: 'user' }); // BeforeAfter belongs to User
 
 // Export models with relationships
 const models = {
@@ -132,7 +139,8 @@ const models = {
   Notification,
   LandingImage,
   Payment,
-  PaymentMethod
+  PaymentMethod,
+  BeforeAfter
 };
 
 // Call associate methods if they exist
