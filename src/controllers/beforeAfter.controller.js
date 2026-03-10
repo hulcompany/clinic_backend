@@ -84,13 +84,13 @@ const createBeforeAfter= async (req, res, next) => {
     }
     
     // Create before/after data
-   const beforeAfterData = {
-      title,
-      description: description || null,
+ const beforeAfterData = {
+    title,
+    description: description || null,
       before_image: beforeImageData,
       after_image: afterImageData,
       service_id: service_id || null,
-      user_id: req.user.user_id || null,
+      user_id: req.user && req.user.user_id ? req.user.user_id : null,
       is_active: true,
       sort_order: 0
     };
