@@ -1,4 +1,4 @@
-const { BeforeAfter } = require('../models');
+const { BeforeAfter, Service, User } = require('../models');
 const AppError = require('../utils/AppError');
 
 class BeforeAfterRepository {
@@ -14,23 +14,23 @@ class BeforeAfterRepository {
       }
       
      const { rows: beforeAfters, count } = await BeforeAfter.findAndCountAll({
-       where,
-        include: [
-          {
-            model: 'service',
-            as: 'service',
-           attributes: ['id', 'name', 'image']
-          },
-          {
-            model: 'user',
-            as: 'user',
-           attributes: ['user_id', 'name', 'email']
-          }
-        ],
-        limit,
-        offset,
-        order: [['sort_order', 'ASC'], ['createdAt', 'DESC']]
-      });
+      where,
+       include: [
+         {
+           model: Service,
+         as: 'service',
+        attributes: ['id', 'name', 'image']
+         },
+         {
+           model: User,
+         as: 'user',
+        attributes: ['user_id', 'name', 'email']
+         }
+       ],
+       limit,
+       offset,
+       order: [['sort_order', 'ASC'], ['createdAt', 'DESC']]
+     });
 
       return {
         beforeAfters,
@@ -47,19 +47,19 @@ class BeforeAfterRepository {
   async getBeforeAfterById(id) {
     try {
      const beforeAfter= await BeforeAfter.findByPk(id, {
-        include: [
-          {
-            model: 'service',
-            as: 'service',
-           attributes: ['id', 'name', 'image']
-          },
-          {
-            model: 'user',
-            as: 'user',
-           attributes: ['user_id', 'name', 'email']
-          }
-        ]
-      });
+       include: [
+         {
+           model: Service,
+        as: 'service',
+       attributes: ['id', 'name', 'image']
+         },
+         {
+           model: User,
+        as: 'user',
+       attributes: ['user_id', 'name', 'email']
+         }
+       ]
+     });
       
      if (!beforeAfter) {
         throw new AppError('Before/After record not found', 404);
