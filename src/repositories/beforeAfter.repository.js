@@ -18,13 +18,13 @@ class BeforeAfterRepository {
        include: [
          {
            model: Service,
-         as: 'service',
-        attributes: ['id', 'name', 'image']
+       as: 'service',
+      attributes: ['id', 'name', 'image']
          },
          {
            model: User,
-         as: 'user',
-        attributes: ['user_id', 'name', 'email']
+       as: 'user',
+      attributes: ['user_id', 'full_name', 'email']
          }
        ],
        limit,
@@ -50,13 +50,13 @@ class BeforeAfterRepository {
        include: [
          {
            model: Service,
-        as: 'service',
-       attributes: ['id', 'name', 'image']
+       as: 'service',
+      attributes: ['id', 'name', 'image']
          },
          {
            model: User,
-        as: 'user',
-       attributes: ['user_id', 'name', 'email']
+       as: 'user',
+      attributes: ['user_id', 'full_name', 'email']
          }
        ]
      });
