@@ -29,14 +29,15 @@ const autoNotificationService = require('./autoNotification.service');
 const landingImageService = require('./landingImage.service');
 const paymentService = require('./payment.service');
 const paymentMethodService = require('./paymentMethod.service');
+const beforeAfterService = require('./beforeAfter.service');
 
 // Export services
 module.exports = {
   adminService,
   authService,
   chatService,
-  consultationService,
-  contactUsService,
+ consultationService,
+ contactUsService,
   emailService,
   messageService,
   otpService,
@@ -52,5 +53,6 @@ module.exports = {
   autoNotificationService,
   landingImageService,
   paymentService,
-  paymentMethodService
+  paymentMethodService,
+  beforeAfterService
 };
