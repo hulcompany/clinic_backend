@@ -340,18 +340,25 @@ const deleteMediaCleanup = (options = {}) => {
      console.log('Entity fetched:', entity ? entity.toJSON() : null);
       
       // Clean up media if entity exists and has media
-      if (entity && entity[opts.mediaField]) {
-        console.log('Calling cleanupEntityMedia for entity');
-        const result = await cleanupEntityMedia(entity, opts.mediaField, opts.contentType, opts.mediaType);
-        console.log('Cleanup result:', result);
+  if (entity) {
+      // Handle both single media field and multiple media fields
+    const mediaFields = Array.isArray(opts.mediaField) ? opts.mediaField : [opts.mediaField];
+    const hasMedia = mediaFields.some(field => entity[field]);
+      
+    if (hasMedia) {
+       console.log('Calling cleanupEntityMedia for entity');
+      const result = await cleanupEntityMedia(entity, opts.mediaField, opts.contentType, opts.mediaType);
+       console.log('Cleanup result:', result);
       } else {
-        console.log('No entity or media field found, skipping cleanup');
-        if (!entity) {
-          console.log('REASON: Entity not found');
-        } else if (!entity[opts.mediaField]) {
-          console.log('REASON: Entity media field is empty');
-        }
+      console.log('No media field found, skipping cleanup');
+      console.log('REASON: All entity media fields are empty');
       }
+    } else {
+    console.log('No entity or media field found, skipping cleanup');
+    if (!entity) {
+      console.log('REASON: Entity not found');
+      }
+    }
       
       console.log('=== DELETE MEDIA CLEANUP MIDDLEWARE END ===');
       next();
