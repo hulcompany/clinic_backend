@@ -368,7 +368,11 @@ const createUploader = (contentType, fieldName, uploadType = 'single', maxCount 
     case 'array':
       return multerInstance.array(fieldName, maxCount);
     case 'fields':
-      return multerInstance.fields([{ name: fieldName, maxCount: maxCount }]);
+      // Handle both single fieldName and array of fieldNames
+    const fieldConfigs = Array.isArray(fieldName) 
+        ? fieldName.map(name => ({ name, maxCount }))
+        : [{ name: fieldName, maxCount }];
+      return multerInstance.fields(fieldConfigs);
     default:
       return multerInstance.single(fieldName);
   }
