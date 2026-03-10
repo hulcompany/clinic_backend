@@ -60,14 +60,14 @@ const getBeforeAfterById = async (req, res, next) => {
 const createBeforeAfter= async (req, res, next) => {
   try {
     // Check if user has permission to create before/after records
-   if (!validateAdminDoctorPermission(req.user)) {
+  if (!validateAdminDoctorPermission(req.user)) {
       return failureResponse(res, 'Not authorized to create before/after records', 403);
     }
     
-   const { title, description, service_id } = req.body;
+  const { title, description, service_id, user_id } = req.body;
     
     // Validate required fields
-   if (!title) {
+  if (!title) {
       return failureResponse(res, 'Title is required', 400);
     }
     
@@ -90,7 +90,7 @@ const createBeforeAfter= async (req, res, next) => {
       before_image: beforeImageData,
       after_image: afterImageData,
       service_id: service_id || null,
-      user_id: null, // Set to null as foreign key constraint requires valid user_id from users table
+      user_id: user_id || null,
       is_active: true,
       sort_order: 0
     };
