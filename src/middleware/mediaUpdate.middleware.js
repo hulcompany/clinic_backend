@@ -174,11 +174,40 @@ const conditionalMediaManagement = (options = {}) => {
             /////////////end
             
             console.log('Entity for cleanup:', entity);
-            console.log('Entity media field:', entity ? entity[opts.mediaField] : 'N/A');
             
-            if (entity && entity[opts.mediaField]) {
-              // Handle cleanup based on upload type
-              if (opts.uploadType === 'single') {
+         if (entity) {
+              // Handle cleanup based on upload type and media fields
+           const mediaFields = Array.isArray(opts.mediaField) ? opts.mediaField : [opts.mediaField];
+              
+             // Handle field-based uploads (multiple named fields)
+           if (opts.uploadType === 'fields' && req.files) {
+             console.log('Field-based upload cleanup started');
+                
+               // Process each media field separately
+               for (const fieldName of mediaFields) {
+               if (req.files[fieldName] && req.files[fieldName].length > 0) {
+                 const oldFilename = entity[fieldName];
+                 const newFilename = req.files[fieldName][0].filename;
+                    
+                 console.log(`Processing field ${fieldName}:`, { oldFilename, newFilename });
+                    
+                   // Only cleanup if filenames are different and old file exists
+                 if (oldFilename && oldFilename !== newFilename) {
+                   const mediaType = getMediaType(oldFilename);
+                   console.log(`Cleaning up old ${fieldName}:`, oldFilename);
+                      
+                     await handleMediaUpdate({
+                       oldFilename: oldFilename,
+                     newFilename: newFilename,
+                     contentType: opts.contentType,
+                       mediaType: mediaType
+                     });
+                   }
+                 }
+               }
+             }
+             // Handle single file upload
+             else if (opts.uploadType === 'single') {
                 // Single file upload - cleanup single old file
                 console.log('Cleaning up old media:', {
                   oldPath: entity[opts.mediaField],
