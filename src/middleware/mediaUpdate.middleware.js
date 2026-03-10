@@ -12,7 +12,7 @@ The mediaUpdate.middleware.js file is specifically designed for updating user an
 */
 const { uploadImage, uploadVideo, uploadAudio, uploadMultipleImages, uploadMultipleVideos, uploadMultipleAudios } = require('../utils/allMediaUploadUtil');
 const { handleMediaUpdate, handleMultipleMediaUpdates, cleanupEntityMedia, cleanupMultipleEntityMedia } = require('../utils/mediaCleanupUtil');
-const { User, Admin, Service, ContactUs, MedicalRecord, Blog, LandingImage } = require('../models/index'); // استيراد النماذج مباشرة
+const { User, Admin, Service, ContactUs, MedicalRecord, Blog, LandingImage, BeforeAfter } = require('../models/index'); // استيراد النماذج مباشرة
 const { getMediaType } = require('../utils/mediaUtils');
 /**
  * Generic conditional media management middleware
@@ -152,11 +152,21 @@ const conditionalMediaManagement = (options = {}) => {
               }
             } else if (opts.entityType === 'landing_image') {
               // For landing image updates, get ID from route parameters
-              const landingImageId = req.params.id;
-              console.log('Landing Image ID for cleanup:', landingImageId);
-              if (landingImageId) {
-                entity = await LandingImage.findByPk(landingImageId, {
-                  attributes: ['id', opts.mediaField]
+            const landingImageId = req.params.id;
+            console.log('Landing Image ID for cleanup:', landingImageId);
+            if (landingImageId) {
+              entity = await LandingImage.findByPk(landingImageId, {
+                attributes: ['id', opts.mediaField]
+                });
+              }
+            } else if (opts.entityType === 'before_after') {
+              // For before/after updates, get ID from route parameters
+            const beforeAfterId = req.params.id;
+            console.log('Before/After ID for cleanup:', beforeAfterId);
+            if (beforeAfterId) {
+              const BeforeAfter= require('../models/BeforeAfter');
+              entity = await BeforeAfter.findByPk(beforeAfterId, {
+                attributes: ['id', ...opts.mediaField]
                 });
               }
             }
@@ -316,13 +326,18 @@ const deleteMediaCleanup = (options = {}) => {
           attributes: ['id', opts.mediaField]
         });
       } else if (opts.entityType === 'landing_image') {
-        console.log('Fetching landing image entity with ID:', entityId);
-        entity = await LandingImage.findByPk(entityId, {
-          attributes: ['id', opts.mediaField]
+       console.log('Fetching landing image entity with ID:', entityId);
+       entity = await LandingImage.findByPk(entityId, {
+         attributes: ['id', opts.mediaField]
+        });
+      } else if (opts.entityType === 'before_after') {
+       console.log('Fetching before/after entity with ID:', entityId);
+       entity = await BeforeAfter.findByPk(entityId, {
+         attributes: ['id', ...opts.mediaField]
         });
       }
       
-      console.log('Entity fetched:', entity ? entity.toJSON() : null);
+     console.log('Entity fetched:', entity ? entity.toJSON() : null);
       
       // Clean up media if entity exists and has media
       if (entity && entity[opts.mediaField]) {
