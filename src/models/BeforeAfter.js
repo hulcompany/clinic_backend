@@ -20,12 +20,12 @@ const BeforeAfter = sequelize.define('BeforeAfter', {
   },
   before_image: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
     field: 'before_image'
   },
   after_image: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
     field: 'after_image'
   },
   service_id: {
